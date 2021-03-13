@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestauranteWebApi", "RestauranteWebApi\RestauranteWebApi.csproj", "{1BA880E7-A758-4313-9C96-642FC2220BFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestauranteDominio", "RestauranteDominio\RestauranteDominio.csproj", "{0C6EF21E-A859-46F4-AB68-93F5C92ACA4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestauranteService", "RestauranteService\RestauranteService.csproj", "{5430DC7F-33A1-420A-803E-C00F930C51CC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0C6EF21E-A859-46F4-AB68-93F5C92ACA4C} = {0C6EF21E-A859-46F4-AB68-93F5C92ACA4C}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1BA880E7-A758-4313-9C96-642FC2220BFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BA880E7-A758-4313-9C96-642FC2220BFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BA880E7-A758-4313-9C96-642FC2220BFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BA880E7-A758-4313-9C96-642FC2220BFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C6EF21E-A859-46F4-AB68-93F5C92ACA4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C6EF21E-A859-46F4-AB68-93F5C92ACA4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C6EF21E-A859-46F4-AB68-93F5C92ACA4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C6EF21E-A859-46F4-AB68-93F5C92ACA4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5430DC7F-33A1-420A-803E-C00F930C51CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5430DC7F-33A1-420A-803E-C00F930C51CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5430DC7F-33A1-420A-803E-C00F930C51CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5430DC7F-33A1-420A-803E-C00F930C51CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6CA31C01-2C3D-455A-8C78-3C0AEEF28067}
+	EndGlobalSection
+EndGlobal
