@@ -21,7 +21,7 @@ namespace RestauranteWebApi.Controllers
         }
 
         // GET api/<PedidoController>/5
-        [HttpGet("BuscarPedidoCliente")]
+        [HttpGet("BuscarPedidosCliente/{mesaId}")]
         public async Task<List<PedidoModel>> BuscarPedidosCliente(int mesaId)
         {
             var listaPedidos = await _pedidoService.ListarPedidoCliente(mesaId);
@@ -29,14 +29,14 @@ namespace RestauranteWebApi.Controllers
         }
 
         // PUT api/<PedidoController>/5
-        [HttpPut("FazerPedido")]
+        [HttpPut("FazerPedido/{produtoId}/{quantidade}/{mesaId}")]
         public async Task FazerPedido(int produtoId, int quantidade, int mesaId)
         {
             await _pedidoService.FazerPedido(produtoId, quantidade, mesaId);
         }
 
         // PUT api/<PedidoController>
-        [HttpPut("Editar Pedido")]
+        [HttpPut("EditarPedido/{quantidade}/{mesaId}")]
         public async Task EditarPedido(int quantidade, int mesaId)
         {
             await _pedidoService.EditarPedido(quantidade, mesaId);
@@ -44,7 +44,7 @@ namespace RestauranteWebApi.Controllers
 
 
         // DELETE api/<PedidoController>/5
-        [HttpPut("Excluir Pedido")]
+        [HttpPut("ExcluirPedido/{mesaId}")]
         public async Task ExcluirPedido(int mesaId)
         {
             await _pedidoService.ExcluirPedido(mesaId);

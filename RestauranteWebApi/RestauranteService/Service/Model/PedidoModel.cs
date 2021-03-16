@@ -13,7 +13,7 @@ namespace RestauranteService.Services.Model
         public double PedidoValor { get; set; }
         public int QuantidadeProduto { get; set; }
         public int StatusId { get; set; }
-        public StatusPedidoEnum Descricao { get; set; }
-        public ProdutoModel Produto { get; set; }
+        //public StatusPedidoEnum Descricao { get; set; }
+        //public ProdutoModel Produto { get; set; }
     }
 }

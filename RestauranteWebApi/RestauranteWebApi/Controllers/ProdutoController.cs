@@ -18,15 +18,6 @@ namespace RestauranteWebApi.Controllers
             _produtoService = produtoService;
         }
 
-        // GET: api/<ProdutoController>
-        [HttpGet("BuscaProduto /{produtoId}")]
-        public async Task<ProdutoModel> ObterProduto(int produtoId)
-        {
-            var produto = await _produtoService.BucarProdutoEscolhido(produtoId);
-            return produto;
-        }
-
-
         [HttpGet("BuscarProdutosDisponiveis")]
         public async Task<List<ProdutoModel>> BuscarProdutosDisponiveis()
         {

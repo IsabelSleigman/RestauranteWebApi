@@ -141,7 +141,7 @@ namespace RestauranteService.Service
         public async Task<ComandaModel> BuscarPedidosComanda(int mesaId)
         {
             var comanda = await _contexto.Comanda
-                .Where(c => c.MesaId == mesaId)
+                .Where(c => c.MesaId == mesaId && c.Pago == false)
                 .Include(p => p.Pedidos)
                 .ThenInclude(p => p.Status)
                 .Include(p => p.Pedidos)

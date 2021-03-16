@@ -26,19 +26,5 @@ namespace RestauranteWebApi.Controllers
             return await _mesaService.BuscarMesasDisponiveis();
         }
 
-        // PUT api/<MesaController>/5
-        [HttpPut("DesocuparMesa{mesaId}")]
-        public async Task DesocuparMesa(int mesaId)
-        {
-            await _mesaService.DesocuparMesa(mesaId);
-        }
-
-        // DELETE api/<MesaController>/5
-        [HttpPut("OcuparMesa{mesaId}")]
-        public async Task OcuparrMesa(int mesaId)
-        {
-            await _mesaService.OcuparMesa(mesaId);
-        }
-
     }
 }

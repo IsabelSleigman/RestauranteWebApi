@@ -18,7 +18,7 @@ namespace RestauranteService.Service
         public async Task<List<int>> BuscarMesasDisponiveis()
         {
             return await _contexto.Mesa
-                 .Where(m => m.Disponivel == false)
+                 .Where(m => m.Disponivel)
                  .Select(m => m.MesaId)
                  .ToListAsync();
         }
@@ -41,7 +41,7 @@ namespace RestauranteService.Service
         public async Task DesocuparMesa(int mesaId)
         {
             var mesa = await _contexto.Mesa
-           .Where(m => m.MesaId == mesaId)
+           .Where(m => m.MesaId == mesaId && m.Disponivel == false)
            .FirstOrDefaultAsync();
 
             _ = mesa ?? throw new Exception("Mesa não encontrada");
