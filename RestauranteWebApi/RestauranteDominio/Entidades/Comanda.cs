@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace RestauranteDominio
 {
   public class Comanda
     {
         [Key]
+
         public int ComandaId { get; set; } //PK
+
         public int MesaId { get; set; } //FK
         [ForeignKey(nameof(MesaId))]
+
         public Mesa Mesa { get; set; }
 
         public DateTime DataHoraEntrada { get; set; }

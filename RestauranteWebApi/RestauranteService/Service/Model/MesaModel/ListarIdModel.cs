@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RestauranteService.Services.Model
+namespace RestauranteService.Service.MesaModel
 {
-   public class MesaModel
+   public class ListarIdModel
     {
         public int MesaId { get; set; }
-
-        public int Capacidade { get; set; }
-
+        public bool Disponivel { get; set; }
     }
 }

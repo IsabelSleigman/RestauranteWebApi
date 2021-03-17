@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestauranteService.Service;
+using RestauranteService.Service.MesaModel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,7 +12,6 @@ namespace RestauranteWebApi.Controllers
     [ApiController]
     public class MesaController : ControllerBase
     {
-        // GET: api/<MesaController>
         private readonly MesaService _mesaService;
 
         public MesaController(MesaService mesaService)
@@ -19,11 +19,11 @@ namespace RestauranteWebApi.Controllers
             _mesaService = mesaService;
         }
 
-        // GET: MesaController
-        [HttpGet("BuscaMesa", Name = "BuscarMesasDisponiveis")]
-        public async Task<List<int>> BuscarMesasDisponiveis()
+        [HttpGet("busca/mesa")]
+        public async Task<List<ListarIdModel>> BuscarMesasDisponiveis()
         {
-            return await _mesaService.BuscarMesasDisponiveis();
+           var mesas = await _mesaService.BuscarMesasDisponiveis();
+            return mesas;
         }
 
     }

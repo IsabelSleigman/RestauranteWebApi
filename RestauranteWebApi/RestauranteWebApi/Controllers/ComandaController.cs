@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using RestauranteService.Service;
-using RestauranteService.Services.Model;
-using System.Collections.Generic;
+using RestauranteService.Service.ComandaModel;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,39 +18,30 @@ namespace RestauranteWebApi.Controllers
             _comandaService = comandaService;
         }
 
-        // GET: api/<ComandaController>
-        [HttpPut("IniciarComanda/{mesaId}/{quantidade}")]
+        [HttpPost("iniciar/comanda/{mesaId}/{quantidade}")]
         public async Task IniciarComanda(int mesaId, int quantidade)
         {
             await _comandaService.IniciarComanda(mesaId, quantidade);
         }
 
-        // GET api/<ComandaController>/5
-        [HttpPut("FecharComanda/{mesaId}")]
-        public async Task FecharComanda(int mesaId)
+        [HttpPut("fechar/comanda/{comandaId}")]
+        public async Task FecharComanda(int comandaId)
         {
-            await _comandaService.FecharComanda(mesaId);
+            await _comandaService.FecharComanda(comandaId);
         }
 
-        // POST api/<ComandaController>
-        [HttpGet("ObterComanda/{mesaId}")]
-        public async Task<ComandaModel> ObterComanda(int mesaId)
+        [HttpGet("obter/comanda/{mesaId}")]
+        public async Task<BuscarModel> ObterComanda(int mesaId)
         {
-            var comanda = await _comandaService.BuscarComanda(mesaId);
-            return comanda;
+            var model = await _comandaService.BuscarComanda(mesaId);
+            return model;
         }
 
-        [HttpGet("BuscarComandaPaga/{mesaId}")]
-        public async Task<ComandaModel> BuscarPedidosComanda(int mesaId)
+        [HttpGet("buscar/pedido/{comandaId}")]
+        public async Task<ModelPaga> BuscarPedidos(int comandaId)
         {
-            var comandaPaga = await _comandaService.BuscarComandaPaga(mesaId);
-            return comandaPaga;
-        }
-        [HttpGet("ListarPedidoComanda/{mesaId}")]
-        public async Task<ComandaModel> ListarPedidoComanda(int mesaId)
-        {
-            var comanda = await _comandaService.BuscarPedidosComanda(mesaId);
-            return comanda;
+            var listaModel = await _comandaService.BuscarPedidos(comandaId);
+            return listaModel;
         }
         
     }

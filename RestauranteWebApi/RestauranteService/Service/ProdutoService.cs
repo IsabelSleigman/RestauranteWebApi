@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RestauranteService.Services.Model;
+using RestauranteService.Service.ProdutoModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +16,15 @@ namespace RestauranteService.Service
             _contexto = contexto;
         }
 
-        public async Task<ProdutoModel> BucarProdutoEscolhido(int produtoId)
+        public async Task<ListarDisponivelModel> BucarProdutoEscolhido(int produtoId)
         {
+            if (produtoId <= 1 && produtoId > 17)
+            {
+                throw new Exception("Produto não Encontrado!");
+            }
             var produto = await _contexto.Produto
                 .Where(p => p.ProdutoId == produtoId)
-                .Select(np => new ProdutoModel
+                .Select(np => new ListarDisponivelModel
                 {
                     Nome= np.Nome,
                     ProdutoId = np.ProdutoId,
@@ -33,9 +37,9 @@ namespace RestauranteService.Service
             return produto;
         }
 
-        public async Task<List<ProdutoModel>> MostrarProdutosDisponiveis()
+        public async Task<List<ListarDisponivelModel>> MostrarProdutosDisponiveis()
         {
-            var listaProdutos = await _contexto.Produto.Where(p => p.Disponivel == true).Select(np => new ProdutoModel
+            var listaProdutos = await _contexto.Produto.Where(p => p.Disponivel == true).Select(np => new ListarDisponivelModel
             {
                 Nome = np.Nome,
                 ProdutoId = np.ProdutoId,

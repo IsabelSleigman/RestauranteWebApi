@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RestauranteService.Services.Model
+namespace RestauranteService.Service.PedidoModel
 {
-   public class PedidoModel
+   public class ListarModel
     {
         public int PedidoId { get; set; }
         public int ProdutoId { get; set; }
@@ -13,7 +13,6 @@ namespace RestauranteService.Services.Model
         public double PedidoValor { get; set; }
         public int QuantidadeProduto { get; set; }
         public int StatusId { get; set; }
-        //public StatusPedidoEnum Descricao { get; set; }
-        //public ProdutoModel Produto { get; set; }
+
     }
 }

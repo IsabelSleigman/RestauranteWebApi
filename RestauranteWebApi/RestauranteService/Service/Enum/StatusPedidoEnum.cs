@@ -4,9 +4,9 @@ using System.Text;
 
 namespace RestauranteService.Service.Enum
 {
-    public enum StatusPedidoEnum : int
+    public enum StatusPedidoEnum
     { 
-            AguardandoPedido,
+            AguardandoPedido = 0,
             PedidoRealizado = 1,
             PedidoEmProcesso = 2,
             PedidoEntregue = 3,

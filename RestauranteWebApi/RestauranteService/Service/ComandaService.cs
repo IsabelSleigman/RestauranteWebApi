@@ -1,13 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestauranteDominio;
-using RestauranteService.Service.Enum;
-using RestauranteService.Services.Model;
+using RestauranteService.Service.ComandaModel;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using RestauranteService.Service.PedidoModel;
 
 namespace RestauranteService.Service
 {
@@ -42,35 +39,16 @@ namespace RestauranteService.Service
                 ValorComanda = valor,
                 Pago = false,
             });
-            
-            await _contexto.SaveChangesAsync();
-        }
-
-        public async Task AtualizarComanda(int mesaId)
-        {
-            var comanda = await _contexto.Comanda
-                .Where(c => c.MesaId == mesaId).FirstOrDefaultAsync();
-
-            _ = comanda ?? throw new Exception("Comanda não localizada.");
-
-          
-            var pedidos = await _contexto.Pedido
-                .Where(p => p.ComandaId == comanda.ComandaId)
-                .ToListAsync();
-
-            var valorPedidos = pedidos
-                .Where(p => p.StatusId != 5)
-                .Select(p => p.PedidoValor).Sum();
-           
-           comanda.ValorComanda += valorPedidos;
 
             await _contexto.SaveChangesAsync();
         }
 
-        public async Task FecharComanda(int mesaId)
+        public async Task FecharComanda(int comandaId)
         {
             var comanda = await _contexto.Comanda
-              .FirstOrDefaultAsync(c => c.MesaId == mesaId);
+                .Where(c => c.ComandaId == comandaId)
+                .OrderBy(c => c.ComandaId)
+              .FirstOrDefaultAsync();
 
             _ = comanda ?? throw new Exception("Comanda não localizada.");
 
@@ -78,18 +56,17 @@ namespace RestauranteService.Service
 
             comanda.DataHoraSaida = DateTime.Now;
 
-            await AtualizarComanda(comanda.MesaId);
-
             await _mesaService.DesocuparMesa(comanda.MesaId);
 
             await _contexto.SaveChangesAsync();
         }
 
-        public async Task<ComandaModel> BuscarComanda(int mesaId)
+        public async Task<BuscarModel> BuscarComanda(int mesaId)
         {
-            var comanda = _contexto.Comanda
+            var model = await _contexto.Comanda
                 .Where(c => c.MesaId == mesaId)
-                .Select(cn => new ComandaModel
+                 .OrderBy(c => c.ComandaId)
+                .Select(cn => new BuscarModel
                 {
                     ComandaId = cn.ComandaId,
                     DataHoraEntrada = cn.DataHoraEntrada,
@@ -97,34 +74,15 @@ namespace RestauranteService.Service
                     ValorComanda = cn.ValorComanda
                 }).FirstOrDefaultAsync();
 
-            _ = comanda ?? throw new Exception("Comanda não localizada.");
+            _ = model ?? throw new Exception("Comanda não localizada.");
 
-            return await comanda;
+            return model;
         }
-        public async Task<ComandaModel> BuscarComandaPaga(int mesaId)
-        {
-            var comanda = _contexto.Comanda
-                .Where(c => c.MesaId == mesaId)
-                .Select(cn => new ComandaModel
-                {
-                    DataHoraSaida = cn.DataHoraSaida,
-                    Pago = cn.Pago,
-                    QuantidadeClientes= cn.QuantidadeClientes,
-                    ComandaId = cn.ComandaId,
-                    DataHoraEntrada = cn.DataHoraEntrada,
-                    MesaId = cn.MesaId,
-                    ValorComanda = cn.ValorComanda
-                    
-                }).FirstOrDefaultAsync();
-
-            _ = comanda ?? throw new Exception("Comanda não localizada.");
-
-            return await comanda;
-        }
-        public async Task CancelarComanda(int mesaId)
+        public async Task CancelarComanda(int comandaId)
         {
             var comanda = await _contexto.Comanda
-              .FirstOrDefaultAsync(c => c.MesaId == mesaId);
+               .OrderBy(c => c.ComandaId)
+              .FirstOrDefaultAsync(c => c.ComandaId == comandaId);
 
             _ = comanda ?? throw new Exception("Comanda não localizada.");
 
@@ -138,10 +96,10 @@ namespace RestauranteService.Service
 
             await _contexto.SaveChangesAsync();
         }
-        public async Task<ComandaModel> BuscarPedidosComanda(int mesaId)
+        public async Task<ModelPaga> BuscarPedidos(int comandaId)
         {
             var comanda = await _contexto.Comanda
-                .Where(c => c.MesaId == mesaId && c.Pago == false)
+                .Where(c => c.ComandaId == comandaId)
                 .Include(p => p.Pedidos)
                 .ThenInclude(p => p.Status)
                 .Include(p => p.Pedidos)
@@ -161,34 +119,31 @@ namespace RestauranteService.Service
 
             _ = comanda ?? throw new Exception("Comanda não localizada.");
 
-            var cModel = new ComandaModel
+            var model = new ModelPaga
             {
                 ComandaId = comanda.ComandaId,
                 DataHoraEntrada = comanda.DataHoraEntrada,
-                DataHoraSaida = comanda.DataHoraSaida,
                 MesaId = comanda.MesaId,
                 Pago = comanda.Pago,
                 QuantidadeClientes = comanda.QuantidadeClientes,
                 ValorComanda = comanda.ValorComanda,
+                DataHoraSaida = comanda.DataHoraSaida
+
 
             };
 
-           cModel.Pedidos = comanda.Pedidos
-                 .Select(p => new PedidoModel
-                 {
-                     PedidoId = p.PedidoId,
-                     PedidoValor = p.PedidoValor,
-                     ProdutoId = p.ProdutoId,
-                     ProdutoNome = p.Produto.Nome,
-                     QuantidadeProduto = p.QuantidadeProduto,
-                     StatusId = p.StatusId
-                 }).ToList();
+            model.Pedidos = comanda.Pedidos
+                  .Select(p => new ListarModel
+                  {
+                      PedidoId = p.PedidoId,
+                      PedidoValor = p.PedidoValor,
+                      ProdutoId = p.ProdutoId,
+                      ProdutoNome = p.Produto.Nome,
+                      QuantidadeProduto = p.QuantidadeProduto,
+                      StatusId = p.StatusId
+                  }).ToList();
 
-            return cModel;
-        }
-        public async Task<bool> SaveChangeAsync()
-        {
-            return (await _contexto.SaveChangesAsync()) > 0;
+            return model;
         }
     }
 }

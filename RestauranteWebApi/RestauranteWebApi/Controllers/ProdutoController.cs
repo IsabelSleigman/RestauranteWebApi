@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestauranteService.Service;
-using RestauranteService.Services.Model;
+using RestauranteService.Service.ProdutoModel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,8 +18,8 @@ namespace RestauranteWebApi.Controllers
             _produtoService = produtoService;
         }
 
-        [HttpGet("BuscarProdutosDisponiveis")]
-        public async Task<List<ProdutoModel>> BuscarProdutosDisponiveis()
+        [HttpGet("buscarprodutos")]
+        public async Task<List<ListarDisponivelModel>> BuscarProdutosDisponiveis()
         {
             var listaProdutos = await _produtoService.MostrarProdutosDisponiveis();
             return listaProdutos;

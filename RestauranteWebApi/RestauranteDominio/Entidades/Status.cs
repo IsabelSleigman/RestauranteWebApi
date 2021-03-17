@@ -8,7 +8,9 @@ namespace RestauranteDominio
    public class Status
     {
         [Key]
+
         public int StatusId { get; set; }
+
         public string Descricao { get; set; }
     }
 }

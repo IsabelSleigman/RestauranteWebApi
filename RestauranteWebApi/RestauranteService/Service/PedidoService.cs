@@ -1,7 +1,5 @@
-﻿using RestauranteService.Services.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -25,19 +23,11 @@ namespace RestauranteService.Service
             _comandaService = comandaService;
         }
 
-        public async Task FazerPedido(int produtoId, int quantidade, int mesaId)
-        {
-            if (produtoId <= 1 || produtoId > 17)
-            {
-                throw new Exception("Produto não disponivel!");
-            }
+        public async Task FazerPedido(int produtoId, int quantidade, int comandaId)
+        { 
             var produto = await _produtoService.BucarProdutoEscolhido(produtoId);
 
             _ = produto ?? throw new Exception("Produto não encontrado.");
-
-            var comanda = await _comandaService.BuscarComanda(mesaId);
-
-            _ = comanda ?? throw new Exception("Comanda não encontrada.");
 
             var totalPedido = produto.Valor * quantidade;
 
@@ -49,24 +39,28 @@ namespace RestauranteService.Service
             {
                 _contexto.Add(new Pedido
                 {
-                    ComandaId = comanda.ComandaId,
+                    ComandaId = comandaId,
                     ProdutoId = produto.ProdutoId,
                     PedidoValor = totalPedido,
                     QuantidadeProduto = quantidade,
-                    StatusId = (int)StatusPedidoEnum.PedidoEmProcesso
-
+                    StatusId = (int)StatusPedidoEnum.PedidoEmProcesso,
+    
                 });
-              await _comandaService.AtualizarComanda(mesaId);
 
+                if(totalPedido > 0)
+                {
+                    var comanda = _contexto.Comanda
+                  .Where(c => c.ComandaId == comandaId)
+                  .FirstOrDefault();
+
+                    comanda.ValorComanda += totalPedido;
+                }
                 await _contexto.SaveChangesAsync();
             }
         }
 
-        public async Task EditarPedido(int quantidade, int mesaId)
+        public async Task EditarPedido(int quantidade, int comandaId)
         {
-            var comanda = await _comandaService.BuscarComanda(mesaId);
-
-            _ = comanda ?? throw new Exception("Comanda não encontrada.");
 
             if (quantidade < 1 && quantidade > 7)
             {
@@ -74,73 +68,64 @@ namespace RestauranteService.Service
             }
             else
             {
-                var pedido = _contexto.Pedido
-                .Include(p => p.Produto).Include(c => c.Comanda)
-                .Where(p => p.ComandaId == comanda.ComandaId && p.PedidoId == _contexto.Pedido.ToList().Count)
+                var pedido = await _contexto.Pedido
+                .Where(p =>p.ComandaId == comandaId)
+                .Include(p => p.Produto)
+                .Include(c => c.Comanda)
                 .OrderBy(p => p.PedidoId)
-                .LastOrDefault();
+                .LastOrDefaultAsync();
 
                 _ = pedido ?? throw new Exception("Pedido não encontrado.");
 
+                if(pedido.StatusId == (int)StatusPedidoEnum.PedidoCancelado)
+                {
+                    throw new Exception("Pedido Excluido");
+                }
                 var total = pedido.Produto.Valor * quantidade;
 
-                pedido.QuantidadeProduto = quantidade;
+                pedido.QuantidadeProduto = quantidade;               
+
+                if (total > 0)
+                {
+                    var comanda = _contexto.Comanda
+                  .Where(c => c.ComandaId == pedido.ComandaId)
+                  .FirstOrDefault();
+
+                    comanda.ValorComanda -= pedido.PedidoValor;
+                    comanda.ValorComanda += total;
+                }
 
                 pedido.PedidoValor = total;
-
-                //await _comandaService.AtualizarComanda(comanda.ComandaId, pedido.PedidoValor);
-
+                
                 await _contexto.SaveChangesAsync();
             }
         }
 
-        public async Task ExcluirPedido(int mesaId)
+        public async Task ExcluirPedido(int comandaId)
         {
-            var comanda = await _comandaService.BuscarComanda(mesaId);
+            var pedido = await _contexto.Pedido
+            .Where(p => p.ComandaId == comandaId)
+            .OrderBy(p => p.PedidoId)
+            .LastOrDefaultAsync();
 
-            _ = comanda ?? throw new Exception("Comanda não encontrada.");
-
-            var pedido = _contexto.Pedido
-               .Include(p => p.Produto)
-               .Where(p => p.ComandaId == comanda.ComandaId && p.PedidoId == _contexto.Pedido.ToList().Count)
-               .OrderBy(c => c.PedidoId)
-               .LastOrDefault();
+            _ = pedido ?? throw new Exception("Pedido não encontrado");
 
             pedido.StatusId = (int)StatusPedidoEnum.PedidoCancelado;
 
-            pedido.PedidoValor = 0.0;
-
             pedido.QuantidadeProduto = 0;
+
+            if (pedido.PedidoValor > 0)
+            {
+                var comanda = _contexto.Comanda
+              .Where(c => c.ComandaId == pedido.ComandaId)
+              .FirstOrDefault();
+
+                comanda.ValorComanda -= pedido.PedidoValor;
+                
+            }
 
             await _contexto.SaveChangesAsync();
         }
-
-        public async Task<List<PedidoModel>> ListarPedidoCliente(int mesaId)
-        {
-            var comanda = await _comandaService.BuscarComanda(mesaId);
-
-            _ = comanda ?? throw new Exception("Comanda não encontrada.");
-
-            var pedidos = await _contexto.Pedido
-                .Include(p => p.Produto)
-                .Where(p => p.ComandaId == comanda.ComandaId)
-                .OrderBy(l => l.PedidoId)
-                .Select(p => new PedidoModel
-            {
-                PedidoId = p.PedidoId,
-                PedidoValor = p.PedidoValor,
-                ProdutoId = p.ProdutoId,
-                ProdutoNome = p.Produto.Nome,
-                QuantidadeProduto = p.QuantidadeProduto,
-                StatusId = p.StatusId
-            }).ToListAsync();
-
-            return pedidos;
-        }
-
-        public Task<bool> SaveChangeAsync()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
