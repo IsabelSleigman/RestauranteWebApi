@@ -30,6 +30,12 @@ namespace RestauranteWebApi.Controllers
             await _comandaService.FecharComanda(comandaId);
         }
 
+        [HttpPut("cancelar/comanda/{comandaId}")]
+        public async Task CancelarComanda(int comandaId)
+        {
+            await _comandaService.CancelarComanda(comandaId);
+        }
+
         [HttpGet("obter/comanda/{mesaId}")]
         public async Task<BuscarModel> ObterComanda(int mesaId)
         {

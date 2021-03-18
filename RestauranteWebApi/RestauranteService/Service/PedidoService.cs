@@ -29,6 +29,12 @@ namespace RestauranteService.Service
 
             _ = produto ?? throw new Exception("Produto não encontrado.");
 
+            var status = await _contexto.Status
+                .Where(s => s.StatusId == (int)StatusPedidoEnum.PedidoEmProcesso)
+                .FirstOrDefaultAsync();
+
+            _ = status ?? throw new Exception("Produto não encontrado.");
+
             var totalPedido = produto.Valor * quantidade;
 
             if (quantidade < 1 || quantidade > 7)
@@ -44,7 +50,7 @@ namespace RestauranteService.Service
                     PedidoValor = totalPedido,
                     QuantidadeProduto = quantidade,
                     StatusId = (int)StatusPedidoEnum.PedidoEmProcesso,
-    
+                    Status = status
                 });
 
                 if(totalPedido > 0)
@@ -110,7 +116,15 @@ namespace RestauranteService.Service
 
             _ = pedido ?? throw new Exception("Pedido não encontrado");
 
+            var status = await _contexto.Status
+               .Where(s => s.StatusId == (int)StatusPedidoEnum.PedidoCancelado)
+               .FirstOrDefaultAsync();
+
+            _ = status ?? throw new Exception("Produto não encontrado.");
+
             pedido.StatusId = (int)StatusPedidoEnum.PedidoCancelado;
+
+            pedido.Status = status;
 
             pedido.QuantidadeProduto = 0;
 
