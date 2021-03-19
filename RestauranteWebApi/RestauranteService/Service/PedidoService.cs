@@ -24,8 +24,14 @@ namespace RestauranteService.Service
         }
 
         public async Task FazerPedido(int produtoId, int quantidade, int comandaId)
-        { 
-            var produto = await _produtoService.BucarProdutoEscolhido(produtoId);
+        {
+            if (produtoId <= 1 && produtoId > 17)
+            {
+                throw new Exception("Produto inválido");
+            }
+            var produto = await _contexto.Produto
+                .Where(p => p.ProdutoId == produtoId && p.Disponivel == true)
+                .FirstOrDefaultAsync();
 
             _ = produto ?? throw new Exception("Produto não encontrado.");
 
@@ -37,7 +43,7 @@ namespace RestauranteService.Service
 
             var totalPedido = produto.Valor * quantidade;
 
-            if (quantidade < 1 || quantidade > 7)
+            if (quantidade < 1 && quantidade > 7)
             {
                 throw new Exception("Quantidade não permitida");
             }
@@ -49,6 +55,7 @@ namespace RestauranteService.Service
                     ProdutoId = produto.ProdutoId,
                     PedidoValor = totalPedido,
                     QuantidadeProduto = quantidade,
+                    Produto = produto,
                     StatusId = (int)StatusPedidoEnum.PedidoEmProcesso,
                     Status = status
                 });

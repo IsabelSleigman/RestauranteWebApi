@@ -1,8 +1,4 @@
 ﻿using RestauranteDominio;
-using RestauranteService.Service.Enum;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RestauranteService.Service.PedidoModel
 {

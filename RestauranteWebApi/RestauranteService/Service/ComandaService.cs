@@ -82,7 +82,7 @@ namespace RestauranteService.Service
         {
             var comanda = await _contexto.Comanda
                .OrderBy(c => c.ComandaId)
-              .FirstOrDefaultAsync(c => c.ComandaId == comandaId && c.Pedidos == null);
+              .FirstOrDefaultAsync(c => c.ComandaId == comandaId && c.Pedidos == null && c.Pago == false);
 
             _ = comanda ?? throw new Exception("Comanda não localizada.");
 
@@ -129,19 +129,19 @@ namespace RestauranteService.Service
                 ValorComanda = comanda.ValorComanda,
                 DataHoraSaida = comanda.DataHoraSaida
 
-
             };
 
             model.Pedidos = comanda.Pedidos
                   .Select(p => new ListarModel
                   {
                       PedidoId = p.PedidoId,
-                      PedidoValor = p.PedidoValor,
-                      ProdutoId = p.ProdutoId,
+                      PedidoValor = p.PedidoValor, 
+                      ProdutoId= p.ProdutoId,
                       ProdutoNome = p.Produto.Nome,
                       QuantidadeProduto = p.QuantidadeProduto,
                       Status = p.Status
                   }).ToList();
+
 
             return model;
         }
