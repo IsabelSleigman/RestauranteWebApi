@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestauranteDominio.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -26,8 +27,9 @@ namespace RestauranteDominio
 
         public int QuantidadeProduto { get; set; }
 
-        public int StatusId { get; set; } //FK
-        [ForeignKey(nameof(StatusId))]
+        [Column("StatusId")]
+        public StatusPedidoEnum StatusEnum { get; set; } //FK
+        [ForeignKey(nameof(StatusEnum))]
 
         public Status Status { get; set; }
     }

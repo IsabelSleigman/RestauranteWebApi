@@ -18,24 +18,6 @@ namespace RestauranteWebApi.Controllers
             _comandaService = comandaService;
         }
 
-        [HttpPost("iniciar/comanda/{mesaId}/{quantidade}")]
-        public async Task IniciarComanda(int mesaId, int quantidade)
-        {
-            await _comandaService.IniciarComanda(mesaId, quantidade);
-        }
-
-        [HttpPut("fechar/comanda/{comandaId}")]
-        public async Task FecharComanda(int comandaId)
-        {
-            await _comandaService.FecharComanda(comandaId);
-        }
-
-        [HttpPut("cancelar/comanda/{comandaId}")]
-        public async Task CancelarComanda(int comandaId)
-        {
-            await _comandaService.CancelarComanda(comandaId);
-        }
-
         [HttpGet("obter/comanda/{mesaId}")]
         public async Task<BuscarModel> ObterComanda(int mesaId)
         {
@@ -43,11 +25,29 @@ namespace RestauranteWebApi.Controllers
             return model;
         }
 
-        [HttpGet("buscar/pedido/{comandaId}")]
-        public async Task<ModelPaga> BuscarPedidos(int comandaId)
+        [HttpGet("buscar/completa/{comandaId}")]
+        public async Task<ModelPaga> BuscarComandaCompleta(int comandaId)
         {
-            var listaModel = await _comandaService.BuscarPedidos(comandaId);
+            var listaModel = await _comandaService.BuscarComandaCompleta(comandaId);
             return listaModel;
+        }
+
+        [HttpPost("iniciar/{mesaId}/{quantidade}")]
+        public async Task IniciarComanda(int mesaId, int quantidade)
+        {
+            await _comandaService.IniciarComanda(mesaId, quantidade);
+        }
+
+        [HttpPut("fechar/{comandaId}")]
+        public async Task FecharComanda(int comandaId)
+        {
+            await _comandaService.FecharComanda(comandaId);
+        }
+
+        [HttpPut("cancela/{comandaId}")]
+        public async Task CancelarComanda(int comandaId)
+        {
+            await _comandaService.CancelarComanda(comandaId);
         }
         
     }

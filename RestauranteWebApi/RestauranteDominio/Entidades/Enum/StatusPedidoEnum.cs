@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RestauranteService.Service.Enum
+namespace RestauranteDominio.Enum
 {
     public enum StatusPedidoEnum
     { 

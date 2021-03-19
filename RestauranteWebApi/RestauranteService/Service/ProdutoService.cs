@@ -18,7 +18,9 @@ namespace RestauranteService.Service
 
         public async Task<List<ListarDisponivelModel>> MostrarProdutosDisponiveis()
         {
-            var listaProdutos = await _contexto.Produto.Where(p => p.Disponivel == true).Select(np => new ListarDisponivelModel
+            var listaProdutos = await _contexto.Produto
+                .Where(p => p.Disponivel == true)
+                .Select(np => new ListarDisponivelModel
             {
                 Nome = np.Nome,
                 ProdutoId = np.ProdutoId,

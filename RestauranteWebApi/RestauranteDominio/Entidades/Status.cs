@@ -1,6 +1,8 @@
-﻿using System;
+﻿using RestauranteDominio.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace RestauranteDominio
@@ -9,7 +11,8 @@ namespace RestauranteDominio
     {
         [Key]
 
-        public int StatusId { get; set; }
+        [Column("StatusId")]
+        public StatusPedidoEnum StatusEnum { get; set; }
 
         public string Descricao { get; set; }
     }

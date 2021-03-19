@@ -72,6 +72,7 @@ namespace RestauranteService.Service
                     ComandaId = cn.ComandaId,
                     DataHoraEntrada = cn.DataHoraEntrada,
                     MesaId = cn.MesaId,
+                    QuantidadeClientes = cn.QuantidadeClientes,
                     ValorComanda = cn.ValorComanda
                 }).FirstOrDefaultAsync();
 
@@ -79,6 +80,7 @@ namespace RestauranteService.Service
 
             return model;
         }
+
         public async Task CancelarComanda(int comandaId)
         {
             var comanda = await _contexto.Comanda
@@ -97,7 +99,8 @@ namespace RestauranteService.Service
 
             await _contexto.SaveChangesAsync();
         }
-        public async Task<ModelPaga> BuscarPedidos(int comandaId)
+
+        public async Task<ModelPaga> BuscarComandaCompleta(int comandaId)
         {
             var comanda = await _contexto.Comanda
                 .Where(c => c.ComandaId == comandaId)
@@ -140,7 +143,7 @@ namespace RestauranteService.Service
                       ProdutoId = p.ProdutoId,
                       ProdutoNome = p.Produto.Nome,
                       QuantidadeProduto = p.QuantidadeProduto,
-                      Status = p.Status
+                      Status = p.Status.Descricao
                   }).ToList();
 
 

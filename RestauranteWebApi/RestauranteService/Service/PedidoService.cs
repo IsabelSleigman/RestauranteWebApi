@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using RestauranteDominio;
-using RestauranteService.Service.Enum;
+using RestauranteDominio.Enum;
 
 namespace RestauranteService.Service
 {
@@ -36,7 +36,7 @@ namespace RestauranteService.Service
             _ = produto ?? throw new Exception("Produto não encontrado.");
 
             var status = await _contexto.Status
-                .Where(s => s.StatusId == (int)StatusPedidoEnum.PedidoEmProcesso)
+                .Where(s => s.StatusEnum == StatusPedidoEnum.PedidoEmProcesso)
                 .FirstOrDefaultAsync();
 
             _ = status ?? throw new Exception("Produto não encontrado.");
@@ -56,7 +56,7 @@ namespace RestauranteService.Service
                     PedidoValor = totalPedido,
                     QuantidadeProduto = quantidade,
                     Produto = produto,
-                    StatusId = (int)StatusPedidoEnum.PedidoEmProcesso,
+                    StatusEnum = StatusPedidoEnum.PedidoEmProcesso,
                     Status = status
                 });
 
@@ -90,7 +90,7 @@ namespace RestauranteService.Service
 
                 _ = pedido ?? throw new Exception("Pedido não encontrado.");
 
-                if(pedido.StatusId == (int)StatusPedidoEnum.PedidoCancelado)
+                if(pedido.StatusEnum == StatusPedidoEnum.PedidoCancelado)
                 {
                     throw new Exception("Pedido Excluido");
                 }
@@ -124,12 +124,12 @@ namespace RestauranteService.Service
             _ = pedido ?? throw new Exception("Pedido não encontrado");
 
             var status = await _contexto.Status
-               .Where(s => s.StatusId == (int)StatusPedidoEnum.PedidoCancelado)
+               .Where(s => s.StatusEnum == StatusPedidoEnum.PedidoCancelado)
                .FirstOrDefaultAsync();
 
             _ = status ?? throw new Exception("Produto não encontrado.");
 
-            pedido.StatusId = (int)StatusPedidoEnum.PedidoCancelado;
+            pedido.StatusEnum = StatusPedidoEnum.PedidoCancelado;
 
             pedido.Status = status;
 

@@ -9,6 +9,6 @@ namespace RestauranteService.Service.PedidoModel
         public string ProdutoNome { get; set; }
         public double PedidoValor { get; set; }
         public int QuantidadeProduto { get; set; }
-        public Status Status { get; set; }
+        public string Status { get; set; }
     }
 }
