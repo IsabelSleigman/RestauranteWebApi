@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RestauranteDominio;
 using RestauranteService.Service.MesaModel;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RestauranteService.Service
 {
-    public class MesaService 
+    public class MesaService
     {
         private readonly RestauranteContexto _contexto;
 
@@ -20,7 +21,7 @@ namespace RestauranteService.Service
         {
             var mesa = await _contexto.Mesa
                  .Where(m => m.Disponivel)
-                 .Select(m =>new ListarIdModel
+                 .Select(m => new ListarIdModel
                  {
                      MesaId = m.MesaId,
                      Disponivel = m.Disponivel
@@ -28,19 +29,20 @@ namespace RestauranteService.Service
             return mesa;
         }
 
-        public async Task OcuparMesa(int mesaId)
+        public async Task<Mesa> OcuparMesa(int mesaId)
         {
-            {
-                var mesa = await _contexto.Mesa
-               .Where(m => m.MesaId == mesaId && m.Disponivel == true)
-               .FirstOrDefaultAsync();
 
-                _ = mesa ?? throw new Exception("Mesa não encontrada");
+            var mesa = await _contexto.Mesa
+           .Where(m => m.MesaId == mesaId && m.Disponivel == true)
+           .FirstOrDefaultAsync();
 
-                mesa.Disponivel = false;
+            _ = mesa ?? throw new Exception("Mesa não encontrada");
 
-                await _contexto.SaveChangesAsync();
-            }
+            mesa.Disponivel = false;
+
+            await _contexto.SaveChangesAsync();
+
+            return mesa;
         }
 
         public async Task DesocuparMesa(int mesaId)

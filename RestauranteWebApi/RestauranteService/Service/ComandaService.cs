@@ -22,20 +22,21 @@ namespace RestauranteService.Service
 
         public async Task IniciarComanda(int mesaId, int quantidade)
         {
-            if (quantidade <= 0 || quantidade >= 5)
+            if (quantidade <= 0 && quantidade >= 5)
             {
                 throw new Exception("Comanda já está em uso ou quantidade de pessoas não está correta!");
             }
             double valor = 80.0 * quantidade;
 
-            await _mesaService.OcuparMesa(mesaId);
+            var mesa = await _mesaService.OcuparMesa(mesaId);
 
-            var comanda = _contexto.Add(new Comanda
+            _contexto.Add(new Comanda
             {
                 DataHoraEntrada = DateTime.Now,
                 DataHoraSaida = null,
                 MesaId = mesaId,
                 QuantidadeClientes = quantidade,
+                Mesa = mesa,
                 ValorComanda = valor,
                 Pago = false,
             });
@@ -135,8 +136,8 @@ namespace RestauranteService.Service
                   .Select(p => new ListarModel
                   {
                       PedidoId = p.PedidoId,
-                      PedidoValor = p.PedidoValor, 
-                      ProdutoId= p.ProdutoId,
+                      PedidoValor = p.PedidoValor,
+                      ProdutoId = p.ProdutoId,
                       ProdutoNome = p.Produto.Nome,
                       QuantidadeProduto = p.QuantidadeProduto,
                       Status = p.Status
