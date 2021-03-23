@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestauranteService.Service;
+using RestauranteService.Service.Model.PedidoModel;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -16,22 +17,23 @@ namespace RestauranteWebApi.Controllers
             _pedidoService = pedidoService;
         }
 
-        [HttpPost("fazer/pedido/{produtoId}/{quantidade}/{comandaId}")]
-        public async Task FazerPedido(int produtoId, int quantidade, int comandaId)
+        [HttpPost("{produtoId}/{quantidade}/{comandaId}")]
+        public async Task<RealizadaModel> FazerPedido(RealizarModel model)
         {
-            await _pedidoService.FazerPedido(produtoId, quantidade, comandaId);
+            var pedido = await _pedidoService.FazerPedido(model);
+            return pedido;
         }
 
-        [HttpPut("editar/{quantidade}/{comandaId}")]
-        public async Task EditarPedido(int quantidade, int comandaId)
+        [HttpPost("{pedidoId}/{comandaId}/{quantidade}/editar")]
+        public async Task Editar(RealizadaModel model)
         {
-            await _pedidoService.EditarPedido(quantidade, comandaId);
+            await _pedidoService.Editar(model);
         }
 
-        [HttpPut("excluir/{comandaId}")]
-        public async Task ExcluirPedido(int comandaId)
+        [HttpDelete("{pedidoId}/{comandaId}")]
+        public async Task Excluir(ExcluirModel model)
         {
-            await _pedidoService.ExcluirPedido(comandaId);
+            await _pedidoService.Excluir(model);
         }
     }
 }

@@ -17,39 +17,40 @@ namespace RestauranteService.Service
             _contexto = contexto;
         }
 
-        public async Task<List<ListarIdModel>> BuscarMesasDisponiveis()
+        public async Task<List<ListarIdModel>> BuscarDisponiveis()
         {
-            var mesa = await _contexto.Mesa
-                 .Where(m => m.Disponivel)
-                 .Select(m => new ListarIdModel
-                 {
+            var mesa = await _contexto
+                .Mesa
+                .Where(m => m.Disponivel)
+                .Select(m => new ListarIdModel
+                {
                      MesaId = m.MesaId,
                      Disponivel = m.Disponivel
-                 }).ToListAsync();
+                }).ToListAsync();
+
             return mesa;
         }
 
-        public async Task<Mesa> OcuparMesa(int mesaId)
+        public async Task OcuparMesa(int mesaId)
         {
-
-            var mesa = await _contexto.Mesa
-           .Where(m => m.MesaId == mesaId && m.Disponivel == true)
-           .FirstOrDefaultAsync();
+            var mesa = await _contexto
+                .Mesa
+                .Where(m => m.MesaId == mesaId && m.Disponivel == true)
+                .FirstOrDefaultAsync();
 
             _ = mesa ?? throw new Exception("Mesa não encontrada");
 
             mesa.Disponivel = false;
 
             await _contexto.SaveChangesAsync();
-
-            return mesa;
         }
 
         public async Task DesocuparMesa(int mesaId)
         {
-            var mesa = await _contexto.Mesa
-           .Where(m => m.MesaId == mesaId && m.Disponivel == false)
-           .FirstOrDefaultAsync();
+            var mesa = await _contexto
+                .Mesa
+                .Where(m => m.MesaId == mesaId && m.Disponivel == false)
+                .FirstOrDefaultAsync();
 
             _ = mesa ?? throw new Exception("Mesa não encontrada");
 

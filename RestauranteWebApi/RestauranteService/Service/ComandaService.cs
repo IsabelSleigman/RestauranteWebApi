@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using RestauranteService.Service.PedidoModel;
+using RestauranteService.Service.Model.ComandaModel;
 
 namespace RestauranteService.Service
 {
@@ -20,36 +21,42 @@ namespace RestauranteService.Service
             _mesaService = mesaService;
         }
 
-        public async Task IniciarComanda(int mesaId, int quantidade)
+        public async Task<IniciadaModel> Iniciar(AberturaModel model)
         {
-            if (quantidade <= 0 && quantidade >= 5)
-            {
-                throw new Exception("Comanda já está em uso ou quantidade de pessoas não está correta!");
-            }
-            double valor = 80.0 * quantidade;
+            model.Validar();
 
-            var mesa = await _mesaService.OcuparMesa(mesaId);
+            await _mesaService.OcuparMesa(model.MesaId);
 
-            _contexto.Add(new Comanda
+            double valor = 80.0 * model.QuantidadeClientes;
+
+            var comanda = new Comanda
             {
                 DataHoraEntrada = DateTime.Now,
-                DataHoraSaida = null,
-                MesaId = mesaId,
-                QuantidadeClientes = quantidade,
-                Mesa = mesa,
+                MesaId = model.MesaId,
+                QuantidadeClientes = model.QuantidadeClientes,
                 ValorComanda = valor,
                 Pago = false,
-            });
+            };
+
+            _contexto.Add(comanda);
 
             await _contexto.SaveChangesAsync();
+
+            return new IniciadaModel
+            {
+                ComandaId = comanda.ComandaId
+            };
         }
 
-        public async Task FecharComanda(int comandaId)
+        public async Task Fechar(IniciadaModel model)
         {
-            var comanda = await _contexto.Comanda
-                .Where(c => c.ComandaId == comandaId)
+            model.Validar();
+
+            var comanda = await _contexto
+                .Comanda
+                .Where(c => c.ComandaId == model.ComandaId)
                 .OrderBy(c => c.ComandaId)
-              .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync();
 
             _ = comanda ?? throw new Exception("Comanda não localizada.");
 
@@ -62,11 +69,14 @@ namespace RestauranteService.Service
             await _contexto.SaveChangesAsync();
         }
 
-        public async Task<BuscarModel> BuscarComanda(int mesaId)
+        public async Task<BuscarModel> BuscarIniciada(IniciadaModel model)
         {
-            var model = await _contexto.Comanda
-                .Where(c => c.MesaId == mesaId)
-                 .OrderBy(c => c.ComandaId)
+            model.Validar();
+
+            var comanda = await _contexto
+                .Comanda
+                .Where(c => c.ComandaId == model.ComandaId)
+                .OrderBy(c => c.ComandaId)
                 .Select(cn => new BuscarModel
                 {
                     ComandaId = cn.ComandaId,
@@ -76,16 +86,19 @@ namespace RestauranteService.Service
                     ValorComanda = cn.ValorComanda
                 }).FirstOrDefaultAsync();
 
-            _ = model ?? throw new Exception("Comanda não localizada.");
+            _ = comanda ?? throw new Exception("Comanda não localizada.");
 
-            return model;
+            return comanda;
         }
 
-        public async Task CancelarComanda(int comandaId)
+        public async Task Cancelar(IniciadaModel model)
         {
-            var comanda = await _contexto.Comanda
-               .OrderBy(c => c.ComandaId)
-              .FirstOrDefaultAsync(c => c.ComandaId == comandaId && c.Pedidos == null && c.Pago == false);
+            model.Validar();
+
+            var comanda = await _contexto
+                .Comanda
+                .OrderBy(c => c.ComandaId)
+                .FirstOrDefaultAsync(c => c.ComandaId == model.ComandaId && c.Pedidos.Count == 0 && c.Pago == false);
 
             _ = comanda ?? throw new Exception("Comanda não localizada.");
 
@@ -100,10 +113,13 @@ namespace RestauranteService.Service
             await _contexto.SaveChangesAsync();
         }
 
-        public async Task<ModelPaga> BuscarComandaCompleta(int comandaId)
+        public async Task<ModelPaga> BuscarCompleta(IniciadaModel model)
         {
-            var comanda = await _contexto.Comanda
-                .Where(c => c.ComandaId == comandaId)
+            model.Validar();
+
+            var comanda = await _contexto
+                .Comanda
+                .Where(c => c.ComandaId == model.ComandaId)
                 .Include(p => p.Pedidos)
                 .ThenInclude(p => p.Status)
                 .Include(p => p.Pedidos)
@@ -123,7 +139,7 @@ namespace RestauranteService.Service
 
             _ = comanda ?? throw new Exception("Comanda não localizada.");
 
-            var model = new ModelPaga
+            var modelPaga = new ModelPaga
             {
                 ComandaId = comanda.ComandaId,
                 DataHoraEntrada = comanda.DataHoraEntrada,
@@ -135,7 +151,8 @@ namespace RestauranteService.Service
 
             };
 
-            model.Pedidos = comanda.Pedidos
+            modelPaga.Pedidos = comanda
+                  .Pedidos
                   .Select(p => new ListarModel
                   {
                       PedidoId = p.PedidoId,
@@ -147,7 +164,7 @@ namespace RestauranteService.Service
                   }).ToList();
 
 
-            return model;
+            return modelPaga;
         }
     }
 }

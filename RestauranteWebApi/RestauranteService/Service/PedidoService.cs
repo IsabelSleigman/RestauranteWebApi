@@ -5,10 +5,11 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using RestauranteDominio;
 using RestauranteDominio.Enum;
+using RestauranteService.Service.Model.PedidoModel;
 
 namespace RestauranteService.Service
 {
-    public class PedidoService 
+    public class PedidoService
     {
         private readonly RestauranteContexto _contexto;
 
@@ -23,130 +24,124 @@ namespace RestauranteService.Service
             _comandaService = comandaService;
         }
 
-        public async Task FazerPedido(int produtoId, int quantidade, int comandaId)
+        public async Task<RealizadaModel> FazerPedido(RealizarModel model)
         {
-            if (produtoId <= 1 && produtoId > 17)
-            {
-                throw new Exception("Produto inválido");
-            }
-            var produto = await _contexto.Produto
-                .Where(p => p.ProdutoId == produtoId && p.Disponivel == true)
+            model.Validar();
+
+            var produto = await _contexto
+                .Produto
+                .Where(p => p.ProdutoId == model.ProdutoId && p.Disponivel == true)
+                .Select(p => new
+                {
+                    p.Valor
+                })
                 .FirstOrDefaultAsync();
 
             _ = produto ?? throw new Exception("Produto não encontrado.");
 
-            var status = await _contexto.Status
-                .Where(s => s.StatusEnum == StatusPedidoEnum.PedidoEmProcesso)
-                .FirstOrDefaultAsync();
+            var totalPedido = produto.Valor * model.Quantidade;
 
-            _ = status ?? throw new Exception("Produto não encontrado.");
-
-            var totalPedido = produto.Valor * quantidade;
-
-            if (quantidade < 1 && quantidade > 7)
+            var pedido = new Pedido
             {
-                throw new Exception("Quantidade não permitida");
-            }
-            else
+                ComandaId = model.ComandaId,
+                ProdutoId = model.ProdutoId,
+                PedidoValor = totalPedido,
+                QuantidadeProduto = model.Quantidade,
+                StatusEnum = StatusPedidoEnum.PedidoEmProcesso,
+            };
+
+            if (totalPedido > 0)
             {
-                _contexto.Add(new Pedido
-                {
-                    ComandaId = comandaId,
-                    ProdutoId = produto.ProdutoId,
-                    PedidoValor = totalPedido,
-                    QuantidadeProduto = quantidade,
-                    Produto = produto,
-                    StatusEnum = StatusPedidoEnum.PedidoEmProcesso,
-                    Status = status
-                });
+                var comanda = await _contexto
+                    .Comanda
+                    .Where(c => c.ComandaId == model.ComandaId)
+                    .FirstOrDefaultAsync();
 
-                if(totalPedido > 0)
-                {
-                    var comanda = _contexto.Comanda
-                  .Where(c => c.ComandaId == comandaId)
-                  .FirstOrDefault();
-
-                    comanda.ValorComanda += totalPedido;
-                }
-                await _contexto.SaveChangesAsync();
+                comanda.ValorComanda += totalPedido;
             }
+
+            _contexto.Pedido.Add(pedido);
+
+            await _contexto.SaveChangesAsync();
+
+            return new RealizadaModel
+            {
+                ComandaId = pedido.ComandaId,
+                PedidoId = pedido.PedidoId,
+                Quantidade = pedido.QuantidadeProduto
+            };
         }
 
-        public async Task EditarPedido(int quantidade, int comandaId)
+        public async Task Editar(RealizadaModel model)
         {
+            model.Validar();
 
-            if (quantidade < 1 && quantidade > 7)
-            {
-                throw new Exception("Quantidade não permitida");
-            }
-            else
-            {
-                var pedido = await _contexto.Pedido
-                .Where(p =>p.ComandaId == comandaId)
+            var pedido = await _contexto
+                .Pedido
+                .Where(p => p.PedidoId == model.PedidoId)
                 .Include(p => p.Produto)
                 .Include(c => c.Comanda)
+                .Where( c => c.ComandaId == model.ComandaId && c.Comanda.Pago == false)
                 .OrderBy(p => p.PedidoId)
                 .LastOrDefaultAsync();
 
-                _ = pedido ?? throw new Exception("Pedido não encontrado.");
+            _ = pedido ?? throw new Exception("Pedido não encontrado.");
 
-                if(pedido.StatusEnum == StatusPedidoEnum.PedidoCancelado)
-                {
-                    throw new Exception("Pedido Excluido");
-                }
-                var total = pedido.Produto.Valor * quantidade;
-
-                pedido.QuantidadeProduto = quantidade;               
-
-                if (total > 0)
-                {
-                    var comanda = _contexto.Comanda
-                  .Where(c => c.ComandaId == pedido.ComandaId)
-                  .FirstOrDefault();
-
-                    comanda.ValorComanda -= pedido.PedidoValor;
-                    comanda.ValorComanda += total;
-                }
-
-                pedido.PedidoValor = total;
-                
-                await _contexto.SaveChangesAsync();
+            if (pedido.StatusEnum == StatusPedidoEnum.PedidoCancelado)
+            {
+                throw new Exception("Pedido Excluido");
             }
+            var total = pedido.Produto.Valor * model.Quantidade;
+
+            pedido.QuantidadeProduto = model.Quantidade;
+
+            if (total > 0)
+            {
+                var comanda = await _contexto
+                    .Comanda
+                    .Where(c => c.ComandaId == pedido.ComandaId)
+                    .FirstOrDefaultAsync();
+
+                comanda.ValorComanda -= pedido.PedidoValor;
+
+                comanda.ValorComanda += total;
+            }
+
+            pedido.PedidoValor = total;
+
+            await _contexto.SaveChangesAsync();
+
         }
 
-        public async Task ExcluirPedido(int comandaId)
+        public async Task Excluir(ExcluirModel model)
         {
-            var pedido = await _contexto.Pedido
-            .Where(p => p.ComandaId == comandaId)
-            .OrderBy(p => p.PedidoId)
-            .LastOrDefaultAsync();
+            model.Validar();
+
+            var pedido = await _contexto
+                .Pedido
+                .Where(p => p.PedidoId == model.PedidoId && p.ComandaId == model.ComandaId && p.Comanda.Pago == false)
+                .OrderBy(p => p.PedidoId)
+                .LastOrDefaultAsync();
 
             _ = pedido ?? throw new Exception("Pedido não encontrado");
 
-            var status = await _contexto.Status
-               .Where(s => s.StatusEnum == StatusPedidoEnum.PedidoCancelado)
-               .FirstOrDefaultAsync();
-
-            _ = status ?? throw new Exception("Produto não encontrado.");
-
             pedido.StatusEnum = StatusPedidoEnum.PedidoCancelado;
-
-            pedido.Status = status;
 
             pedido.QuantidadeProduto = 0;
 
             if (pedido.PedidoValor > 0)
             {
-                var comanda = _contexto.Comanda
-              .Where(c => c.ComandaId == pedido.ComandaId)
-              .FirstOrDefault();
+                var comanda = await _contexto
+                    .Comanda
+                    .Where(c => c.ComandaId == pedido.ComandaId)
+                    .FirstOrDefaultAsync();
 
                 comanda.ValorComanda -= pedido.PedidoValor;
-                
+
             }
 
             await _contexto.SaveChangesAsync();
         }
-       
+
     }
 }

@@ -16,16 +16,17 @@ namespace RestauranteService.Service
             _contexto = contexto;
         }
 
-        public async Task<List<ListarDisponivelModel>> MostrarProdutosDisponiveis()
+        public async Task<List<ListarDisponivelModel>> MostrarDisponiveis()
         {
-            var listaProdutos = await _contexto.Produto
+            var listaProdutos = await _contexto
+                .Produto
                 .Where(p => p.Disponivel == true)
                 .Select(np => new ListarDisponivelModel
-            {
-                Nome = np.Nome,
-                ProdutoId = np.ProdutoId,
-                Valor = np.Valor
-            }).ToListAsync();
+                {
+                     Nome = np.Nome,
+                     ProdutoId = np.ProdutoId,
+                     Valor = np.Valor
+                }).ToListAsync();
 
             _ = listaProdutos ?? throw new Exception("Produtos não Encontrados.");
 

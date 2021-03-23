@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RestauranteService.Service;
 using RestauranteService.Service.ComandaModel;
+using RestauranteService.Service.Model.ComandaModel;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,36 +19,37 @@ namespace RestauranteWebApi.Controllers
             _comandaService = comandaService;
         }
 
-        [HttpGet("obter/comanda/{mesaId}")]
-        public async Task<BuscarModel> ObterComanda(int mesaId)
+        [HttpGet("{comandaId}")]
+        public async Task<BuscarModel> ObterComanda(IniciadaModel model)
         {
-            var model = await _comandaService.BuscarComanda(mesaId);
-            return model;
+            var comanda = await _comandaService.BuscarIniciada(model);
+            return comanda;
         }
 
-        [HttpGet("buscar/completa/{comandaId}")]
-        public async Task<ModelPaga> BuscarComandaCompleta(int comandaId)
+        [HttpGet("{comandaId}/completa")]
+        public async Task<ModelPaga> BuscarCompleta(IniciadaModel model)
         {
-            var listaModel = await _comandaService.BuscarComandaCompleta(comandaId);
+            var listaModel = await _comandaService.BuscarCompleta(model);
             return listaModel;
         }
 
-        [HttpPost("iniciar/{mesaId}/{quantidade}")]
-        public async Task IniciarComanda(int mesaId, int quantidade)
+        [HttpPost("{mesaId}/{quantidadePessoa}")]
+        public async Task<IniciadaModel> Iniciar(AberturaModel model)
         {
-            await _comandaService.IniciarComanda(mesaId, quantidade);
+           var iniciadaModel = await _comandaService.Iniciar(model);
+            return iniciadaModel;
         }
 
-        [HttpPut("fechar/{comandaId}")]
-        public async Task FecharComanda(int comandaId)
+        [HttpPost("{comandaId}/fechar")]
+        public async Task Fechar(IniciadaModel model)
         {
-            await _comandaService.FecharComanda(comandaId);
+            await _comandaService.Fechar(model);
         }
 
-        [HttpPut("cancela/{comandaId}")]
-        public async Task CancelarComanda(int comandaId)
+        [HttpDelete("{comandaId}/cancelar")]
+        public async Task CancelarComanda(IniciadaModel model)
         {
-            await _comandaService.CancelarComanda(comandaId);
+            await _comandaService.Cancelar(model);
         }
         
     }

@@ -21,7 +21,7 @@ namespace RestauranteWebApi.Controllers
         [HttpGet("buscarprodutos")]
         public async Task<List<ListarDisponivelModel>> BuscarProdutosDisponiveis()
         {
-            var listaProdutos = await _produtoService.MostrarProdutosDisponiveis();
+            var listaProdutos = await _produtoService.MostrarDisponiveis();
             return listaProdutos;
         }
     }
