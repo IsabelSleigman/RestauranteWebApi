@@ -19,10 +19,10 @@ namespace RestauranteWebApi.Controllers
             _comandaService = comandaService;
         }
 
-        [HttpGet()]
-        public async Task<BuscarModel> ObterComanda(IniciadaModel model)
+        [HttpGet("{comandaId}")]
+        public async Task<BuscarModel> ObterComanda(int comandaId)
         {
-            var comanda = await _comandaService.BuscarIniciada(model);
+            var comanda = await _comandaService.BuscarIniciada(comandaId);
             return comanda;
         }
 
@@ -40,13 +40,13 @@ namespace RestauranteWebApi.Controllers
             return iniciadaModel;
         }
 
-        [HttpPost("/fechar")]
-        public async Task Fechar(IniciadaModel model)
+        [HttpPost("{comandaId}/fechar")]
+        public async Task Fechar(int comandaId)
         {
-            await _comandaService.Fechar(model);
+            await _comandaService.Fechar(comandaId);
         }
 
-        [HttpDelete("/cancelar")]
+        [HttpDelete("{comandaId}/cancelar")]
         public async Task CancelarComanda(IniciadaModel model)
         {
             await _comandaService.Cancelar(model);

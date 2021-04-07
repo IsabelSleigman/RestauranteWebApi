@@ -1,3 +1,4 @@
+import { HomeService } from './home/home.service';
 import { AppRoutingModule } from './app-routing.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,7 +13,7 @@ import { AppComponent } from './app.component';
 import {InicialModule} from './inicial/inicial.module';
 import { HomeModule } from './home/home.module';
 import { NaoEncontradaComponent } from './nao-encontrada/nao-encontrada.component';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -29,9 +30,10 @@ import { NaoEncontradaComponent } from './nao-encontrada/nao-encontrada.componen
     MatCardModule,
     MatToolbarModule,
     HomeModule,
-    MatListModule
+    MatListModule,
+    FlexLayoutModule
   ],
-  providers: [],
+  providers: [HomeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

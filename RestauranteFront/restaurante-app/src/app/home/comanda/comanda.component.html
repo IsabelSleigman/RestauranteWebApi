@@ -1,23 +1,31 @@
-<mat-card>
+<mat-card class="comanda">
     <mat-card-title> Comanda Aberta</mat-card-title>
-    <form>
-        <mat-form-field>
-            <input matInput placeholder="Comanda" [value]="comanda.comandaId" name="comandaId" disabled>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput type="date" placeholder="Data de entrada" [value]="comanda.dataHoraEntrada" name="dataHoraEntrada" disabled>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput type="number" placeholder="Mesa" [value]="comanda.mesaId" name="mesaId" disabled>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput type="number" placeholder="Quantidade de Pessoas" [value]="comanda.quantidadeClientes" name="quantidadeClientes" disabled>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput type="number" placeholder="Total" [value]="comanda.valorComanda" name="valorComanda" disabled>
-        </mat-form-field>
-    </form>
+    <div>
+        <mat-list>
+            <mat-list-item>
+                <h3 matLine>Comanda</h3>
+                <p matLine>{{comanda.comandaId}}</p>
+            </mat-list-item>
+            <mat-list-item>
+                <h3 matLine>Mesa:</h3>
+                <p matLine>{{comanda.mesaId}}</p>
+            </mat-list-item>
+            <mat-list-item>
+
+                <h3 matLine>Data Hora Entrada</h3>
+                <p matLine>{{comanda.dataHoraEntrada| date: 'HH:mm' }}</p>
+            </mat-list-item>
+            <mat-list-item>
+                <h3 matLine>Quantidade Pessoas</h3>
+                <p matLine>{{comanda.quantidadeClientes}}</p>
+            </mat-list-item>
+            <mat-list-item>
+                <h3 matLine>Valor Total</h3>
+                <p matLine>{{comanda.valorComanda | currency: 'BRL'}}</p>
+            </mat-list-item>
+        </mat-list>
+    </div>
     <button mat-button (click)="VoltarHome()">Retornar </button>
     <button mat-button (click)="FinalizarComanda()"> Finalizar </button>
-    
+
 </mat-card>

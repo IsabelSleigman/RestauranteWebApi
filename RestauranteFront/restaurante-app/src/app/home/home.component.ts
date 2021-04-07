@@ -1,5 +1,6 @@
+import { HomeService } from './home.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,16 +9,23 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  comandaId: number;
-
-  constructor(private route: ActivatedRoute
-  ) { }
+  constructor(private router: Router,
+     private route: ActivatedRoute,
+     private homeService: HomeService) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.comandaId = +params['comandaId'];
-    });
 
+
+  }
+
+  navegarCardapio(){
+    this.router.navigate(["cardapio"], { relativeTo: this.route });
+  }
+  navegarComanda(){
+    this.router.navigate(["comanda"], { relativeTo: this.route });
+  }
+  navegarPedido(){
+    this.router.navigate(["home", this.homeService.comandaId]);
   }
 
 }

@@ -48,13 +48,12 @@ namespace RestauranteService.Service
             };
         }
 
-        public async Task Fechar(IniciadaModel model)
+        public async Task Fechar(int comandaId)
         {
-            model.Validar();
 
             var comanda = await _contexto
                 .Comanda
-                .Where(c => c.ComandaId == model.ComandaId)
+                .Where(c => c.ComandaId == comandaId)
                 .OrderBy(c => c.ComandaId)
                 .FirstOrDefaultAsync();
 
@@ -69,13 +68,12 @@ namespace RestauranteService.Service
             await _contexto.SaveChangesAsync();
         }
 
-        public async Task<BuscarModel> BuscarIniciada(IniciadaModel model)
+        public async Task<BuscarModel> BuscarIniciada(int comandaId)
         {
-            model.Validar();
 
             var comanda = await _contexto
                 .Comanda
-                .Where(c => c.ComandaId == model.ComandaId)
+                .Where(c => c.ComandaId == comandaId)
                 .OrderBy(c => c.ComandaId)
                 .Select(cn => new BuscarModel
                 {

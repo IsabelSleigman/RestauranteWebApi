@@ -8,14 +8,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router:Router, private route:ActivatedRoute) { }
+  constructor() { }
 
   ngOnInit(): void {
-  }
-
-  comanda(){
-
-    this.router.navigate(['comanda'], {relativeTo: this.route});
-
   }
 }

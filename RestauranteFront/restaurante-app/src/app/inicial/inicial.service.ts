@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { take } from 'rxjs/operators';
-import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { MesaModel } from "./models/mesa-model";
 import { HttpClient } from "@angular/common/http";

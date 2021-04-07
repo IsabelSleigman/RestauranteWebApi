@@ -1,3 +1,4 @@
+import { MatListModule } from '@angular/material/list';
 import { HeaderComponent } from './../shared/header/header.component';
 import { HomeComponent } from './home.component';
 import { NgModule, } from '@angular/core';
@@ -12,15 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from '../shared/footer/footer.component';
 import { MatCardModule } from '@angular/material/card';
 import { ComandaComponent } from './../home/comanda/comanda.component';
-import { ComandaIniciadaComponent } from './comanda-iniciada/comanda-iniciada.component';
 import { PedidoComponent } from './pedido/pedido.component';
-import { PedidoListComponent } from './pedido/pedido-list/pedido-list.component';
 import { CardapioComponent } from './cardapio/cardapio.component';
-import { ProdutoComponent } from './cardapio/produto/produto.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
-
-
 
 const routes: Routes = [
 
@@ -31,12 +26,14 @@ const routes: Routes = [
       {
         path: '',
         component: PedidoComponent,
-        pathMatch: 'full'
       },
       {
         path: 'comanda',
         component: ComandaComponent,
-        pathMatch: 'full'
+      },
+      {
+        path: 'cardapio',
+        component: CardapioComponent,
       }
     ]
   },
@@ -47,13 +44,10 @@ const routes: Routes = [
   declarations: [
     HomeComponent,
     ComandaComponent,
-    ComandaIniciadaComponent,
     HeaderComponent,
     FooterComponent,
     PedidoComponent,
-    PedidoListComponent,
     CardapioComponent,
-    ProdutoComponent
   ],
   imports: [
     CommonModule,
@@ -66,7 +60,8 @@ const routes: Routes = [
     HttpClientModule,
     MatToolbarModule,
     MatCardModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatListModule
   ],
   providers: [
 

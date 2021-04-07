@@ -1,4 +1,6 @@
+import { CardapioService } from './cadapio.service';
 import { Component, OnInit } from '@angular/core';
+import { ListarDisponivelModel } from './models/listarDisponivelModel';
 
 @Component({
   selector: 'app-cardapio',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CardapioComponent implements OnInit {
 
-  constructor() { }
+  public produto : ListarDisponivelModel[] = {} as any;
+
+  constructor(private cardapioService: CardapioService) { }
 
   ngOnInit(): void {
+    this.cardapioService
+    .listarProduto()
+    .subscribe(p => this.produto = p);
+    console.log(this.produto)
   }
 
 }

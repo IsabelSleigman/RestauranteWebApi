@@ -1,7 +1,7 @@
 import { HomeService } from './../home/home.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { InicialService } from './inicial.service';
 import { MesaModel } from './models/mesa-model';
 
@@ -12,12 +12,16 @@ import { MesaModel } from './models/mesa-model';
 })
 export class InicialComponent implements OnInit {
   public form: FormGroup;
-  
-  quantidadePessoa = [1,2,3,4]
-  public mesas: MesaModel[];
 
-  constructor(private router:Router,private inicialService: InicialService, private homeService: HomeService) { }
-  
+  quantidadePessoa = [1, 2, 3, 4]
+  public mesas: MesaModel[];
+  comandaId: number;
+
+  constructor(private router: Router,
+    private route : ActivatedRoute,
+    private inicialService: InicialService,
+    private homeService: HomeService) { }
+
   @Output() inicialForm = new EventEmitter<void>();
 
   ngOnInit(): void {
@@ -31,14 +35,12 @@ export class InicialComponent implements OnInit {
   }
 
 
-  navegarMenu(){
+  navegarMenu() {
     if(this.form.valid){
-      this.homeService.iniciar(this.form.value).subscribe(c => {
-        this.router.navigate(['home', c.comandaId]);
-        
-      });
+      this.homeService.iniciar(this.form.value);
+     this.comandaId = this.homeService.comandaId;
+     console.log("Inical component: ", this.comandaId);
     }
-   
   }
 
 }

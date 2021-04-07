@@ -14,15 +14,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ComandaComponent implements OnInit {
 
   comanda: BuscarModel;
-  comandaId: IniciadaModel;
+  comandaId: number;
 
   constructor(private router:Router,
     private route: ActivatedRoute,
     private homeService: HomeService,
-    private comandaService : ComandaService) { }
+    private comandaService : ComandaService) {
+     }
 
   ngOnInit(): void {
-    this.comandaId.comandaId = this.comandaService.comandaId;
+    this.comandaId = this.homeService.comandaId;
+
     this.homeService
     .obterComanda(this.comandaId)
     .subscribe(c => this.comanda = c)

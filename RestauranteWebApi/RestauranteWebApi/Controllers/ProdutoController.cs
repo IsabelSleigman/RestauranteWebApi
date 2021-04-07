@@ -18,11 +18,11 @@ namespace RestauranteWebApi.Controllers
             _produtoService = produtoService;
         }
 
-        [HttpGet("buscarprodutos")]
+        [HttpGet()]
         public async Task<List<ListarDisponivelModel>> BuscarProdutosDisponiveis()
         {
-            var listaProdutos = await _produtoService.MostrarDisponiveis();
-            return listaProdutos;
+            return await _produtoService.MostrarDisponiveis();
+     
         }
     }
 }
