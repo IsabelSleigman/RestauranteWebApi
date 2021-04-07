@@ -19,7 +19,7 @@ namespace RestauranteWebApi.Controllers
             _mesaService = mesaService;
         }
 
-        [HttpGet("busca/mesa")]
+        [HttpGet]
         public async Task<List<ListarIdModel>> BuscarMesasDisponiveis()
         {
            var mesas = await _mesaService.BuscarDisponiveis();

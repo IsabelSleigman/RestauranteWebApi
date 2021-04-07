@@ -1,0 +1,23 @@
+<mat-card>
+    <mat-card-title> Comanda Aberta</mat-card-title>
+    <form>
+        <mat-form-field>
+            <input matInput placeholder="Comanda" [value]="comanda.comandaId" name="comandaId" disabled>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="date" placeholder="Data de entrada" [value]="comanda.dataHoraEntrada" name="dataHoraEntrada" disabled>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="number" placeholder="Mesa" [value]="comanda.mesaId" name="mesaId" disabled>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="number" placeholder="Quantidade de Pessoas" [value]="comanda.quantidadeClientes" name="quantidadeClientes" disabled>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="number" placeholder="Total" [value]="comanda.valorComanda" name="valorComanda" disabled>
+        </mat-form-field>
+    </form>
+    <button mat-button (click)="VoltarHome()">Retornar </button>
+    <button mat-button (click)="FinalizarComanda()"> Finalizar </button>
+    
+</mat-card>

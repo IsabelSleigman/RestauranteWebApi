@@ -21,7 +21,7 @@ namespace RestauranteService.Service
         {
             var mesa = await _contexto
                 .Mesa
-                .Where(m => m.Disponivel)
+                .Where(m => m.Disponivel == true)
                 .Select(m => new ListarIdModel
                 {
                      MesaId = m.MesaId,

@@ -1,0 +1,17 @@
+.auth-page{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__back-img {
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        position: absolute;
+        top: 0;
+        right: 0;
+        object-fit: cover;
+    }
+}

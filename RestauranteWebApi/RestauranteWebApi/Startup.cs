@@ -33,14 +33,17 @@ namespace RestauranteWebApi
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<ComandaService>();
-
             services.AddScoped<PedidoService>();
-
             services.AddScoped<MesaService>();
-
             services.AddScoped<ProdutoService>();
-
             services.AddControllers();
+
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+            }));
+
+            services.AddMvc(option => option.EnableEndpointRouting = false);
            
         }
 
@@ -52,10 +55,20 @@ namespace RestauranteWebApi
                 app.UseDeveloperExceptionPage();
            
             }
+            else
+            {
+                app.UseHsts();
+            }
+
+            app.UseCors("MyPolicy");
+
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {

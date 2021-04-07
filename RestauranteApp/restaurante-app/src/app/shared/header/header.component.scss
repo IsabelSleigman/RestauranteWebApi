@@ -1,0 +1,23 @@
+.header {
+    display: flex;
+    align-items: center;
+    background-color:#4d4b4b;
+
+    &__logo {
+        max-height: 32;
+        width: 90px;
+        position: absolute;
+        right: 0px;
+       
+    }
+}
+.header a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.header i {
+    padding-right: 10px;
+    
+}
