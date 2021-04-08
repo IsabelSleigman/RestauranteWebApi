@@ -1,11 +1,11 @@
 @import "src/app/Styles/font";
 
 .footer {
-    position: fixed;
     bottom: 0;
     display: flex;
     justify-content: flex-end;
     background:#000;
+    z-index: 100;
 }
 .footer span {
     font-weight: 300;

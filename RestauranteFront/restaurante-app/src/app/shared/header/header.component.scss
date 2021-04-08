@@ -2,6 +2,8 @@
     display: flex;
     align-items: center;
     background-color: #3b3636;
+    position: fixed;
+    z-index: 100;
 
     &__logo {
         max-height: 32;
@@ -16,10 +18,11 @@
         left: 0px;
         top: 0;
         object-fit: cover;
-
+        position: fixed;
+        z-index: 101;
     }
 }
-.header a {
+.header {
     display: flex;
     align-items: center;
     text-decoration: none;

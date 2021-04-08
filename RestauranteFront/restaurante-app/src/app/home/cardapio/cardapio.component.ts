@@ -9,7 +9,7 @@ import { ListarDisponivelModel } from './models/listarDisponivelModel';
 })
 export class CardapioComponent implements OnInit {
 
-  public produto : ListarDisponivelModel[] = {} as any;
+ produto : ListarDisponivelModel[];
 
   constructor(private cardapioService: CardapioService) { }
 

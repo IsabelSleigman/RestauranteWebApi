@@ -6,9 +6,16 @@
     position: absolute;
     left: 30.5%;
     gap:10px;
-        
+    position: fixed;
+    z-index: 105;
 }
 .btn {
     width: 150px;
+    z-index: 102;
+}
 
+.menu-cardapio{
+    display: grid;
+    grid-template-rows:auto 90%;
+    margin-left: 30.5%;
 }

@@ -89,14 +89,13 @@ namespace RestauranteService.Service
             return comanda;
         }
 
-        public async Task Cancelar(IniciadaModel model)
+        public async Task Cancelar(int comandaId)
         {
-            model.Validar();
 
             var comanda = await _contexto
                 .Comanda
                 .OrderBy(c => c.ComandaId)
-                .FirstOrDefaultAsync(c => c.ComandaId == model.ComandaId && c.Pedidos.Count == 0 && c.Pago == false);
+                .FirstOrDefaultAsync(c => c.ComandaId == comandaId && c.Pedidos.Count == 0 && c.Pago == false);
 
             _ = comanda ?? throw new Exception("Comanda não localizada.");
 
@@ -111,13 +110,12 @@ namespace RestauranteService.Service
             await _contexto.SaveChangesAsync();
         }
 
-        public async Task<ModelPaga> BuscarCompleta(IniciadaModel model)
+        public async Task<ModelPaga> BuscarCompleta(int comandaId)
         {
-            model.Validar();
 
             var comanda = await _contexto
                 .Comanda
-                .Where(c => c.ComandaId == model.ComandaId)
+                .Where(c => c.ComandaId == comandaId)
                 .Include(p => p.Pedidos)
                 .ThenInclude(p => p.Status)
                 .Include(p => p.Pedidos)

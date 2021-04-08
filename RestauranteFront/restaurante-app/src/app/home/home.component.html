@@ -3,14 +3,20 @@
     <app-footer></app-footer>
     <router-outlet></router-outlet>
 </div>
-<div class="button-group">
-    <div >
-        <button class="btn" mat-raised-button (click)="navegarCardapio()">Cardápio</button>
+<div class="menu-cardapio">
+    <div class="button-group">
+        <div>
+            <button class="btn" mat-raised-button (click)="navegarCardapio()">Cardápio</button>
+        </div>
+        <div >
+            <button class="btn" mat-raised-button (click)="navegarComanda()">Comanda</button>
+        </div>
+        <div >
+            <button class="btn" mat-raised-button (click)="navegarPedido()">Pedido</button>
+        </div>
     </div>
-    <div >
-        <button class="btn" mat-raised-button (click)="navegarComanda()">Comanda</button>
-    </div>
-    <div >
-        <button class="btn" mat-raised-button (click)="navegarPedido()">Pedido</button>
+
+    <div class="cardapio"> 
+        <app-cardapio></app-cardapio>
     </div>
 </div>

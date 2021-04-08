@@ -16,6 +16,8 @@ import { ComandaComponent } from './../home/comanda/comanda.component';
 import { PedidoComponent } from './pedido/pedido.component';
 import { CardapioComponent } from './cardapio/cardapio.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { PedidoListComponent } from './pedido/pedido-list/pedido-list.component';
 
 const routes: Routes = [
 
@@ -48,6 +50,7 @@ const routes: Routes = [
     FooterComponent,
     PedidoComponent,
     CardapioComponent,
+    PedidoListComponent,
   ],
   imports: [
     CommonModule,
@@ -61,7 +64,8 @@ const routes: Routes = [
     MatToolbarModule,
     MatCardModule,
     FlexLayoutModule,
-    MatListModule
+    MatListModule,
+    MatGridListModule
   ],
   providers: [
 
