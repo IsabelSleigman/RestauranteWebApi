@@ -10,12 +10,14 @@ import {MatSelectModule} from '@angular/material/select';
 
 import { InicialComponent } from './inicial.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RetomarComandaDialogComponent } from './dialog/retomar-comanda-dialog/retomar-comanda-dialog.component';
 
 
 
 @NgModule({
   declarations: [
     InicialComponent,
+    RetomarComandaDialogComponent,
 
   ],
   imports: [

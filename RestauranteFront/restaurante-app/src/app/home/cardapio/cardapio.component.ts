@@ -1,3 +1,4 @@
+import { PedidoService } from './../pedido/pedido.service';
 import { CardapioService } from './cadapio.service';
 import { Component, OnInit } from '@angular/core';
 import { ListarDisponivelModel } from './models/listarDisponivelModel';
@@ -10,8 +11,9 @@ import { ListarDisponivelModel } from './models/listarDisponivelModel';
 export class CardapioComponent implements OnInit {
 
  produto : ListarDisponivelModel[];
+ produtoId: number;
 
-  constructor(private cardapioService: CardapioService) { }
+  constructor(private cardapioService: CardapioService, private pedidoService: PedidoService) { }
 
   ngOnInit(): void {
     this.cardapioService
@@ -20,4 +22,8 @@ export class CardapioComponent implements OnInit {
     console.log(this.produto)
   }
 
+  produtoSelecionado(){
+    this.pedidoService.pegarIdProduto(this.produtoId);
+  }
+ 
 }

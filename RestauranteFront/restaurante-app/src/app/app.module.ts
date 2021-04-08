@@ -1,3 +1,4 @@
+
 import { HomeService } from './home/home.service';
 import { AppRoutingModule } from './app-routing.module';
 import { NgModule } from '@angular/core';
@@ -33,7 +34,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatListModule,
     FlexLayoutModule
   ],
-  providers: [HomeService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

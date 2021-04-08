@@ -3,7 +3,7 @@ import { IniciadaModel } from './models/iniciada-model';
 import { HomeService } from './../home.service';
 import { BuscarModel } from './models/buscar-model';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 
 @Component({
@@ -14,7 +14,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ComandaComponent implements OnInit {
 
   comanda: BuscarModel;
-  comandaId: number;
 
   constructor(private router:Router,
     private route: ActivatedRoute,
@@ -23,15 +22,10 @@ export class ComandaComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    this.comandaId = this.homeService.comandaId;
 
     this.homeService
-    .obterComanda(this.comandaId)
+    .obterComanda(this.homeService.comandaId)
     .subscribe(c => this.comanda = c)
-  }
-
-  VoltarHome(){
-    this.router.navigate(['home']);
   }
 
   FinalizarComanda(){

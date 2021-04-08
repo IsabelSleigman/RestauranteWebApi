@@ -34,10 +34,10 @@ namespace RestauranteWebApi.Controllers
         }
 
         [HttpPost()]
-        public async Task<IniciadaModel> Iniciar(AberturaModel model)
+        public async Task<int> Iniciar(AberturaModel model)
         {
-           var iniciadaModel = await _comandaService.Iniciar(model);
-            return iniciadaModel;
+           return await _comandaService.Iniciar(model);
+
         }
 
         [HttpPost("{comandaId}/fechar")]

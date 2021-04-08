@@ -8,7 +8,7 @@ import { environment } from "src/environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { IniciadaModel } from './comanda/models/iniciada-model';
 import { HomeComponent } from './home.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Injectable()
 
@@ -28,11 +28,10 @@ export class HomeService {
     iniciar(iniciar: AberturaModel) {
 
         return this.http
-            .post<IniciadaModel>(this.baseUrl, iniciar)
+            .post<number>(this.baseUrl, iniciar)
             .pipe(
-                take(1)).subscribe(comanda => {
-                    this.comandaId = comanda.comandaId;
-                    console.log("Service subscribe:", comanda)
+                take(1)).subscribe(id => {
+                    this.comandaId = id;
                     const c = this._comanda.getValue();
                     this._comanda.next(c);
                     this.router.navigate(["home",this.comandaId], { relativeTo: this.route })
@@ -47,9 +46,4 @@ export class HomeService {
                 take(1));
     }
 
-    setarComandaId() {
-        this.route.params.subscribe((params) => {
-            this.comandaId = +params['comandaId'];
-        });
-    }
 }

@@ -24,7 +24,7 @@ namespace RestauranteService.Service
             _comandaService = comandaService;
         }
 
-        public async Task<RealizadaModel> FazerPedido(RealizarModel model)
+        public async Task<int> FazerPedido(RealizarModel model)
         {
             model.Validar();
 
@@ -64,12 +64,7 @@ namespace RestauranteService.Service
 
             await _contexto.SaveChangesAsync();
 
-            return new RealizadaModel
-            {
-                ComandaId = pedido.ComandaId,
-                PedidoId = pedido.PedidoId,
-                Quantidade = pedido.QuantidadeProduto
-            };
+            return pedido.ComandaId;
         }
 
         public async Task Editar(RealizadaModel model)

@@ -32,5 +32,22 @@ namespace RestauranteService.Service
 
             return listaProdutos;
         }
+
+        public async Task<ListarDisponivelModel>ObterDisponivel(int produtoId)
+        {
+            var produto = await _contexto
+                .Produto
+                .Where(p => p.Disponivel == true && p.ProdutoId == produtoId)
+                .Select(np => new ListarDisponivelModel
+                {
+                    Nome = np.Nome,
+                    ProdutoId = np.ProdutoId,
+                    Valor = np.Valor
+                }).FirstOrDefaultAsync();
+
+            _ = produto ?? throw new Exception("Produtos não Encontrados.");
+
+            return produto;
+        }
     }
 }

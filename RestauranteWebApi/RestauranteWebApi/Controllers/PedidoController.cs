@@ -17,11 +17,10 @@ namespace RestauranteWebApi.Controllers
             _pedidoService = pedidoService;
         }
 
-        [HttpPost("{produtoId}/{quantidade}/{comandaId}")]
-        public async Task<RealizadaModel> FazerPedido(RealizarModel model)
+        [HttpPost()]
+        public async Task<int> FazerPedido(RealizarModel model)
         {
-            var pedido = await _pedidoService.FazerPedido(model);
-            return pedido;
+            return await _pedidoService.FazerPedido(model);
         }
 
         [HttpPost("{pedidoId}/{comandaId}/{quantidade}/editar")]

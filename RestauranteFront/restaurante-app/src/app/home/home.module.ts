@@ -1,3 +1,5 @@
+import { PedidoService } from './pedido/pedido.service';
+import { CardapioService } from './cardapio/cadapio.service';
 import { MatListModule } from '@angular/material/list';
 import { HeaderComponent } from './../shared/header/header.component';
 import { HomeComponent } from './home.component';
@@ -18,6 +20,7 @@ import { CardapioComponent } from './cardapio/cardapio.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { PedidoListComponent } from './pedido/pedido-list/pedido-list.component';
+import { HomeService } from './home.service';
 
 const routes: Routes = [
 
@@ -36,6 +39,10 @@ const routes: Routes = [
       {
         path: 'cardapio',
         component: CardapioComponent,
+      },
+      {
+        path: 'pedidos',
+        component: PedidoListComponent,
       }
     ]
   },
@@ -68,7 +75,7 @@ const routes: Routes = [
     MatGridListModule
   ],
   providers: [
-
+    HomeService,CardapioService,PedidoService
   ]
 })
 export class HomeModule { }

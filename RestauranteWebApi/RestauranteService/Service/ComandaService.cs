@@ -21,7 +21,7 @@ namespace RestauranteService.Service
             _mesaService = mesaService;
         }
 
-        public async Task<IniciadaModel> Iniciar(AberturaModel model)
+        public async Task<int> Iniciar(AberturaModel model)
         {
             model.Validar();
 
@@ -42,10 +42,7 @@ namespace RestauranteService.Service
 
             await _contexto.SaveChangesAsync();
 
-            return new IniciadaModel
-            {
-                ComandaId = comanda.ComandaId
-            };
+            return comanda.ComandaId;
         }
 
         public async Task Fechar(int comandaId)
