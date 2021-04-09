@@ -4,7 +4,7 @@ import { take } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { ListarDisponivelModel } from "./models/listarDisponivelModel";
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CardapioService {
 
     constructor(private http: HttpClient){
@@ -19,10 +19,4 @@ export class CardapioService {
             take(1));
     }
 
-    obterProduto(produtoId: number){
-      return this.http
-      .get<ListarDisponivelModel>(this.baseUrl+produtoId+"/obter")
-        .pipe(
-            take(1));
-    }
 }

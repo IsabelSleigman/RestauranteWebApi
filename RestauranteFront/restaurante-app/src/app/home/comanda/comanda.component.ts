@@ -1,6 +1,5 @@
+import { HomeService } from 'src/app/home/home.service';
 import { ComandaService } from './comanda.service';
-import { IniciadaModel } from './models/iniciada-model';
-import { HomeService } from './../home.service';
 import { BuscarModel } from './models/buscar-model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -23,7 +22,7 @@ export class ComandaComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.homeService
+    this.comandaService
     .obterComanda(this.homeService.comandaId)
     .subscribe(c => this.comanda = c)
   }

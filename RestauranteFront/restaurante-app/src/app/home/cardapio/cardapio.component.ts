@@ -1,7 +1,9 @@
+import { PedidoDialogComponent } from './../../dialogs/pedido-dialog/pedido-dialog.component';
 import { PedidoService } from './../pedido/pedido.service';
 import { CardapioService } from './cadapio.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ListarDisponivelModel } from './models/listarDisponivelModel';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-cardapio',
@@ -11,9 +13,8 @@ import { ListarDisponivelModel } from './models/listarDisponivelModel';
 export class CardapioComponent implements OnInit {
 
  produto : ListarDisponivelModel[];
- produtoId: number;
 
-  constructor(private cardapioService: CardapioService, private pedidoService: PedidoService) { }
+  constructor(private cardapioService: CardapioService, private pedidoService: PedidoService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.cardapioService
@@ -22,8 +23,11 @@ export class CardapioComponent implements OnInit {
     console.log(this.produto)
   }
 
-  produtoSelecionado(){
-    this.pedidoService.pegarIdProduto(this.produtoId);
+  produtoSelecionado(produto : ListarDisponivelModel){
+    this.dialog.open(PedidoDialogComponent, {
+      width: '250px',
+      data: produto
+    });
   }
  
 }

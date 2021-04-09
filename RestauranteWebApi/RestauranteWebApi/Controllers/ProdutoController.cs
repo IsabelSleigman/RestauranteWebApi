@@ -24,11 +24,6 @@ namespace RestauranteWebApi.Controllers
             return await _produtoService.MostrarDisponiveis();
 
         }
-        [HttpGet("{produtoId}/obter")]
-        public async Task<ListarDisponivelModel> ObterProduto(int produtoId)
-        {
-            return await _produtoService.ObterDisponivel(produtoId);
-
-        }
+       
     }
 }

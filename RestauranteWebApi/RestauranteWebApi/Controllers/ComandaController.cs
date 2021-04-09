@@ -26,10 +26,10 @@ namespace RestauranteWebApi.Controllers
             return comanda;
         }
 
-        [HttpGet("{comandaId}/completa")]
-        public async Task<ModelPaga> BuscarCompleta(int comandaId)
+        [HttpGet("{mesaId}/completa")]
+        public async Task<ModelPaga> BuscarCompleta(int mesaId)
         {
-            var listaModel = await _comandaService.BuscarCompleta(comandaId);
+            var listaModel = await _comandaService.BuscarCompleta(mesaId);
             return listaModel;
         }
 

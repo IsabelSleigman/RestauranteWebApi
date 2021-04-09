@@ -1,4 +1,4 @@
-import { ListarModel } from './../../pedido/models/listar-model';
+import { ListarModel } from '../../pedido/models/listarModel';
 export interface ModelPaga {
 
     comandaId: number;

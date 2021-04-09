@@ -1,0 +1,12 @@
+<ol>
+    <div>
+    <li>
+        <mat-form-field>
+            <mat-label> Digite a mesa de atendimento </mat-label>
+            <input matInput [( ngModel )]="mesaId">
+        </mat-form-field>
+    </li>
+    <button mat-button ( click )="cancelar()"> Cancelar </button>
+    <button mat-button [ mat-dialog-close ]="mesaId" cdkFocusInitial (click)="retomar()"> Continuar </button>
+</div>
+</ol>

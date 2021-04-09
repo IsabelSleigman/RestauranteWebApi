@@ -16,10 +16,6 @@ export class PedidoService {
         private router: Router,
         private route: ActivatedRoute) { }
 
-
-        pegarIdProduto(produtoId: number){
-            return produtoId;
-        }
-
+        
     
 }

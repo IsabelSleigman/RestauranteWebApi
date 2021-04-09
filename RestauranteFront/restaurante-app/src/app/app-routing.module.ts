@@ -1,9 +1,7 @@
 import { InicialComponent } from './inicial/inicial.component';
-import { IniciadaModel } from './home/comanda/models/iniciada-model';
-import { HomeComponent } from './home/home.component';
 import { NaoEncontradaComponent } from './nao-encontrada/nao-encontrada.component';
-import { NgModule, Component } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 
 const routes: Routes = [

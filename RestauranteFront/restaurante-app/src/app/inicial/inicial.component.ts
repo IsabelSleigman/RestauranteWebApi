@@ -4,6 +4,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { InicialService } from './inicial.service';
 import { MesaModel } from './models/mesa-model';
+import { RetomarComandaDialogComponent } from './dialog/retomar-comanda-dialog/retomar-comanda-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-inicial',
@@ -18,12 +20,12 @@ export class InicialComponent implements OnInit {
 
   mesas: MesaModel[];
 
-  comandaId: number;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
     private inicialService: InicialService,
-    private homeService: HomeService) { }
+    private homeService: HomeService,
+    private dialog: MatDialog) { }
 
   @Output() inicialForm = new EventEmitter<void>();
 
@@ -41,8 +43,17 @@ export class InicialComponent implements OnInit {
   navegarMenu() {
     
       this.homeService.iniciar(this.form.value);
-      this.comandaId = this.homeService.comandaId;
+ 
+  }
+
+  retomarComanda(){
+  
+      this.dialog.open(RetomarComandaDialogComponent, {
+      
+      });
     
+
+
   }
 
 }

@@ -23,13 +23,13 @@ namespace RestauranteWebApi.Controllers
             return await _pedidoService.FazerPedido(model);
         }
 
-        [HttpPost("{pedidoId}/{comandaId}/{quantidade}/editar")]
+        [HttpPost("/editar")]
         public async Task Editar(RealizadaModel model)
         {
             await _pedidoService.Editar(model);
         }
 
-        [HttpDelete("{pedidoId}/{comandaId}")]
+        [HttpDelete()]
         public async Task Excluir(ExcluirModel model)
         {
             await _pedidoService.Excluir(model);
