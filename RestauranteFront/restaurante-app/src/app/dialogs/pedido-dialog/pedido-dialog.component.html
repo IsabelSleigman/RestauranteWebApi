@@ -1,4 +1,4 @@
-<div class="example-card"  >
+<div class="example-card"  mat-dialog-content>
     <mat-card class="card" >
         <form [formGroup]="formPedido">
         <mat-card-header>
@@ -14,9 +14,9 @@
         </mat-card-content>
         <mat-dialog-actions>
         <mat-label for="quantidade">Quantidade</mat-label>
-            <mat-select  formControlName="quantidade">
-              <mat-option *ngFor="let q of quantidadeSelt" [value]="q">{{q}}</mat-option>
-            </mat-select>
+           <div>
+               <input  formControlName="quantidade" type="number">
+           </div>
         </mat-dialog-actions>
         <mat-card-actions>
             <button class="button" mat-button (click)="realizarPedido()">Selecionar</button>

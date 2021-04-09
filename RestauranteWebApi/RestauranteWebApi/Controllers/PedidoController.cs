@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestauranteService.Service;
 using RestauranteService.Service.Model.PedidoModel;
+using RestauranteService.Service.PedidoModel;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,6 +17,12 @@ namespace RestauranteWebApi.Controllers
         public PedidoController(PedidoService pedidoService)
         {
             _pedidoService = pedidoService;
+        }
+
+        [HttpGet()]
+        public async Task<List<ListarModel>> ListarRealizados(int comandaId)
+        {
+            return await _pedidoService.ListarRealizados(comandaId);
         }
 
         [HttpPost()]

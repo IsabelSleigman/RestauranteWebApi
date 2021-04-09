@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate(["comanda"], { relativeTo: this.route });
   }
   navegarPedido(){
-    this.router.navigate(["pedidos"],{ relativeTo: this.route});
+    this.router.navigate([this.homeService.comandaId,"pedidos"], { relativeTo: this.route });
   }
 
 }

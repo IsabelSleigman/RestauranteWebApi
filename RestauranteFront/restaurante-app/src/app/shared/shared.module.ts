@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
 import { NgModule } from "@angular/core";
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -10,14 +9,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatOptionModule } from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from "@angular/material/core";
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
     declarations: [
-        FooterComponent,
+
         HeaderComponent
 
     ],
@@ -34,8 +37,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         MatDialogModule,
         MatOptionModule,
         FormsModule,
-        ReactiveFormsModule
-        
+        ReactiveFormsModule,
+        MatNativeDateModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatIconModule
+
+
 
     ],
     exports: [
@@ -46,14 +54,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         MatButtonModule,
         MatInputModule,
         MatGridListModule,
-        FooterComponent,
         HeaderComponent,
         FlexLayoutModule,
         CommonModule,
         MatDialogModule,
         MatOptionModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatNativeDateModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatIconModule
     ],
     providers: []
 })

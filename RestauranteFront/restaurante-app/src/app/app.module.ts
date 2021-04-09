@@ -10,14 +10,12 @@ import {InicialModule} from './inicial/inicial.module';
 import { HomeModule } from './home/home.module';
 import { NaoEncontradaComponent } from './nao-encontrada/nao-encontrada.component';
 import { PedidoDialogComponent } from './dialogs/pedido-dialog/pedido-dialog.component';
-import { RetomarComandaComponent } from './dialogs/retomar-comanda/retomar-comanda.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NaoEncontradaComponent,
     PedidoDialogComponent,
-    RetomarComandaComponent,
    
   ],
   imports: [

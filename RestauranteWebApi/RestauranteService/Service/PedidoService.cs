@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using RestauranteDominio;
 using RestauranteDominio.Enum;
 using RestauranteService.Service.Model.PedidoModel;
+using RestauranteService.Service.PedidoModel;
 
 namespace RestauranteService.Service
 {
@@ -64,7 +65,7 @@ namespace RestauranteService.Service
 
             await _contexto.SaveChangesAsync();
 
-            return pedido.ComandaId;
+            return pedido.PedidoId;
         }
 
         public async Task Editar(RealizadaModel model)
@@ -137,6 +138,26 @@ namespace RestauranteService.Service
 
             await _contexto.SaveChangesAsync();
         }
+        public async Task<List<ListarModel>> ListarRealizados(int comandaId)
+        {
+            var listaPedidos = await _contexto
+                .Pedido
+                .Where(p =>p.ComandaId == comandaId)
+                .Select(np => new ListarModel
+                {
+                    PedidoId= np.PedidoId,
+                    PedidoValor= np.PedidoValor,
+                    ProdutoId = np.ProdutoId,
+                    ProdutoNome =np.Produto.Nome,
+                    QuantidadeProduto= np.QuantidadeProduto,
+                    Status= np.Status.Descricao
+                }).ToListAsync();
+
+            _ = listaPedidos ?? throw new Exception("Não Existem pedidos");
+
+            return listaPedidos;
+        }
+
 
     }
 }

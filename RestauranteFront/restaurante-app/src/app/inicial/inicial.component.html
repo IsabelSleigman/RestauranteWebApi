@@ -1,28 +1,31 @@
-<div class="auth-page">
+<div class="auth-page" fxLayout="column" fxLayoutAlign="end center" >
+  <div>
+    <img src="./assets/menu/inicial.png">
+  </div>
     <form class="form" [formGroup]="form" (ngSubmit)="navegarMenu()">
-      <div class="auth-page__container">
+      <div class="auth-page__container" >
         <img class="auth-page__group-title" src="./assets/Logo/LogoNormal.png" alt="">
-        <div class="auth-page__group-inicial">
+        <div class="auth-page__group-inicial" fxLayout="column" fxLayoutAlign="end center">
   
-          <mat-form-field class="auth-page__form">
+          <mat-form-field class="auth-page__form" fxLayout="column" fxLayoutAlign="space-between center">
             <mat-label for="pessoas"> Quantidade de pessoas </mat-label>
             <mat-select class="auth-page__select" formControlName="quantidadeClientes">
               <mat-option *ngFor="let pessoa of quantidadePessoa" [value]="pessoa">{{pessoa}}</mat-option>
             </mat-select>
           </mat-form-field>
   
-          <mat-form-field class="auth-page__form">
+          <mat-form-field class="auth-page__form" fxLayout="column" fxLayoutAlign="space-between center">
             <mat-label for="mesa"> Mesas </mat-label>
             <mat-select class="auth-page__select" formControlName="mesaId">
               <mat-option *ngFor="let mesa of mesas" [value]="mesa.mesaId">{{mesa.mesaId}}</mat-option>
             </mat-select>
           </mat-form-field>
   
-          <div class="form-actions">
+          <div class="form-actions" fxLayout="column" fxLayoutAlign="end center">
             <button mat-raised-button  type ="submit">Iniciar</button>
           </div>
         </div>
-        <button id="btn-retornar" (click)=" retomarComanda()">Retomar</button>
+       
       </div>
     </form>
   </div>

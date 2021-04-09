@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { NgModule, } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -10,14 +11,12 @@ import {MatSelectModule} from '@angular/material/select';
 
 import { InicialComponent } from './inicial.component';
 import { HttpClientModule } from '@angular/common/http';
-import { RetomarComandaDialogComponent } from './dialog/retomar-comanda-dialog/retomar-comanda-dialog.component';
 
 
 
 @NgModule({
   declarations: [
     InicialComponent,
-    RetomarComandaDialogComponent,
 
   ],
   imports: [
@@ -30,7 +29,8 @@ import { RetomarComandaDialogComponent } from './dialog/retomar-comanda-dialog/r
     HttpClientModule,
     MatListModule,
     MatCardModule,
-    MatSelectModule
+    MatSelectModule,
+    SharedModule
   ],
   exports:[InicialComponent],
   providers: [

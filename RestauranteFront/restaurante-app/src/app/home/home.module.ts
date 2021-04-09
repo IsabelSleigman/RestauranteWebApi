@@ -9,7 +9,6 @@ import { ComandaComponent } from './../home/comanda/comanda.component';
 import { PedidoComponent } from './pedido/pedido.component';
 import { CardapioComponent } from './cardapio/cardapio.component';
 import { HomeService } from './home.service';
-import { PedidoListComponent } from './pedido/pedido-list/pedido-list.component';
 
 const routes: Routes = [
 
@@ -17,10 +16,7 @@ const routes: Routes = [
     path: ':comandaId',
     component: HomeComponent,
     children: [
-      {
-        path: '',
-        component: PedidoComponent,
-      },
+     
       {
         path: 'comanda',
         component: ComandaComponent,
@@ -31,7 +27,7 @@ const routes: Routes = [
       },
       {
         path: 'pedidos',
-        component: PedidoListComponent,
+        component: PedidoComponent,
       },
   
     ]
@@ -45,7 +41,6 @@ const routes: Routes = [
     ComandaComponent,
     PedidoComponent,
     CardapioComponent,
-    PedidoListComponent,
   
     
   ],

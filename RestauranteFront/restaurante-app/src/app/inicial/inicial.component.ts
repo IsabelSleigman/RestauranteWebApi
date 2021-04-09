@@ -1,10 +1,10 @@
+
 import { HomeService } from './../home/home.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { InicialService } from './inicial.service';
 import { MesaModel } from './models/mesa-model';
-import { RetomarComandaDialogComponent } from './dialog/retomar-comanda-dialog/retomar-comanda-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -46,14 +46,5 @@ export class InicialComponent implements OnInit {
  
   }
 
-  retomarComanda(){
-  
-      this.dialog.open(RetomarComandaDialogComponent, {
-      
-      });
-    
-
-
-  }
 
 }

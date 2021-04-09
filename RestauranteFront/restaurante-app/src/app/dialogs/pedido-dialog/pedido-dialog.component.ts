@@ -1,3 +1,6 @@
+import { RealizarModel } from './../../home/pedido/models/realizarModel';
+import { ListarModel } from './../../home/pedido/models/listarModel';
+import { PedidoService } from './../../home/pedido/pedido.service';
 import { HomeService } from './../../home/home.service';
 import { ListarDisponivelModel } from './../../home/cardapio/models/listarDisponivelModel';
 import { Component, Inject, OnInit } from '@angular/core';
@@ -15,12 +18,14 @@ export class PedidoDialogComponent implements OnInit {
 
   produto : ListarDisponivelModel = {} as ListarDisponivelModel;
 
+  pedido : RealizarModel[] = {} as RealizarModel[];
+
   quantidadeSelt: [1,2,3,4,5,6,7];
 
   comanda : number = 0;
 
   constructor(public dialogRef: MatDialogRef<PedidoDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ListarDisponivelModel, private homeService:HomeService) {
+    @Inject(MAT_DIALOG_DATA) public data: ListarDisponivelModel, private homeService:HomeService,private pedidoService: PedidoService) {
       this.produto = data;
     }
 
@@ -29,9 +34,9 @@ export class PedidoDialogComponent implements OnInit {
     this.comanda = this.homeService.comandaId;
 
     this.formPedido = new FormGroup({
-      comanda: new FormControl('', [Validators.required]),
-      produtoId: new FormControl('', [Validators.required]),
-      quantidade: new FormControl('', [Validators.required])
+      comandaId: new FormControl(this.comanda, [Validators.required]),
+      produtoId: new FormControl(this.produto.produtoId, [Validators.required]),
+      quantidade: new FormControl(1, [Validators.required])
     });
   }
 
@@ -40,6 +45,9 @@ export class PedidoDialogComponent implements OnInit {
   }
 
   realizarPedido(){
+    this.pedido = this.formPedido.value
+    this.pedidoService.realizarPedido(this.pedido)
+    this.dialogRef.close();
 
   }
 

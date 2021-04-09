@@ -1,14 +1,16 @@
 .example-card {
     height: 150px;
     display: grid;
-    grid-template-columns: 270px 270px 270px 270px;
+    grid-template-columns: repeat(4,250px);
     grid-gap: 10px;
     align-items: center;
     position: relative;
+
 }
 .card{
     display: grid;
     grid-template-rows: 1fr;
+    
 }
 
 .example-header-image {
@@ -20,10 +22,10 @@
     object-fit: cover;
 }
 .button{
-    background: burlywood;
     position: absolute;
     top: 5px;
     right: 5px;
+    font-size: 14px;
 }
 img{
     height: 100px;

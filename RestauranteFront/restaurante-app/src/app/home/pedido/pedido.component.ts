@@ -1,8 +1,10 @@
+import { ListarModel } from './models/listarModel';
 import { CardapioService } from './../cardapio/cadapio.service';
 import { HomeService } from './../home.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ListarDisponivelModel } from '../cardapio/models/listarDisponivelModel';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-pedido',
@@ -11,6 +13,12 @@ import { ListarDisponivelModel } from '../cardapio/models/listarDisponivelModel'
 
 })
 export class PedidoComponent implements OnInit {
+
+  matDataSource = new MatTableDataSource<ListarModel>();
+
+  displayedColumns = ['pedidoId', 'name','pedidoValor','quantidadeProduto','status', 'action']
+
+  pedido: ListarModel[] = [];
 
   formPedido: FormGroup;
   produtoId: number = 0;

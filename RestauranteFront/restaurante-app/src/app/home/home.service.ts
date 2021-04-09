@@ -38,15 +38,4 @@ export class HomeService {
     }
 
   
-    retomarComanda(mesaId: number) {
-        return this.http
-            .get<ModelPaga>(`${this.baseUrl}/${mesaId}/completa`)
-            .pipe(
-                take(1)
-            )
-                .subscribe(res => 
-                    this._comanda.next(res));
-                    this.router.navigate(["home",this.comandaId], { relativeTo: this.route });
-    }
-
 }
