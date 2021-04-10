@@ -7,13 +7,11 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+const baseUrl = `${environment.apiUrl}/pedido`
 
 @Injectable()
 
 export class PedidoService {
-
-    baseUrl = `${environment.apiUrl}/pedido`
-
     
     public pedido: ListarModel;
     private _pedidos = new BehaviorSubject<ListarModel[]>([]);
@@ -24,7 +22,7 @@ export class PedidoService {
 
     listarPedidos(comandaId: number){
         return this.http
-        .get<ListarModel[]>(`${this.baseUrl}/${comandaId}`)
+        .get<ListarModel[]>(`${baseUrl}/${comandaId}`)
         .pipe(
             take(1)
         ).subscribe(res =>
@@ -35,7 +33,7 @@ export class PedidoService {
     realizarPedido(model: RealizarModel[]){
 
         return this.http
-        .post<number>(`${this.baseUrl}`, model)
+        .post<number>(`${baseUrl}`, model)
         .pipe(
             take(1)
         ).subscribe(id => {
