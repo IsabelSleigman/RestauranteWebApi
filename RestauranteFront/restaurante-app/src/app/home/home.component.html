@@ -1,22 +1,25 @@
 <div class="display">
-<div>
-    <app-header></app-header>
-    
-</div>
-<div class="menu-cardapio" >
-    <div class="button-group">
-        <div>
-            <button class="btn" mat-raised-button (click)="navegarCardapio()">Cardápio</button>
-        </div>
-        <div >
-            <button class="btn" mat-raised-button (click)="navegarComanda()">Comanda</button>
-        </div>
-        <div >
-            <button class="btn" mat-raised-button (click)="navegarPedido()">Pedidos</button>
-        </div>
-    </div>
-    <div class="rota">
-        <router-outlet></router-outlet>
-    </div>
-</div>
+    <div>
+        <app-header></app-header>
 
+    </div>
+    <div class="menu-cardapio">
+        <div class="button-group">
+            <div>
+                <button class="btn" mat-raised-button (click)="navegarCardapio()">Cardápio</button>
+            </div>
+            <a routerLink="comanda">
+                <div>
+                    <button class="btn" mat-raised-button>Comanda</button>
+                </div>
+            </a>
+            <div>
+                <a routerLink="pedidos">
+                    <button class="btn" mat-raised-button>Pedidos</button>
+                </a>
+            </div>
+        </div>
+        <div class="rota">
+            <router-outlet></router-outlet>
+        </div>
+    </div>

@@ -1,3 +1,4 @@
+import { PedidoService } from './pedido.service';
 import { ListarModel } from './models/listarModel';
 import { CardapioService } from './../cardapio/cadapio.service';
 import { HomeService } from './../home.service';
@@ -26,20 +27,14 @@ export class PedidoComponent implements OnInit {
   comanda: number = 0;
   produto: ListarDisponivelModel;
 
-  constructor(private homeService: HomeService, private cardapioService: CardapioService) {
+  constructor(private homeService: HomeService, private pedidoService: PedidoService) {
 
-    this.comanda = this.homeService.comandaId;
 
   }
 
   ngOnInit(): void {
    
-
-    this.formPedido = new FormGroup({
-      comanda: new FormControl('', [Validators.required]),
-      produtoId: new FormControl('', [Validators.required]),
-      quantidade: new FormControl('', [Validators.required])
-    });
+//this.pedidoService.listarPedidos(this.homeService.comanda$).
 
   }
 
@@ -47,7 +42,5 @@ export class PedidoComponent implements OnInit {
 
   }
 
-  produtoSelecionado(produtoId: number) {
 
-  }
 }

@@ -25,11 +25,5 @@ export class HomeComponent implements OnInit {
   navegarCardapio(){
     this.router.navigate(["home", this.homeService.comandaId]);
   }
-  navegarComanda(){
-    this.router.navigate(["comanda"], { relativeTo: this.route });
-  }
-  navegarPedido(){
-    this.router.navigate([this.homeService.comandaId,"pedidos"], { relativeTo: this.route });
-  }
-
+  
 }

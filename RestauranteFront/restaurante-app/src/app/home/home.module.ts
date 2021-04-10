@@ -22,7 +22,7 @@ const routes: Routes = [
         component: ComandaComponent,
       },
       {
-        path: 'cardapio',
+        path: '',
         component: CardapioComponent,
       },
       {
