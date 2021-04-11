@@ -1,11 +1,11 @@
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { catchError, take } from 'rxjs/operators';
 import { ListarModel } from './models/listarModel';
 import { RealizarModel } from './models/realizarModel';
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 const baseUrl = `${environment.apiUrl}/pedido`
 
@@ -30,12 +30,15 @@ export class PedidoService {
     }
 
 
-    realizarPedido(model: RealizarModel[]){
+    realizarPedido(model: RealizarModel){
 
         return this.http
         .post<number>(`${baseUrl}`, model)
         .pipe(
-            take(1)
+            take(1),
+            catchError((error: HttpErrorResponse) => {
+                throw error;
+            })
         ).subscribe(id => {
            this.pedido.pedidoId = id;
            let pedidos = this._pedidos.getValue();
@@ -46,5 +49,4 @@ export class PedidoService {
              
 
     }
-
 }

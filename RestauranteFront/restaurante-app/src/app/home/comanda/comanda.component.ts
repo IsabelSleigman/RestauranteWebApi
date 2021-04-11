@@ -21,14 +21,14 @@ export class ComandaComponent implements OnInit {
   colunas = ['pedidoId', 'produtoNome', 'quantidade', 'valor', 'status'];
 
   constructor(
-    private comandaService: ComandaService) {
+    private homeService: HomeService) {
   }
 
   ngOnInit(): void {
 
-    this.comandaService.obterComanda();
+    this.homeService.obterComanda()
 
-    this.comandaService.comanda$.subscribe(c => this.comandaCompleta = c);
+    this.homeService.comanda$.subscribe(c => this.comandaCompleta = c);
 
   }
 

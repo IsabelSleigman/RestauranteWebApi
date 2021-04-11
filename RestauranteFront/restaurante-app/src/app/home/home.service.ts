@@ -1,5 +1,5 @@
-import { ModelPaga } from './comanda/models/modelPaga';
-import { BuscarModel } from './comanda/models/buscar-model';
+import { ModelCompleta } from './comanda/models/modelCompleta';
+
 import { AberturaModel } from './../inicial/models/abertura-model';
 import { Injectable } from "@angular/core";
 import { take } from 'rxjs/operators';
@@ -15,8 +15,8 @@ export class HomeService {
     baseUrl = `${environment.apiUrl}/comanda`
 
     public comandaId: number;
-    private _comanda = new BehaviorSubject<ModelPaga>(null);
-    public readonly comanda$: Observable<ModelPaga> = this._comanda.asObservable();
+    private _comanda = new BehaviorSubject<ModelCompleta>(null);
+    public readonly comanda$: Observable<ModelCompleta> = this._comanda.asObservable();
 
     constructor(private http: HttpClient,
         private router: Router,
@@ -37,5 +37,11 @@ export class HomeService {
 
     }
 
-  
+    obterComanda(): Observable<ModelCompleta> {
+        return this.http
+            .get<ModelCompleta>(this.baseUrl + this.comandaId)
+            .pipe(
+                take(1));
+    }
+
 }

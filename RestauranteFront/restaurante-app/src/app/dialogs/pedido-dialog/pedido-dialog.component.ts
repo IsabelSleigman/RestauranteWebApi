@@ -45,10 +45,13 @@ export class PedidoDialogComponent implements OnInit {
   }
 
   realizarPedido(){
-    this.pedido = this.formPedido.value
-    this.pedidoService.realizarPedido(this.pedido)
+    var pedido: RealizarModel = {
+      produtoId: this.formPedido.value.produtoId,
+      quantidade: this.formPedido.value.quantidade,
+      comandaId: this.formPedido.value.comandaId
+    }
+    this.pedidoService.realizarPedido(pedido)
     this.dialogRef.close();
 
   }
-
 }
