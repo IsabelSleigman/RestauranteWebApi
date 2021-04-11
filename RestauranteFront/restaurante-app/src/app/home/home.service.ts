@@ -7,12 +7,13 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { ActivatedRoute, Params, Router } from '@angular/router';
+const  baseUrl = `${environment.apiUrl}/comanda`
 
 @Injectable()
 
 export class HomeService {
 
-    baseUrl = `${environment.apiUrl}/comanda`
+   
 
     public comandaId: number;
     private _comanda = new BehaviorSubject<ModelCompleta>(null);
@@ -26,7 +27,7 @@ export class HomeService {
     iniciar(iniciar: AberturaModel) {
 
         return this.http
-            .post<number>( `${this.baseUrl}`, iniciar)
+            .post<number>( `${baseUrl}`, iniciar)
             .pipe(
                 take(1)).subscribe(id => {
                     this.comandaId = id;
@@ -37,11 +38,11 @@ export class HomeService {
 
     }
 
-    obterComanda(): Observable<ModelCompleta> {
+    obterComanda() {
         return this.http
-            .get<ModelCompleta>(this.baseUrl + this.comandaId)
+            .get<ModelCompleta>(`${baseUrl}/${this.comandaId}/completa`)
             .pipe(
-                take(1));
+                take(1)).subscribe(res => this._comanda.next(res));
     }
 
 }

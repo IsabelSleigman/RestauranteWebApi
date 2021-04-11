@@ -47,7 +47,7 @@ export class InicialComponent implements OnInit {
     }
     
       this.homeService.iniciar(inicial);
- 
+    
   }
 
 

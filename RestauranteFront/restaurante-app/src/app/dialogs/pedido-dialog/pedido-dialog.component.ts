@@ -22,7 +22,7 @@ export class PedidoDialogComponent implements OnInit {
 
   quantidadeSelt: [1,2,3,4,5,6,7];
 
-  comanda : number = 0;
+  comandaId : number = 0;
 
   constructor(public dialogRef: MatDialogRef<PedidoDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ListarDisponivelModel, private homeService:HomeService,private pedidoService: PedidoService) {
@@ -31,13 +31,14 @@ export class PedidoDialogComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.comanda = this.homeService.comandaId;
+    this.homeService.comanda$.subscribe(c => this.comandaId = c.comandaId);
 
     this.formPedido = new FormGroup({
-      comandaId: new FormControl(this.comanda, [Validators.required]),
+      comandaId: new FormControl(this.comandaId, [Validators.required]),
       produtoId: new FormControl(this.produto.produtoId, [Validators.required]),
       quantidade: new FormControl(1, [Validators.required])
     });
+    
   }
 
   cancelar() {
