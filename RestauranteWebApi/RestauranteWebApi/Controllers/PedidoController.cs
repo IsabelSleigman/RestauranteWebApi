@@ -19,7 +19,7 @@ namespace RestauranteWebApi.Controllers
             _pedidoService = pedidoService;
         }
 
-        [HttpGet()]
+        [HttpGet("{comandaId}")]
         public async Task<List<ListarModel>> ListarRealizados(int comandaId)
         {
             return await _pedidoService.ListarRealizados(comandaId);

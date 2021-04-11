@@ -1,3 +1,5 @@
+import { ListarModel } from './../pedido/models/listarModel';
+import { PedidoService } from './../pedido/pedido.service';
 import { HomeService } from 'src/app/home/home.service';
 import { ComandaService } from './comanda.service';
 import { BuscarModel } from './models/buscar-model';
@@ -14,14 +16,17 @@ import { ModelCompleta } from './models/modelCompleta';
 })
 export class ComandaComponent implements OnInit {
 
-  matDataSource = new MatTableDataSource<ModelCompleta>();
+  matDataSource = new MatTableDataSource<ListarModel>();
 
   comandaCompleta: ModelCompleta = {} as ModelCompleta;
+
+  pedidos: ListarModel[] = {} as ListarModel[]
 
   colunas = ['pedidoId', 'produtoNome', 'quantidade', 'valor', 'status'];
 
   constructor(
-    private homeService: HomeService) {
+    private homeService: HomeService,
+    private pedidoService: PedidoService) {
   }
 
   ngOnInit(): void {
@@ -29,6 +34,10 @@ export class ComandaComponent implements OnInit {
     this.homeService.obterComanda()
 
     this.homeService.comanda$.subscribe(c => this.comandaCompleta = c);
+
+   this.pedidoService.listarPedidos(this.comandaCompleta.comandaId);
+
+   this.pedidoService.pedidos$.subscribe(p => this.pedidos = p)
 
   }
 
