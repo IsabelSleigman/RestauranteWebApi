@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { InicialService } from './inicial.service';
 import { MesaModel } from './models/mesa-model';
 import { MatDialog } from '@angular/material/dialog';
+import { AberturaModel } from './models/abertura-model';
 
 @Component({
   selector: 'app-inicial',
@@ -27,8 +28,6 @@ export class InicialComponent implements OnInit {
     private homeService: HomeService,
     private dialog: MatDialog) { }
 
-  @Output() inicialForm = new EventEmitter<void>();
-
   ngOnInit(): void {
     this.inicialService
       .obterMesas()
@@ -41,8 +40,13 @@ export class InicialComponent implements OnInit {
 
   }
   navegarMenu() {
+
+    var inicial: AberturaModel = {
+      mesaId: this.form.value.mesaId,
+      quantidadeClientes: this.form.value.quantidadeClientes
+    }
     
-      this.homeService.iniciar(this.form.value);
+      this.homeService.iniciar(inicial);
  
   }
 
