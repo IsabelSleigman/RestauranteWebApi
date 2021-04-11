@@ -3,6 +3,8 @@ import { ComandaService } from './comanda.service';
 import { BuscarModel } from './models/buscar-model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
+import { ModelCompleta } from './models/modelCompleta';
 
 
 @Component({
@@ -12,19 +14,22 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class ComandaComponent implements OnInit {
 
-  comanda: BuscarModel;
+  matDataSource = new MatTableDataSource<ModelCompleta>();
 
-  constructor(private router:Router,
-    private route: ActivatedRoute,
-    private homeService: HomeService,
-    private comandaService : ComandaService) {
-     }
+  comandaCompleta: ModelCompleta = {} as ModelCompleta;
+
+  colunas = ['pedidoId', 'produtoNome', 'quantidade', 'valor', 'status'];
+
+  constructor(
+    private comandaService: ComandaService) {
+  }
 
   ngOnInit(): void {
 
-    this.comandaService
-    .obterComanda(this.homeService.comandaId)
-    .subscribe(c => this.comanda = c)
+    this.comandaService.obterComanda();
+
+    this.comandaService.comanda$.subscribe(c => this.comandaCompleta = c);
+
   }
 
   FinalizarComanda(){
