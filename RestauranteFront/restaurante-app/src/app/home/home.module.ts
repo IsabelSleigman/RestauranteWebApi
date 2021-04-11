@@ -13,16 +13,16 @@ import { HomeService } from './home.service';
 const routes: Routes = [
 
   {
-    path: ':comandaId',
+    path: '',
     component: HomeComponent,
     children: [
      
       {
-        path: 'comanda',
+        path: '',
         component: ComandaComponent,
       },
       {
-        path: '',
+        path: 'cardapio',
         component: CardapioComponent,
       },
       {

@@ -16,6 +16,15 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatExpansionModule } from '@angular/material/expansion';
+
+
+
+
 
 
 @NgModule({
@@ -41,7 +50,12 @@ import { MatIconModule } from '@angular/material/icon';
         MatNativeDateModule,
         MatTableModule,
         MatPaginatorModule,
-        MatIconModule
+        MatIconModule,
+        MatDatepickerModule,
+        MatMenuModule,
+        MatSidenavModule,
+        MatSnackBarModule,
+        MatExpansionModule
 
 
 
@@ -64,7 +78,12 @@ import { MatIconModule } from '@angular/material/icon';
         MatNativeDateModule,
         MatTableModule,
         MatPaginatorModule,
-        MatIconModule
+        MatIconModule,
+        MatDatepickerModule,
+        MatMenuModule,
+        MatSidenavModule,
+        MatSnackBarModule,
+        MatExpansionModule
     ],
     providers: []
 })

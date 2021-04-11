@@ -11,6 +11,7 @@ import {MatSelectModule} from '@angular/material/select';
 
 import { InicialComponent } from './inicial.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -30,7 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatListModule,
     MatCardModule,
     MatSelectModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ],
   exports:[InicialComponent],
   providers: [

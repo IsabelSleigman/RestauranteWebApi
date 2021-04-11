@@ -1,32 +1,29 @@
+import { HomeService } from 'src/app/home/home.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { BuscarModel } from './models/buscar-model';
-import { ModelPaga } from './models/modelPaga';
+import {ModelCompleta } from './models/modelCompleta';
+const baseUrl = `${environment.apiUrl}/comanda`
 
 @Injectable({ providedIn: 'root' })
 
 export class ComandaService {
     
-    baseUrl = `${environment.apiUrl}/comanda/`
-
-    public comandaId: number;
-    private _comanda = new BehaviorSubject<ModelPaga>(null);
-    public readonly comanda$: Observable<ModelPaga> = this._comanda.asObservable();
+    private _comanda = new BehaviorSubject<ModelCompleta>(null);
+    public readonly comanda$: Observable<ModelCompleta> = this._comanda.asObservable();
 
     constructor(private http: HttpClient,
-        private router: Router,
-        private route: ActivatedRoute) {
+       private homeService: HomeService) {
     }
    
-    obterComanda(comandaId: number): Observable<BuscarModel> {
+    obterComanda(){
         return this.http
-            .get<BuscarModel>(this.baseUrl + comandaId)
+            .get<ModelCompleta>(`${baseUrl}/${this.homeService.comandaId}/completa`)
             .pipe(
-                take(1));
+                take(1))
+                .subscribe(res => this._comanda.next(res));
     }
 
 

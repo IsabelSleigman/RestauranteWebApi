@@ -1,6 +1,6 @@
-
+import { AberturaModel } from './models/abertura-model';
 import { HomeService } from './../home/home.service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { InicialService } from './inicial.service';
@@ -27,8 +27,6 @@ export class InicialComponent implements OnInit {
     private homeService: HomeService,
     private dialog: MatDialog) { }
 
-  @Output() inicialForm = new EventEmitter<void>();
-
   ngOnInit(): void {
     this.inicialService
       .obterMesas()
@@ -41,10 +39,14 @@ export class InicialComponent implements OnInit {
 
   }
   navegarMenu() {
-    
-      this.homeService.iniciar(this.form.value);
- 
-  }
 
+    var inicial: AberturaModel = {
+      mesaId: this.form.value.mesaId,
+      quantidadeClientes: this.form.value.quantidadeClientes
+    }
+
+    this.homeService.iniciar(inicial);
+
+  }
 
 }

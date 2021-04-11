@@ -107,12 +107,12 @@ namespace RestauranteService.Service
             await _contexto.SaveChangesAsync();
         }
 
-        public async Task<ModelPaga> BuscarCompleta(int mesaId)
+        public async Task<ModelPaga> BuscarCompleta(int comandaId)
         {
 
             var comanda = await _contexto
                 .Comanda
-                .Where(c => c.MesaId == mesaId && c.Pago == false)
+                .Where(c => c.ComandaId == comandaId)
                 .Include(p => p.Pedidos)
                 .ThenInclude(p => p.Status)
                 .Include(p => p.Pedidos)

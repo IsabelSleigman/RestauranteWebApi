@@ -1,25 +1,45 @@
-<div class="display">
-    <div>
-        <app-header></app-header>
-
-    </div>
-    <div class="menu-cardapio">
-        <div class="button-group">
-            <div>
-                <button class="btn" mat-raised-button (click)="navegarCardapio()">Cardápio</button>
-            </div>
-            <a routerLink="comanda">
-                <div>
-                    <button class="btn" mat-raised-button>Comanda</button>
-                </div>
-            </a>
-            <div>
-                <a routerLink="pedidos">
-                    <button class="btn" mat-raised-button>Pedidos</button>
-                </a>
-            </div>
-        </div>
-        <div class="rota">
-            <router-outlet></router-outlet>
-        </div>
-    </div>
+<mat-drawer-container fxLayout="row" autosize>
+    <mat-drawer mode="side" #Menu opened fxLayout="column" class="sidenav">
+      <mat-nav-list>
+        <mat-list-item class="item first" fxLayoutAlign="center" >
+          <a routerLink="">
+            <h2 class="titulo">Estacionamento</h2>
+          </a>
+        </mat-list-item>
+        <hr/>
+        <mat-list-item class="item second">
+          <i class="material-icons icon">note_add</i>
+          <a routerLink="/Gerar/Ticket">Gerar Ticket</a>
+        </mat-list-item>
+  
+        <mat-list-item class="item">
+          <i class="material-icons icon">description</i>
+          <a routerLink="/Tickets">Ticket's</a>
+        </mat-list-item>
+  
+        <mat-list-item class="item">
+          <i class="material-icons icon">time_to_leave</i>
+          <a routerLink="/Veiculos">Veículos</a>
+        </mat-list-item>
+  
+        <mat-list-item class="item">
+          <i class="material-icons icon">monetization_on</i>
+          <a routerLink="/Financeiro">Financeiro</a>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-drawer>
+  
+    <mat-drawer-content class="content">
+      <div class="bttMenu" fxLayoutAlign="center">
+        <button class="bttn" mat-button (click)="Menu.toggle()">
+          <i class="material-icons">list</i>
+        </button>
+      </div>
+  
+      <div class="router">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-drawer-content>
+  
+  </mat-drawer-container>
+  
