@@ -6,9 +6,10 @@
   
           <mat-form-field class="auth-page__form" fxLayout="column" fxLayoutAlign="space-between center">
             <mat-label for="pessoas"> Quantidade de pessoas </mat-label>
-            <mat-select class="auth-page__select" formControlName="quantidadeClientes">
+            <mat-select  class="auth-page__select" formControlName="quantidadeClientes">
               <mat-option *ngFor="let pessoa of quantidadePessoa" [value]="pessoa">{{pessoa}}</mat-option>
-            </mat-select>
+            </mat-select >
+            <mat-error *ngIf="form.get('quantidadeClientes').hasError('required')">Quantidade de pessoas obrigatoria</mat-error>
           </mat-form-field>
   
           <mat-form-field class="auth-page__form" fxLayout="column" fxLayoutAlign="space-between center">
@@ -16,10 +17,11 @@
             <mat-select class="auth-page__select" formControlName="mesaId">
               <mat-option *ngFor="let mesa of mesas" [value]="mesa.mesaId">{{mesa.mesaId}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="form.get('mesaId').hasError('required')">Selecione uma mesa</mat-error>
           </mat-form-field>
   
           <div class="form-actions" fxLayout="column" fxLayoutAlign="end center">
-            <button mat-raised-button  type ="submit">Iniciar</button>
+            <button mat-raised-button [disabled]="!form.valid" type ="submit">Iniciar</button>
           </div>
         </div>
        

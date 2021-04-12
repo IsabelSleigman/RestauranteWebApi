@@ -9,9 +9,9 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { ModelCompleta } from './models/modelCompleta';
 import { MatDialog } from '@angular/material/dialog';
-import { ExcluirPedidoComponent } from 'src/app/dialogs/excluir-pedido/excluir-pedido.component';
 import { filter, take } from 'rxjs/operators';
 import { pipe } from 'rxjs';
+import { DailogConfirmacaoComponent } from 'src/app/dialogs/dailog-confirmacao/dailog-confirmacao.component';
 
 
 @Component({
@@ -43,6 +43,7 @@ export class ComandaComponent implements OnInit {
 
 
     this.pedidoService.pedidos$.subscribe(p => this.pedidos = p)
+    
     console.log("ComandaListaPedidos", this.pedidos);
 
   }
@@ -58,7 +59,7 @@ export class ComandaComponent implements OnInit {
     let comandaId = this.homeService.comandaId;
     let p : ExcluirModel = {pedidoId,comandaId}
 console.log(p);
-    let dialogRef = this.dialog.open(ExcluirPedidoComponent, {
+    let dialogRef = this.dialog.open(DailogConfirmacaoComponent, {
       data: { title: "Aviso", msg: 'Tem ceteza que deseja excluir esse Pedido?' }
     });
 

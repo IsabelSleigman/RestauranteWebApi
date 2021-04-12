@@ -1,8 +1,8 @@
+import { DailogConfirmacaoComponent } from './../dialogs/dailog-confirmacao/dailog-confirmacao.component';
 import { HomeService } from './home.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { ExcluirPedidoComponent } from '../dialogs/excluir-pedido/excluir-pedido.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   
 
   fecharComanda(){
-    let dialogRef = this.dialog.open(ExcluirPedidoComponent, {
+    let dialogRef = this.dialog.open(DailogConfirmacaoComponent, {
       data: { title: "Finalizar Comanda", msg: 'Tem ceteza que deseja finalizar Atendimento?' }
     });
 

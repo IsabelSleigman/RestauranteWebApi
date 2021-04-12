@@ -1,4 +1,5 @@
 ﻿using RestauranteDominio;
+using RestauranteDominio.Enum;
 
 namespace RestauranteService.Service.PedidoModel
 {
@@ -9,6 +10,6 @@ namespace RestauranteService.Service.PedidoModel
         public string ProdutoNome { get; set; }
         public double PedidoValor { get; set; }
         public int QuantidadeProduto { get; set; }
-        public string Status { get; set; }
+        public StatusPedidoEnum StatusEnum { get; set; }
     }
 }

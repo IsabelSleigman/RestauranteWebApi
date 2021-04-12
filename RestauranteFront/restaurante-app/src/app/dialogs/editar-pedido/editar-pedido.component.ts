@@ -33,7 +33,7 @@ export class EditarPedidoComponent implements OnInit {
     this.formEditar = new FormGroup({
       pedidoId: new FormControl(null),
       comandaId: new FormControl(null),
-      quantidade: new FormControl(1, [Validators.required])
+      quantidade: new FormControl(this.data.quantidadeProduto, [Validators.required])
     });
   }
 
@@ -48,6 +48,7 @@ export class EditarPedidoComponent implements OnInit {
       quantidade: this.formEditar.get('quantidade').value
     }
     this.pedidoService.editarPedido(pedido);
+    
 
     this.dialogRef.close();
     console.log(pedido);

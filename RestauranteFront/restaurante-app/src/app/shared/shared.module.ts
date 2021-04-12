@@ -16,12 +16,17 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
+import { HumanizeFormMessagesPipe } from './pipes/humanize.pipe';
+import { NotificationService } from './snackbar/notification.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 @NgModule({
     declarations: [
 
-        HeaderComponent
+        HeaderComponent,
+        HumanizeFormMessagesPipe
 
     ],
     imports: [
@@ -41,7 +46,9 @@ import { MatIconModule } from '@angular/material/icon';
         MatNativeDateModule,
         MatTableModule,
         MatPaginatorModule,
-        MatIconModule
+        MatIconModule,
+        MatSnackBarModule
+      
 
 
 
@@ -64,8 +71,12 @@ import { MatIconModule } from '@angular/material/icon';
         MatNativeDateModule,
         MatTableModule,
         MatPaginatorModule,
-        MatIconModule
+        MatIconModule,
+        HumanizeFormMessagesPipe,
+        MatSnackBarModule
     ],
-    providers: []
+    providers: [
+        NotificationService
+    ]
 })
 export class SharedModule { }

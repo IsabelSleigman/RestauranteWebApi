@@ -37,7 +37,7 @@ namespace RestauranteWebApi.Controllers
             return await _pedidoService.Editar(model);
         }
 
-        [HttpDelete("{pedidoId}/{comandaId}")]
+        [HttpDelete("{pedidoId}/{comandaId}/cancelar")]
         public async Task<ListarModel> Excluir(int pedidoId, int comandaId)
         {
            return await _pedidoService.Excluir(pedidoId, comandaId);

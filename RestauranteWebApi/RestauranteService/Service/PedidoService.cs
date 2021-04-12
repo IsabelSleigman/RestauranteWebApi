@@ -75,7 +75,7 @@ namespace RestauranteService.Service
             var pedido = await _contexto
                 .Pedido
                 .Where(p => p.PedidoId == model.PedidoId)
-                .Include(p => p.Status)
+                .Include(p => p.StatusEnum)
                 .Include(p => p.Produto)
                 .Include(c => c.Comanda)
                 .Where( c => c.ComandaId == model.ComandaId && c.Comanda.Pago == false)
@@ -115,7 +115,7 @@ namespace RestauranteService.Service
                 ProdutoId = pedido.ProdutoId,
                 ProdutoNome = pedido.Produto.Nome,
                 QuantidadeProduto = pedido.QuantidadeProduto,
-                Status = pedido.Status.Descricao
+                StatusEnum = pedido.StatusEnum
 
             };
         }
@@ -125,14 +125,11 @@ namespace RestauranteService.Service
 
             var pedido = await _contexto
                            .Pedido
-                           .Where(p => p.PedidoId == pedidoId)
-                           .Include(p => p.Status)
-                           .ThenInclude(p => p.Descricao)
+                           .Where(p => p.PedidoId == pedidoId && p.ComandaId == comandaId)
+                           .Include(p => p.StatusEnum)
                            .Include(p => p.Produto)
                            .Include(c => c.Comanda)
-                           .Where(c => c.ComandaId == comandaId && c.Comanda.Pago == false)
-                           .OrderBy(p => p.PedidoId)
-                           .LastOrDefaultAsync();
+                          .FirstOrDefaultAsync();
 
             _ = pedido ?? throw new Exception("Pedido não encontrado");
 
@@ -160,7 +157,7 @@ namespace RestauranteService.Service
                 ProdutoId = pedido.ProdutoId,
                 ProdutoNome = pedido.Produto.Nome,
                 QuantidadeProduto = pedido.QuantidadeProduto,
-                Status = pedido.Status.Descricao
+                StatusEnum = pedido.StatusEnum
 
             };
         }
@@ -176,7 +173,7 @@ namespace RestauranteService.Service
                     ProdutoId = np.ProdutoId,
                     ProdutoNome =np.Produto.Nome,
                     QuantidadeProduto= np.QuantidadeProduto,
-                    Status= np.Status.Descricao
+                    StatusEnum= np.StatusEnum
                 }).ToListAsync();
 
             _ = listaPedidos ?? throw new Exception("Não Existem pedidos");

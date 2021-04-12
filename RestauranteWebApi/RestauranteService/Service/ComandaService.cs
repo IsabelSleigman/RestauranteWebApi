@@ -114,8 +114,6 @@ namespace RestauranteService.Service
                 .Comanda
                 .Where(c => c.ComandaId == comandaId && c.Pago == false)
                 .Include(p => p.Pedidos)
-                .ThenInclude(p => p.Status)
-                .Include(p => p.Pedidos)
                 .ThenInclude(p => p.Produto)
                 .OrderBy(p => p.ComandaId)
                 .Select(cf => new
@@ -130,7 +128,7 @@ namespace RestauranteService.Service
                     cf.Pago
                 }).FirstOrDefaultAsync();
 
-            _ = comanda ?? throw new Exception("Comanda não localizada.");
+           // _ = comanda ?? throw new Exception("Comanda não localizada.");
 
             var modelPaga = new ModelPaga
             {
@@ -153,7 +151,7 @@ namespace RestauranteService.Service
                       ProdutoId = p.ProdutoId,
                       ProdutoNome = p.Produto.Nome,
                       QuantidadeProduto = p.QuantidadeProduto,
-                      Status = p.Status.Descricao
+                      StatusEnum = p.StatusEnum
                   }).ToList();
 
 

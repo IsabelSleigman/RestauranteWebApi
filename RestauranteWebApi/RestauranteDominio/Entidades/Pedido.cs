@@ -29,8 +29,8 @@ namespace RestauranteDominio
 
         [Column("StatusId")]
         public StatusPedidoEnum StatusEnum { get; set; } //FK
-        [ForeignKey(nameof(StatusEnum))]
+        //[ForeignKey(nameof(StatusEnum))]
 
-        public Status Status { get; set; }
+        //public Status Status { get; set; }
     }
 }

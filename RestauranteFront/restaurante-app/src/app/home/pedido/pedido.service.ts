@@ -67,14 +67,14 @@ export class PedidoService {
     }
 
     excluirPedido(model: ExcluirModel){
-        this.http.delete<ListarModel>(`${baseUrl}/${model.pedidoId}/${model.comandaId}`)
+        this.http.delete<ListarModel>(`${baseUrl}/${model.pedidoId}/${model.comandaId}/cancelar`)
         .pipe(
             take(1),
              catchError((error: HttpErrorResponse) => {
                 throw error;
             }))
             .subscribe(p => {
-            let pedidos = this._pedidos.getValue().map(n => n.pedidoId === model.pedidoId? {...n, status: p.status} : n)
+            let pedidos = this._pedidos.getValue().map(n => n.pedidoId === model.pedidoId? {...n, statusEnum: p.statusEnum} : n)
             this._pedidos.next(pedidos);
         })
 
