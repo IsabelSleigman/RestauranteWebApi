@@ -1,5 +1,6 @@
-import { RealizadaModel } from './models/realizadaModel';
+import { ExcluirModel } from './models/excluirModel';
 import { Observable } from 'rxjs';
+import { RealizadaModel } from './models/realizadaModel';
 import { BehaviorSubject } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
 import { ListarModel } from './models/listarModel';
@@ -49,11 +50,33 @@ export class PedidoService {
              
     }
 
-    editarPedido(pedido: RealizadaModel){
+    editarPedido(model: RealizadaModel){
+       this.http
+        .put<ListarModel>(`${baseUrl}/editar`, model)
+        .pipe(
+            take(1),
+            catchError((error: HttpErrorResponse) => {
+                throw error;
+            })
+        ).subscribe( p => {
+            let pedidos = this._pedidos.getValue().map(n => n.pedidoId === model.pedidoId ? {...n, pedidoValor: p.pedidoValor, quantidadeProduto: p.quantidadeProduto } : n)
+            this._pedidos.next(pedidos);
+        })
+
 
     }
 
-    excluirPedido(pedido: ListarModel){
+    excluirPedido(model: ExcluirModel){
+        this.http.delete<ListarModel>(`${baseUrl}/${model.pedidoId}/${model.comandaId}`)
+        .pipe(
+            take(1),
+             catchError((error: HttpErrorResponse) => {
+                throw error;
+            }))
+            .subscribe(p => {
+            let pedidos = this._pedidos.getValue().map(n => n.pedidoId === model.pedidoId? {...n, status: p.status} : n)
+            this._pedidos.next(pedidos);
+        })
 
     }
 }

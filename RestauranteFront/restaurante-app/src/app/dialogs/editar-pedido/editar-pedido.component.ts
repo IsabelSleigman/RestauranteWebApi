@@ -31,8 +31,8 @@ export class EditarPedidoComponent implements OnInit {
     console.log("Pedido", this.homeService.comandaId);
 
     this.formEditar = new FormGroup({
-      pedidoId: new FormControl(this.pedido.pedidoId, [Validators.required]),
-      comandaId: new FormControl(this.homeService.comandaId, [Validators.required]),
+      pedidoId: new FormControl(null),
+      comandaId: new FormControl(null),
       quantidade: new FormControl(1, [Validators.required])
     });
   }
@@ -43,12 +43,15 @@ export class EditarPedidoComponent implements OnInit {
 
   editarPedido() {
     var pedido: RealizadaModel = {
-      pedidoId: this.formEditar.value.pedidoId,
-      comandaId: this.formEditar.value.comandaId,
-      quantidade: this.formEditar.value.quantidade
+      pedidoId: this.pedido.pedidoId,
+      comandaId: this.homeService.comandaId,
+      quantidade: this.formEditar.get('quantidade').value
     }
+    this.pedidoService.editarPedido(pedido);
 
     this.dialogRef.close();
+    console.log(pedido);
+    console.log("Editar", this.homeService.comandaId);
 
   }
 

@@ -68,13 +68,14 @@ namespace RestauranteService.Service
             return pedido.PedidoId;
         }
 
-        public async Task Editar(RealizadaModel model)
+        public async Task<ListarModel> Editar(RealizadaModel model)
         {
             model.Validar();
 
             var pedido = await _contexto
                 .Pedido
                 .Where(p => p.PedidoId == model.PedidoId)
+                .Include(p => p.Status)
                 .Include(p => p.Produto)
                 .Include(c => c.Comanda)
                 .Where( c => c.ComandaId == model.ComandaId && c.Comanda.Pago == false)
@@ -107,17 +108,31 @@ namespace RestauranteService.Service
 
             await _contexto.SaveChangesAsync();
 
+            return new ListarModel
+            {
+                PedidoId = pedido.PedidoId,
+                PedidoValor = pedido.PedidoValor,
+                ProdutoId = pedido.ProdutoId,
+                ProdutoNome = pedido.Produto.Nome,
+                QuantidadeProduto = pedido.QuantidadeProduto,
+                Status = pedido.Status.Descricao
+
+            };
         }
 
-        public async Task Excluir(ExcluirModel model)
+        public async Task<ListarModel> Excluir(int pedidoId, int comandaId)
         {
-            model.Validar();
 
             var pedido = await _contexto
-                .Pedido
-                .Where(p => p.PedidoId == model.PedidoId && p.ComandaId == model.ComandaId && p.Comanda.Pago == false)
-                .OrderBy(p => p.PedidoId)
-                .LastOrDefaultAsync();
+                           .Pedido
+                           .Where(p => p.PedidoId == pedidoId)
+                           .Include(p => p.Status)
+                           .ThenInclude(p => p.Descricao)
+                           .Include(p => p.Produto)
+                           .Include(c => c.Comanda)
+                           .Where(c => c.ComandaId == comandaId && c.Comanda.Pago == false)
+                           .OrderBy(p => p.PedidoId)
+                           .LastOrDefaultAsync();
 
             _ = pedido ?? throw new Exception("Pedido não encontrado");
 
@@ -137,6 +152,17 @@ namespace RestauranteService.Service
             }
 
             await _contexto.SaveChangesAsync();
+
+            return new ListarModel
+            {
+                PedidoId = pedido.PedidoId,
+                PedidoValor = pedido.PedidoValor,
+                ProdutoId = pedido.ProdutoId,
+                ProdutoNome = pedido.Produto.Nome,
+                QuantidadeProduto = pedido.QuantidadeProduto,
+                Status = pedido.Status.Descricao
+
+            };
         }
         public async Task<List<ListarModel>> ListarRealizados(int comandaId)
         {

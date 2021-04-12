@@ -112,7 +112,7 @@ namespace RestauranteService.Service
 
             var comanda = await _contexto
                 .Comanda
-                .Where(c => c.ComandaId == comandaId)
+                .Where(c => c.ComandaId == comandaId && c.Pago == false)
                 .Include(p => p.Pedidos)
                 .ThenInclude(p => p.Status)
                 .Include(p => p.Pedidos)

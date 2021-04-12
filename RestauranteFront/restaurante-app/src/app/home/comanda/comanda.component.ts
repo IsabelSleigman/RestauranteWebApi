@@ -1,3 +1,4 @@
+import { ExcluirModel } from './../pedido/models/excluirModel';
 import { EditarPedidoComponent } from './../../dialogs/editar-pedido/editar-pedido.component';
 import { ListarModel } from './../pedido/models/listarModel';
 import { PedidoService } from './../pedido/pedido.service';
@@ -24,7 +25,7 @@ export class ComandaComponent implements OnInit {
 
   pedidos: ListarModel[] = {} as ListarModel[]
 
-  colunas = ['pedidoId', 'produtoNome', 'quantidadeProduto', 'valor', 'status','editar', 'excluir'];
+  colunas = ['pedidoId', 'produtoNome', 'quantidadeProduto', 'valor', 'status', 'editar', 'excluir'];
 
   constructor(
     private homeService: HomeService,
@@ -38,31 +39,35 @@ export class ComandaComponent implements OnInit {
 
     this.homeService.comanda$.subscribe(c => this.comandaCompleta = c);
 
-   this.pedidoService.listarPedidos(this.homeService.comandaId);
+    this.pedidoService.listarPedidos(this.homeService.comandaId);
 
-   
-   this.pedidoService.pedidos$.subscribe(p => this.pedidos = p)
-   console.log("ComandaListaPedidos", this.pedidos);
+
+    this.pedidoService.pedidos$.subscribe(p => this.pedidos = p)
+    console.log("ComandaListaPedidos", this.pedidos);
 
   }
 
-  editarSelecionado(pedido: ListarModel){
+  editarSelecionado(pedido: ListarModel) {
     this.dialog.open(EditarPedidoComponent, {
       data: pedido
     });
   }
 
-  excluirPedido(pedido: ListarModel){
+  excluirPedido(pedido: ListarModel) {
+    let pedidoId = pedido.pedidoId;
+    let comandaId = this.homeService.comandaId;
+    let p : ExcluirModel = {pedidoId,comandaId}
+console.log(p);
     let dialogRef = this.dialog.open(ExcluirPedidoComponent, {
-      data: { title: "Aviso", msg: 'Tem ceteza que deseja excluir esse Pedido?'}
+      data: { title: "Aviso", msg: 'Tem ceteza que deseja excluir esse Pedido?' }
     });
 
     dialogRef.afterClosed()
       .pipe(
-        filter( 
-          res => res == true),)
+        filter(
+          res => res == true))
       .subscribe(() => {
-        this.pedidoService.excluirPedido(pedido);
+        this.pedidoService.excluirPedido(p);
       });
   }
 

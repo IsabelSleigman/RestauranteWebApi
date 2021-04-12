@@ -31,16 +31,16 @@ namespace RestauranteWebApi.Controllers
             return await _pedidoService.FazerPedido(model);
         }
 
-        [HttpPost("/editar")]
-        public async Task Editar(RealizadaModel model)
+        [HttpPut("editar")]
+        public async Task<ListarModel> Editar(RealizadaModel model)
         {
-            await _pedidoService.Editar(model);
+            return await _pedidoService.Editar(model);
         }
 
-        [HttpDelete()]
-        public async Task Excluir(ExcluirModel model)
+        [HttpDelete("{pedidoId}/{comandaId}")]
+        public async Task<ListarModel> Excluir(int pedidoId, int comandaId)
         {
-            await _pedidoService.Excluir(model);
+           return await _pedidoService.Excluir(pedidoId, comandaId);
         }
     }
 }
