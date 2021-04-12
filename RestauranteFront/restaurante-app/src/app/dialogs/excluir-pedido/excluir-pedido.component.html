@@ -1,0 +1,6 @@
+<h1 class="title-dialog" mat-dialog-title>{{data.title}}</h1>
+<div class="body-dialog">{{data.msg}}</div>
+<div fxLayout="row" class="btt-dialog-conf" mat-dialog-actions>
+  <button class="bttn-dialog-excluir" (click)="confirmar()" mat-button>Sim</button>
+  <button class="bttn-dialog-cancelar" mat-button mat-dialog-close>Fechar</button>
+</div>

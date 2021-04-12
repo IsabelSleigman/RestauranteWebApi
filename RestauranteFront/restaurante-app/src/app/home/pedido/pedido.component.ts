@@ -15,11 +15,9 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class PedidoComponent implements OnInit {
 
-  matDataSource = new MatTableDataSource<ListarModel>();
+  pedidos: ListarModel[] = {} as ListarModel[]
 
-  pedidos: ListarModel[] = {} as ListarModel[];
-
-  colunas = ['name','pedidoValor','quantidadeProduto','status', 'editar', 'excluir']
+  colunas = ['pedidoId', 'produtoNome', 'quantidadeProduto', 'valor', 'status','editar', 'excluir'];
 
 
   constructor(private homeService: HomeService, private pedidoService: PedidoService) {
@@ -29,12 +27,10 @@ export class PedidoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    var comandaId = 0;
-    this.homeService.comanda$.subscribe(c => comandaId = c.comandaId);
-
-    this.pedidoService.listarPedidos(comandaId);
+    this.pedidoService.listarPedidos(this.homeService.comandaId);
 
     this.pedidoService.pedidos$.subscribe(p => this.pedidos = p)
+    console.log("pedidosListaPedidos", this.pedidos);
   }
 
   confirmarPedido() {

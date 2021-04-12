@@ -1,0 +1,39 @@
+.mat-dialog-container{
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    width: 450px;
+  }
+  
+  .body-dialog{
+    padding-left: 20px;
+  }
+  
+  .title-dialog{
+    background-color: rgba(0, 0, 0, 0.890);
+    padding: 10px;
+    padding-left:20px;
+    color: #fff;
+  }
+  
+  .btt-dialog-conf{
+    padding-left: 16px;
+    padding-top: 25px;
+    padding-bottom: 15px;
+  }
+  .bttn-dialog-excluir{
+    width: 80px;
+   
+  }
+  .bttn-dialog-excluir:hover{
+    -ms-transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+  }
+  
+  .bttn-dialog-cancelar{
+    width: 80px;
+    padding-left: 13px;
+    
+  }
+  

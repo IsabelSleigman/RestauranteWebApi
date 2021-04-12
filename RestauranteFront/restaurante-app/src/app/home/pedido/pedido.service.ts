@@ -1,3 +1,4 @@
+import { RealizadaModel } from './models/realizadaModel';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
@@ -40,13 +41,19 @@ export class PedidoService {
                 throw error;
             })
         ).subscribe(id => {
-           this.pedido.pedidoId = id;
            let pedidos = this._pedidos.getValue();
            pedidos.push(this.pedido)
            this._pedidos.next(pedidos.slice());
 
         })
              
+    }
+
+    editarPedido(pedido: RealizadaModel){
+
+    }
+
+    excluirPedido(pedido: ListarModel){
 
     }
 }

@@ -1,0 +1,27 @@
+<div class="example-card"  mat-dialog-content>
+    <mat-card class="card" >
+        <form [formGroup]="formEditar">
+        <mat-card-header>
+                <mat-card-title>{{pedido.produtoId}}</mat-card-title>
+                <mat-card-subtitle>{{pedido.produtoNome}}</mat-card-subtitle>
+                <mat-card-subtitle>{{pedido.pedidoValor | currency: 'BRL'}}</mat-card-subtitle>
+            
+        </mat-card-header>
+        <img mat-card-image src="../../../assets/cardapio/img{{pedido.produtoId}}.jpg" alt="Foto Produtos">
+        <mat-card-content>
+            <p>
+            </p>
+        </mat-card-content>
+        <mat-dialog-actions>
+        <mat-label for="quantidade">Quantidade</mat-label>
+           <div>
+               <input  formControlName="quantidade" type="number" min="1" max="7">
+           </div>
+        </mat-dialog-actions>
+        <mat-card-actions>
+            <button class="button" mat-button (click)="editarPedido()">Confirmar</button>
+            <button class="button" mat-button (click)="cancelar()">Voltar</button>
+        </mat-card-actions>
+    </form>
+    </mat-card>
+</div>

@@ -1,6 +1,5 @@
 import { SharedModule } from './../shared/shared.module';
 import { PedidoService } from './pedido/pedido.service';
-import { CardapioService } from './cardapio/cadapio.service';
 import { HomeComponent } from './home.component';
 import { NgModule, } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
