@@ -1,6 +1,6 @@
 
 import { HomeService } from './../home/home.service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { InicialService } from './inicial.service';
@@ -29,9 +29,8 @@ export class InicialComponent implements OnInit {
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.inicialService
-      .obterMesas()
-      .subscribe(m => this.mesas = m);
+
+    this.inicialService.obterMesas().subscribe(m => this.mesas = m);
 
     this.form = new FormGroup({
       mesaId: new FormControl('', [Validators.required]),

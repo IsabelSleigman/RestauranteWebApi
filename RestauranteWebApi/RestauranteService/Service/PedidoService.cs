@@ -74,13 +74,10 @@ namespace RestauranteService.Service
 
             var pedido = await _contexto
                 .Pedido
-                .Where(p => p.PedidoId == model.PedidoId)
-                .Include(p => p.StatusEnum)
+                .Where(p => p.PedidoId == model.PedidoId && p.ComandaId == model.ComandaId && p.Comanda.Pago == false)
                 .Include(p => p.Produto)
                 .Include(c => c.Comanda)
-                .Where( c => c.ComandaId == model.ComandaId && c.Comanda.Pago == false)
-                .OrderBy(p => p.PedidoId)
-                .LastOrDefaultAsync();
+                .FirstOrDefaultAsync();
 
             _ = pedido ?? throw new Exception("Pedido não encontrado.");
 
@@ -126,7 +123,6 @@ namespace RestauranteService.Service
             var pedido = await _contexto
                            .Pedido
                            .Where(p => p.PedidoId == pedidoId && p.ComandaId == comandaId)
-                           .Include(p => p.StatusEnum)
                            .Include(p => p.Produto)
                            .Include(c => c.Comanda)
                           .FirstOrDefaultAsync();

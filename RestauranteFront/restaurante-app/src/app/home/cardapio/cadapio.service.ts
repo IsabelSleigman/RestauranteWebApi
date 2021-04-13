@@ -3,18 +3,18 @@ import { Injectable } from "@angular/core";
 import { take } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { ListarDisponivelModel } from "./models/listarDisponivelModel";
+const baseUrl = `${environment.apiUrl}/produto`
 
 @Injectable({ providedIn: 'root' })
+
 export class CardapioService {
 
     constructor(private http: HttpClient){
     }
-    
-    baseUrl = `${environment.apiUrl}/produto`
 
     listarProduto(){
       return this.http
-      .get<ListarDisponivelModel[]>(this.baseUrl)
+      .get<ListarDisponivelModel[]>(`${baseUrl}`)
         .pipe(
             take(1));
     }
