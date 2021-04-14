@@ -33,7 +33,6 @@ export class PedidoService {
         
     }
 
-
     realizarPedido(model: RealizarModel){
 
         return this.http
@@ -66,7 +65,6 @@ export class PedidoService {
             this._pedidos.next(pedidos);
             this.homeService.obterComanda();
         })
-
 
     }
 

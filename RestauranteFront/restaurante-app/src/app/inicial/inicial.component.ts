@@ -1,6 +1,5 @@
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-
+import { take} from 'rxjs/operators';
+import { Subject, pipe } from 'rxjs';
 import { HomeService } from './../home/home.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -9,14 +8,13 @@ import { InicialService } from './inicial.service';
 import { MesaModel } from './models/mesa-model';
 import { MatDialog } from '@angular/material/dialog';
 import { AberturaModel } from './models/abertura-model';
-import { OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-inicial',
   templateUrl: './inicial.component.html',
   styleUrls: ['./inicial.component.scss']
 })
-export class InicialComponent implements OnInit, OnDestroy {
+export class InicialComponent implements OnInit {
 
   form: FormGroup;
 
@@ -34,7 +32,10 @@ export class InicialComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.inicialService.obterMesas().subscribe(m => this.mesas = m);
+    this.inicialService.obterMesas()
+    .pipe(
+      take(1))
+    .subscribe(m => this.mesas = m);
 
     this.form = new FormGroup({
       mesaId: new FormControl('', [Validators.required]),
@@ -51,18 +52,11 @@ export class InicialComponent implements OnInit, OnDestroy {
 
     this.homeService.iniciar(inicial)
       .pipe(
-        takeUntil(this.unsub$))
+        take(1))
       .subscribe(c => {
         this.router.navigate(["home", c])
       } );
 
-  }
-
-  public ngOnDestroy() {
-
-    this.unsub$.next();
-    this.unsub$.complete();
-
-  }
+    }
 
 }
