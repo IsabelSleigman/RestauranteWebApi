@@ -1,7 +1,7 @@
 import { ModelCompleta } from './comanda/models/modelCompleta';
 import { AberturaModel } from './../inicial/models/abertura-model';
 import { Injectable } from "@angular/core";
-import { catchError, take } from 'rxjs/operators';
+import { catchError, take, tap } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
@@ -23,22 +23,18 @@ export class HomeService {
         private snackbar: NotificationService) {
     }
 
-    iniciar(iniciar: AberturaModel) {
+    iniciar(iniciar: AberturaModel): Observable<number> {
 
         return this.http
             .post<number>(`${baseUrl}`, iniciar)
             .pipe(
                 take(1),
+                tap(c => this.comandaId = c),
                 catchError((error: HttpErrorResponse) => {
                     this.snackbar.errorMessage(error);
                     throw error;
-                 }) 
-                 ).subscribe(id => {
-                    this.comandaId = id;
-                    const c = this._comanda.getValue();
-                    this._comanda.next(c);
-                    this.router.navigate(["home", this.comandaId], { relativeTo: this.route }) //retirar a navegação daqui
-                });
+                })
+            )
 
     }
 
@@ -50,21 +46,21 @@ export class HomeService {
                 catchError((error: HttpErrorResponse) => {
                     this.snackbar.errorMessage(error);
                     throw error;
-                 })
-                ).subscribe(res => this._comanda.next(res));
+                })
+            ).subscribe(res => this._comanda.next(res));
     }
 
     fecharComanda() {
         this.http
-            .post(`${baseUrl}/${this.comandaId}/fechar`,this.comandaId)
-            .pipe( 
-                take(1), 
+            .post(`${baseUrl}/${this.comandaId}/fechar`, this.comandaId)
+            .pipe(
+                take(1),
                 catchError((error: HttpErrorResponse) => {
                     this.snackbar.errorMessage(error);
-                    throw error;       
+                    throw error;
                 })
-                ).subscribe(() => {});
-                
+            ).subscribe(() => { });
+
     }
 
 
