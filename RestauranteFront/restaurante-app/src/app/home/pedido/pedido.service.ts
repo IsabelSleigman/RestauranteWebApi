@@ -1,16 +1,14 @@
-import { ModelCompleta } from './../comanda/models/modelCompleta';
 import { HomeService } from 'src/app/home/home.service';
 import { ExcluirModel } from './models/excluirModel';
 import { Observable } from 'rxjs';
 import { RealizadaModel } from './models/realizadaModel';
 import { BehaviorSubject } from 'rxjs';
-import { catchError, take, tap } from 'rxjs/operators';
+import { catchError, take } from 'rxjs/operators';
 import { ListarModel } from './models/listarModel';
 import { RealizarModel } from './models/realizarModel';
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
 const baseUrl = `${environment.apiUrl}/pedido`
 
 @Injectable()
@@ -70,7 +68,7 @@ export class PedidoService {
         this.http
             .put<ListarModel>(`${baseUrl}/editar`, {
                 pedidoId: model.pedidoId,
-                quantidade:model.quantidade,
+                quantidade: model.quantidade,
                 comandaId: this.comandaId
             })
             .pipe(
@@ -102,7 +100,10 @@ export class PedidoService {
     }
 
     obterComandaId() {
-        this.homeService.comanda$.pipe(take(1)).subscribe(c => this.comandaId = c.comandaId);
+        this.homeService.comanda$
+            .pipe(
+                take(1))
+            .subscribe(c => this.comandaId = c.comandaId);
 
     }
 }

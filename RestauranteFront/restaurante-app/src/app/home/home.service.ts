@@ -29,19 +29,19 @@ export class HomeService {
             .post<number>(`${baseUrl}`, iniciar)
             .pipe(
                 take(1),
-                tap(c => console.log("inicial",this.comandaId = c)),
+                tap(c => this.comandaId = c),
                 catchError((error: HttpErrorResponse) => {
                     this.snackbar.errorMessage(error);
                     throw error;
-            
+
                 })
-                
+
             )
 
     }
 
     atualizarComanda() {
-        console.log("atualizar",this.comandaId)
+
         return this.http
             .get<ModelCompleta>(`${baseUrl}/${this.comandaId}`)
             .pipe(
@@ -50,11 +50,12 @@ export class HomeService {
                     this.snackbar.errorMessage(error);
                     throw error;
                 })
-            ).subscribe(res => this._comanda.next(res));
+            )
+            .subscribe(res => this._comanda.next(res));
     }
 
-    carregarComanda(comandaId : number) {
-        console.log("atualizar",comandaId)
+    carregarComanda(comandaId: number) {
+        
         return this.http
             .get<ModelCompleta>(`${baseUrl}/${comandaId}`)
             .pipe(

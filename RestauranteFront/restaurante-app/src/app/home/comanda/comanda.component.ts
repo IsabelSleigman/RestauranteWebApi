@@ -8,7 +8,7 @@ import { ModelCompleta } from './models/modelCompleta';
 import { MatDialog } from '@angular/material/dialog';
 import { filter, takeUntil } from 'rxjs/operators';
 import { DailogConfirmacaoComponent } from 'src/app/dialogs/dailog-confirmacao/dailog-confirmacao.component';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -37,16 +37,16 @@ export class ComandaComponent implements OnInit, OnDestroy {
     this.homeService.atualizarComanda()
 
     this.homeService.comanda$
-      .pipe(takeUntil(this.unsub$))
+      .pipe(
+        takeUntil(this.unsub$))
       .subscribe(c => this.comandaCompleta = c);
 
     this.pedidoService.listarPedidos();
 
     this.pedidoService.pedidos$
-      .pipe(takeUntil(this.unsub$))
+      .pipe(
+        takeUntil(this.unsub$))
       .subscribe(p => this.pedidos = p);
-
-    console.log("ComandaListaPedidos", this.pedidos);
 
   }
 
@@ -57,7 +57,7 @@ export class ComandaComponent implements OnInit, OnDestroy {
   }
 
   excluirPedido(pedido: ListarModel) {
-    
+
     let p: ExcluirModel = { pedidoId : pedido.pedidoId }
     
     let dialogRef = this.dialog.open(DailogConfirmacaoComponent, {

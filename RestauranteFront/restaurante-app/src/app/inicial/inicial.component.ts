@@ -1,5 +1,4 @@
 import { take} from 'rxjs/operators';
-import { Subject, pipe } from 'rxjs';
 import { HomeService } from './../home/home.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -21,8 +20,6 @@ export class InicialComponent implements OnInit {
   quantidadePessoa = [1, 2, 3, 4]
 
   mesas: MesaModel[];
-
-  unsub$ = new Subject();
 
   constructor(private router: Router,
     private route: ActivatedRoute,

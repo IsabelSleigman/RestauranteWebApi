@@ -1,5 +1,4 @@
 import { ListarModel } from './../../home/pedido/models/listarModel';
-import { HomeService } from 'src/app/home/home.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -20,8 +19,7 @@ export class EditarPedidoComponent implements OnInit {
   constructor(
     private pedidoService: PedidoService,
     private dialogRef: MatDialogRef<EditarPedidoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ListarModel, private homeService: HomeService
-  ) {
+    @Inject(MAT_DIALOG_DATA) public data: ListarModel) {
     this.pedido = data;
   }
 
@@ -47,7 +45,6 @@ export class EditarPedidoComponent implements OnInit {
 
       this.pedidoService.editarPedido(pedido);
       this.dialogRef.close();
-      console.log(pedido);
   
     }
   

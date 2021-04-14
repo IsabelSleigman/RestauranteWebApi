@@ -1,6 +1,6 @@
 import { DailogConfirmacaoComponent } from './../dialogs/dailog-confirmacao/dailog-confirmacao.component';
 import { HomeService } from './home.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { filter, take } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
