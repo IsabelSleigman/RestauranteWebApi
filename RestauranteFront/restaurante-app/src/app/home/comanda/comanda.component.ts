@@ -4,7 +4,6 @@ import { ListarModel } from './../pedido/models/listarModel';
 import { PedidoService } from './../pedido/pedido.service';
 import { HomeService } from 'src/app/home/home.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ModelCompleta } from './models/modelCompleta';
 import { MatDialog } from '@angular/material/dialog';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -58,9 +57,8 @@ export class ComandaComponent implements OnInit, OnDestroy {
   }
 
   excluirPedido(pedido: ListarModel) {
-    let pedidoId = pedido.pedidoId;
-    let comandaId = this.comandaCompleta.comandaId;
-    let p: ExcluirModel = { pedidoId, comandaId }
+    
+    let p: ExcluirModel = { pedidoId : pedido.pedidoId }
     
     let dialogRef = this.dialog.open(DailogConfirmacaoComponent, {
       data: { title: "Aviso", msg: 'Tem ceteza que deseja excluir esse Pedido?' }

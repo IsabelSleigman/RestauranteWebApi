@@ -26,7 +26,9 @@ export class PedidoService {
     }
 
     listarPedidos() {
+
         this.obterComandaId();
+
         return this.http
             .get<ListarModel[]>(`${baseUrl}/${this.comandaId}`)
             .pipe(
@@ -37,6 +39,7 @@ export class PedidoService {
     }
 
     realizarPedido(model: RealizarModel) {
+
         this.obterComandaId();
 
         console.log("Fazerpedido", this.comandaId);
@@ -65,7 +68,11 @@ export class PedidoService {
     editarPedido(model: RealizadaModel) {
 
         this.http
-            .put<ListarModel>(`${baseUrl}/editar`, model)
+            .put<ListarModel>(`${baseUrl}/editar`, {
+                pedidoId: model.pedidoId,
+                quantidade:model.quantidade,
+                comandaId: this.comandaId
+            })
             .pipe(
                 take(1),
                 catchError((error: HttpErrorResponse) => {
@@ -80,7 +87,7 @@ export class PedidoService {
     }
 
     excluirPedido(model: ExcluirModel) {
-        this.http.delete<ListarModel>(`${baseUrl}/${model.pedidoId}/${model.comandaId}/cancelar`)
+        this.http.delete<ListarModel>(`${baseUrl}/${model.pedidoId}/${this.comandaId}/cancelar`)
             .pipe(
                 take(1),
                 catchError((error: HttpErrorResponse) => {
