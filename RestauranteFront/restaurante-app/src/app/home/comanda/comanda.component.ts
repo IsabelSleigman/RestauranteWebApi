@@ -7,8 +7,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ModelCompleta } from './models/modelCompleta';
 import { MatDialog } from '@angular/material/dialog';
-import { filter} from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { DailogConfirmacaoComponent } from 'src/app/dialogs/dailog-confirmacao/dailog-confirmacao.component';
+import { Subject, Subscription } from 'rxjs';
 
 
 @Component({
@@ -16,13 +17,15 @@ import { DailogConfirmacaoComponent } from 'src/app/dialogs/dailog-confirmacao/d
   templateUrl: './comanda.component.html',
   styleUrls: ['./comanda.component.scss']
 })
-export class ComandaComponent implements OnInit, OnDestroy{
+export class ComandaComponent implements OnInit, OnDestroy {
 
   comandaCompleta: ModelCompleta = {} as ModelCompleta;
 
   pedidos: ListarModel[] = {} as ListarModel[]
-
+  
   colunas = ['pedidoId', 'produtoNome', 'quantidadeProduto', 'valor', 'status', 'editar', 'excluir'];
+  
+  unsub$ = new Subject();
 
   constructor(
     private homeService: HomeService,
@@ -34,12 +37,16 @@ export class ComandaComponent implements OnInit, OnDestroy{
 
     this.homeService.obterComanda()
 
-    this.homeService.comanda$.subscribe(c => this.comandaCompleta = c);
+    this.homeService.comanda$
+      .pipe(takeUntil(this.unsub$))
+      .subscribe(c => this.comandaCompleta = c);
 
     this.pedidoService.listarPedidos(this.homeService.comandaId);
 
-    this.pedidoService.pedidos$.subscribe(p => this.pedidos = p)
-    
+    this.pedidoService.pedidos$
+      .pipe(takeUntil(this.unsub$))
+      .subscribe(p => this.pedidos = p);
+
     console.log("ComandaListaPedidos", this.pedidos);
 
   }
@@ -53,8 +60,8 @@ export class ComandaComponent implements OnInit, OnDestroy{
   excluirPedido(pedido: ListarModel) {
     let pedidoId = pedido.pedidoId;
     let comandaId = this.homeService.comandaId;
-    let p : ExcluirModel = {pedidoId,comandaId}
-console.log(p);
+    let p: ExcluirModel = { pedidoId, comandaId }
+    
     let dialogRef = this.dialog.open(DailogConfirmacaoComponent, {
       data: { title: "Aviso", msg: 'Tem ceteza que deseja excluir esse Pedido?' }
     });
@@ -68,10 +75,11 @@ console.log(p);
       });
   }
 
-  public ngOnDestroy(){
+  public ngOnDestroy() {
 
-  
-   
+    this.unsub$.next();
+    this.unsub$.complete();
+
   }
 
 }

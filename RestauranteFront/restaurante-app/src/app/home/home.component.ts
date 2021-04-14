@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
 
   navegarCardapio(){
     let comandaId : number = 0;
-    comandaId = this.homeService.obterComandaId()
     this.router.navigate(["home", this.homeService.comandaId]);
     console.log("Teste", comandaId)
   }

@@ -67,12 +67,5 @@ export class HomeService {
                 
     }
 
-    obterComandaId(){
 
-        let comandaId : number = 0;
-        this._comanda.subscribe(c => c.comandaId = c.comandaId);
-        return comandaId;
-
-    }
-    
 }

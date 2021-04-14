@@ -42,6 +42,7 @@ const routes: Routes = [
         SharedModule
 
     ],
+    
     providers: [
 
     ]
