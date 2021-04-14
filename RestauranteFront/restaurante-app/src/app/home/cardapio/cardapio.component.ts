@@ -1,7 +1,7 @@
 import { PedidoDialogComponent } from './../../dialogs/pedido-dialog/pedido-dialog.component';
 import { PedidoService } from './../pedido/pedido.service';
 import { CardapioService } from './cadapio.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ListarDisponivelModel } from './models/listarDisponivelModel';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -14,7 +14,7 @@ export class CardapioComponent implements OnInit {
 
  produto : ListarDisponivelModel[];
 
-  constructor(private cardapioService: CardapioService, private pedidoService: PedidoService, public dialog: MatDialog) { }
+  constructor(private cardapioService: CardapioService,public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.cardapioService

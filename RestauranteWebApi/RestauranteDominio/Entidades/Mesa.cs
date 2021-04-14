@@ -11,8 +11,6 @@ namespace RestauranteDominio
 
         public int MesaId { get; set; }
 
-        public int Capacidade { get; set; }
-
         public bool Disponivel { get; set; }
     }
 }

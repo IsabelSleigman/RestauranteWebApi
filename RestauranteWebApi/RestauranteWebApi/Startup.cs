@@ -36,6 +36,7 @@ namespace RestauranteWebApi
             services.AddScoped<PedidoService>();
             services.AddScoped<MesaService>();
             services.AddScoped<ProdutoService>();
+            services.AddScoped<FaturamentoService>();
             services.AddControllers();
 
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>

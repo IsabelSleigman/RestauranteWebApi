@@ -1,15 +1,12 @@
-﻿using RestauranteService.Service.PedidoModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Text;
 
-namespace RestauranteService.Service.ComandaModel
+namespace RestauranteService.Service.Model.FaturamentoModel
 {
-   public class ModelPaga
+    public class ModelFechadasFaturamento
     {
         public int ComandaId { get; set; }
-
-        public int MesaId { get; set; }
 
         public DateTime DataHoraEntrada { get; set; }
 
@@ -25,11 +22,7 @@ namespace RestauranteService.Service.ComandaModel
 
         public bool Pago { get; set; }
 
-        public ICollection<ListarModel> Pedidos { get; set; }
 
-        public ModelPaga()
-        {
-            Pedidos = new Collection<ListarModel>();
-        }
+
     }
 }

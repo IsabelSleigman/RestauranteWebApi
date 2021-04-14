@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Text;
 
-
-namespace RestauranteService.Service.ComandaModel
+namespace RestauranteService.Service.Model.FaturamentoModel
 {
-    public class BuscarModel
+    public class ModelAbertasFaturamento
     {
         public int ComandaId { get; set; }
 
@@ -16,6 +15,10 @@ namespace RestauranteService.Service.ComandaModel
         public double ValorComanda { get; set; }
 
         public int QuantidadeClientes { get; set; }
-   
+
+        public int QuantidadePedidos { get; set; }
+
+        public bool Pago { get; set; }
+
     }
 }

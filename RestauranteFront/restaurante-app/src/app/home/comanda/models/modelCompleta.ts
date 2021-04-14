@@ -1,13 +1,16 @@
 import { ListarModel } from '../../pedido/models/listarModel';
 export interface ModelCompleta {
+    unsubscribe();
 
-    comandaId: number;
-    mesaId: number
-    dataHoraEntrada: Date;
-    dataHoraSaida?: Date;
-    valorComanda: number
+    comandaId: number,
+    mesaId: number,
+    dataHoraEntrada: Date,
+    dataHoraSaida?: Date,
+    valorComanda: number,
     quantidadeClientes: number
-    pago: boolean;
-    pedidos: ListarModel[] ;
+    quantidadePedidos: number,
+    cancelada: boolean,
+    pago: boolean,
+    pedidos: ListarModel[]
 
 }

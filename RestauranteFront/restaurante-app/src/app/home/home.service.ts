@@ -44,7 +44,7 @@ export class HomeService {
 
     obterComanda() {
         return this.http
-            .get<ModelCompleta>(`${baseUrl}/${this.comandaId}/completa`)
+            .get<ModelCompleta>(`${baseUrl}/${this.comandaId}`)
             .pipe(
                 take(1),
                 catchError((error: HttpErrorResponse) => {

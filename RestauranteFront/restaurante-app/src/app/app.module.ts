@@ -13,6 +13,7 @@ import { NaoEncontradaComponent } from './nao-encontrada/nao-encontrada.componen
 import { PedidoDialogComponent } from './dialogs/pedido-dialog/pedido-dialog.component';
 import { EditarPedidoComponent } from './dialogs/editar-pedido/editar-pedido.component';
 import { FecharComandaComponent } from './dialogs/fechar-comanda/fechar-comanda.component';
+import { FaturamentoComponent } from './faturamento/faturamento.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { FecharComandaComponent } from './dialogs/fechar-comanda/fechar-comanda.
     PedidoDialogComponent,
     EditarPedidoComponent,
     FecharComandaComponent,
-    DailogConfirmacaoComponent
+    DailogConfirmacaoComponent,
+    FaturamentoComponent
    
   ],
   imports: [

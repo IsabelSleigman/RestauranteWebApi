@@ -6,10 +6,10 @@ namespace RestauranteDominio.Enum
 {
     public enum StatusPedidoEnum
     { 
-            AguardandoPedido = 0,
-            PedidoRealizado = 1,
-            PedidoEmProcesso = 2,
-            PedidoEntregue = 3,
+            AguardandoPedido = 1,
+            PedidoRealizado = 2,
+            PedidoEmProcesso = 3,
+            PedidoEntregue = 4,
             PedidoCancelado = 5   
     }
 }

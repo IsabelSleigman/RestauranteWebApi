@@ -59,6 +59,8 @@ namespace RestauranteService.Service
                     .FirstOrDefaultAsync();
 
                 comanda.ValorComanda += totalPedido;
+
+                comanda.QuantidadePedidos += 1;
             }
 
             _contexto.Pedido.Add(pedido);
@@ -99,6 +101,7 @@ namespace RestauranteService.Service
                 comanda.ValorComanda -= pedido.PedidoValor;
 
                 comanda.ValorComanda += total;
+ 
             }
 
             pedido.PedidoValor = total;

@@ -1,3 +1,4 @@
+import { HomeService } from 'src/app/home/home.service';
 import { ExcluirModel } from './models/excluirModel';
 import { Observable } from 'rxjs';
 import { RealizadaModel } from './models/realizadaModel';
@@ -19,7 +20,7 @@ export class PedidoService {
     private _pedidos = new BehaviorSubject<ListarModel[]>([]);
     public readonly pedidos$: Observable<ListarModel[]> = this._pedidos.asObservable();
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private homeService: HomeService) {
     }
 
     listarPedidos(comandaId: number){
@@ -29,6 +30,7 @@ export class PedidoService {
             take(1)
         ).subscribe(res =>
             this._pedidos.next(res));
+        
     }
 
 
@@ -45,6 +47,7 @@ export class PedidoService {
            let pedidos = this._pedidos.getValue();
            pedidos.push(this.pedido)
            this._pedidos.next(pedidos.slice());
+           this.homeService.obterComanda();
 
         })
              
@@ -61,6 +64,7 @@ export class PedidoService {
         ).subscribe( p => {
             let pedidos = this._pedidos.getValue().map(n => n.pedidoId === model.pedidoId ? {...n, pedidoValor: p.pedidoValor, quantidadeProduto: p.quantidadeProduto } : n)
             this._pedidos.next(pedidos);
+            this.homeService.obterComanda();
         })
 
 
@@ -76,6 +80,7 @@ export class PedidoService {
             .subscribe(p => {
             let pedidos = this._pedidos.getValue().map(n => n.pedidoId === model.pedidoId? {...n, statusEnum: p.statusEnum} : n)
             this._pedidos.next(pedidos);
+            this.homeService.obterComanda();
         })
 
     }

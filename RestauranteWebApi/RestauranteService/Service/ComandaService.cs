@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using RestauranteService.Service.PedidoModel;
 using RestauranteService.Service.Model.ComandaModel;
+using RestauranteDominio.Enum;
 
 namespace RestauranteService.Service
 {
@@ -35,6 +36,8 @@ namespace RestauranteService.Service
                 MesaId = model.MesaId,
                 QuantidadeClientes = model.QuantidadeClientes,
                 ValorComanda = valor,
+                QuantidadePedidos = model.QuantidadeClientes,
+                Cancelada = false,
                 Pago = false,
             };
 
@@ -65,27 +68,6 @@ namespace RestauranteService.Service
             await _contexto.SaveChangesAsync();
         }
 
-        public async Task<BuscarModel> BuscarIniciada(int comandaId)
-        {
-
-            var comanda = await _contexto
-                .Comanda
-                .Where(c => c.ComandaId == comandaId)
-                .OrderBy(c => c.ComandaId)
-                .Select(cn => new BuscarModel
-                {
-                    ComandaId = cn.ComandaId,
-                    DataHoraEntrada = cn.DataHoraEntrada,
-                    MesaId = cn.MesaId,
-                    QuantidadeClientes = cn.QuantidadeClientes,
-                    ValorComanda = cn.ValorComanda
-                }).FirstOrDefaultAsync();
-
-            _ = comanda ?? throw new Exception("Comanda não localizada.");
-
-            return comanda;
-        }
-
         public async Task Cancelar(int comandaId)
         {
 
@@ -95,6 +77,8 @@ namespace RestauranteService.Service
                 .FirstOrDefaultAsync(c => c.ComandaId == comandaId && c.Pedidos.Count == 0 && c.Pago == false);
 
             _ = comanda ?? throw new Exception("Comanda não localizada.");
+
+            comanda.Cancelada = true;
 
             comanda.Pago = true;
 
@@ -128,7 +112,7 @@ namespace RestauranteService.Service
                     cf.Pago
                 }).FirstOrDefaultAsync();
 
-           // _ = comanda ?? throw new Exception("Comanda não localizada.");
+            _ = comanda ?? throw new Exception("Comanda não localizada.");
 
             var modelPaga = new ModelPaga
             {
@@ -139,6 +123,7 @@ namespace RestauranteService.Service
                 QuantidadeClientes = comanda.QuantidadeClientes,
                 ValorComanda = comanda.ValorComanda,
                 DataHoraSaida = comanda.DataHoraSaida
+                
 
             };
 
@@ -152,8 +137,8 @@ namespace RestauranteService.Service
                       ProdutoNome = p.Produto.Nome,
                       QuantidadeProduto = p.QuantidadeProduto,
                       StatusEnum = p.StatusEnum
-                  }).ToList();
-
+                  })
+                  .ToList();
 
             return modelPaga;
         }

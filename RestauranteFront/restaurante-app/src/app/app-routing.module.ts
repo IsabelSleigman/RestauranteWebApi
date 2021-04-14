@@ -1,3 +1,4 @@
+import { FaturamentoComponent } from './faturamento/faturamento.component';
 import { InicialComponent } from './inicial/inicial.component';
 import { NaoEncontradaComponent } from './nao-encontrada/nao-encontrada.component';
 import { NgModule } from '@angular/core';
@@ -13,6 +14,15 @@ const routes: Routes = [
     {
         path: 'home',
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+    },
+    {
+        path: 'faturamento',
+        component: FaturamentoComponent
+    },
+    {
+        path: 'faturamento',
+        loadChildren: () => import('./faturamento/faturamento.module').then(m => m.FaturamentoModule)
+       
     },
     {
         path: '404',

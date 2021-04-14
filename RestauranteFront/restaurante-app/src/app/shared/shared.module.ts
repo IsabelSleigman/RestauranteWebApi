@@ -19,6 +19,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { HumanizeFormMessagesPipe } from './pipes/humanize.pipe';
 import { NotificationService } from './snackbar/notification.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { HttpClientModule } from '@angular/common/http';
+
+
+
+
 
 
 
@@ -47,7 +58,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         MatTableModule,
         MatPaginatorModule,
         MatIconModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatDatepickerModule,
+        MatExpansionModule,
+        MatSidenavModule,
+        MatTooltipModule ,
+        MatMenuModule,
+        HttpClientModule,
+        MatSelectModule
+
       
 
 
@@ -73,7 +92,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         MatPaginatorModule,
         MatIconModule,
         HumanizeFormMessagesPipe,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatDatepickerModule,
+        MatExpansionModule,
+        MatSidenavModule ,
+        MatTooltipModule,
+        MatMenuModule,
+        HttpClientModule,
+        MatSelectModule
+
     ],
     providers: [
         NotificationService

@@ -15,8 +15,6 @@ namespace RestauranteDominio
         public int MesaId { get; set; } //FK
         [ForeignKey(nameof(MesaId))]
 
-        public Mesa Mesa { get; set; }
-
         public DateTime DataHoraEntrada { get; set; }
 
         public DateTime? DataHoraSaida { get; set; }
@@ -24,6 +22,10 @@ namespace RestauranteDominio
         public double ValorComanda { get; set; }
 
         public int QuantidadeClientes { get; set; }
+
+        public int QuantidadePedidos { get; set; }
+
+        public bool Cancelada { get; set; }
 
         public bool Pago { get; set; }
 

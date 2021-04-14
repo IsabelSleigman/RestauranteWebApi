@@ -1,0 +1,32 @@
+.header {
+    display: flex;
+    align-items: center;
+    background-color:  darkslategrey;
+}
+.header a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #fff;
+}
+
+.header i {
+    padding-right: 10px;
+    
+}
+
+.sidenav {
+    background-color: darkslategrey ;
+    width: 150px;
+}
+
+.sidenav a {
+    color: #fff;
+}
+.sidenav i {
+   padding-right: 10px;
+}
+.content {
+    padding: 16px;
+    background-color: #fff;
+}

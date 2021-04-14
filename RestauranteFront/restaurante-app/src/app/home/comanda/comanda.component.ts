@@ -3,14 +3,11 @@ import { EditarPedidoComponent } from './../../dialogs/editar-pedido/editar-pedi
 import { ListarModel } from './../pedido/models/listarModel';
 import { PedidoService } from './../pedido/pedido.service';
 import { HomeService } from 'src/app/home/home.service';
-import { BuscarModel } from './models/buscar-model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { MatTableDataSource } from '@angular/material/table';
 import { ModelCompleta } from './models/modelCompleta';
 import { MatDialog } from '@angular/material/dialog';
-import { filter, take } from 'rxjs/operators';
-import { pipe } from 'rxjs';
+import { filter} from 'rxjs/operators';
 import { DailogConfirmacaoComponent } from 'src/app/dialogs/dailog-confirmacao/dailog-confirmacao.component';
 
 
@@ -19,7 +16,7 @@ import { DailogConfirmacaoComponent } from 'src/app/dialogs/dailog-confirmacao/d
   templateUrl: './comanda.component.html',
   styleUrls: ['./comanda.component.scss']
 })
-export class ComandaComponent implements OnInit {
+export class ComandaComponent implements OnInit, OnDestroy{
 
   comandaCompleta: ModelCompleta = {} as ModelCompleta;
 
@@ -40,7 +37,6 @@ export class ComandaComponent implements OnInit {
     this.homeService.comanda$.subscribe(c => this.comandaCompleta = c);
 
     this.pedidoService.listarPedidos(this.homeService.comandaId);
-
 
     this.pedidoService.pedidos$.subscribe(p => this.pedidos = p)
     
@@ -70,6 +66,12 @@ console.log(p);
       .subscribe(() => {
         this.pedidoService.excluirPedido(p);
       });
+  }
+
+  public ngOnDestroy(){
+
+  
+   
   }
 
 }
