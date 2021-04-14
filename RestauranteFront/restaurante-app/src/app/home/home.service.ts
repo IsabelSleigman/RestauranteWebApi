@@ -5,7 +5,7 @@ import { catchError, take, tap } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../shared/snackbar/notification.service';
 const baseUrl = `${environment.apiUrl}/comanda`
 
@@ -13,7 +13,7 @@ const baseUrl = `${environment.apiUrl}/comanda`
 
 export class HomeService {
 
-    public comandaId: number;
+    private comandaId: number;
     private _comanda = new BehaviorSubject<ModelCompleta>(null);
     public readonly comanda$: Observable<ModelCompleta> = this._comanda.asObservable();
 
@@ -29,20 +29,37 @@ export class HomeService {
             .post<number>(`${baseUrl}`, iniciar)
             .pipe(
                 take(1),
-                tap(c => this.comandaId = c),
+                tap(c => console.log("inicial",this.comandaId = c)),
                 catchError((error: HttpErrorResponse) => {
                     this.snackbar.errorMessage(error);
                     throw error;
+            
                 })
+                
             )
 
     }
 
-    obterComanda() {
+    atualizarComanda() {
+        console.log("atualizar",this.comandaId)
         return this.http
             .get<ModelCompleta>(`${baseUrl}/${this.comandaId}`)
             .pipe(
                 take(1),
+                catchError((error: HttpErrorResponse) => {
+                    this.snackbar.errorMessage(error);
+                    throw error;
+                })
+            ).subscribe(res => this._comanda.next(res));
+    }
+
+    carregarComanda(comandaId : number) {
+        console.log("atualizar",comandaId)
+        return this.http
+            .get<ModelCompleta>(`${baseUrl}/${comandaId}`)
+            .pipe(
+                take(1),
+                tap(c => this.comandaId = c.comandaId),
                 catchError((error: HttpErrorResponse) => {
                     this.snackbar.errorMessage(error);
                     throw error;

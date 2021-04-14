@@ -1,7 +1,7 @@
 export interface RealizadaModel {
 
     pedidoId: number,
-    comandaId: number,
+    comandaId?: number,
     quantidade: number
 
 }

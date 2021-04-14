@@ -45,7 +45,7 @@ const routes: Routes = [
     
   ],
   providers: [
-    HomeService,PedidoService
+    PedidoService
   ]
 })
 export class HomeModule { }

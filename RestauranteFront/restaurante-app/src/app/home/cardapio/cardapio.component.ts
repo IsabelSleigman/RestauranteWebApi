@@ -22,7 +22,6 @@ export class CardapioComponent implements OnInit {
       .pipe(
         take(1))
       .subscribe(p => this.produto = p);
-    console.log(this.produto)
   }
 
   produtoSelecionado(produto: ListarDisponivelModel) {

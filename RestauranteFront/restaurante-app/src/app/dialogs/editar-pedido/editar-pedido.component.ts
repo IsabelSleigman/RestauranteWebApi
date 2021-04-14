@@ -28,11 +28,8 @@ export class EditarPedidoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log("Pedido", this.homeService.comandaId);
-
     this.formEditar = new FormGroup({
       pedidoId: new FormControl(null),
-      comandaId: new FormControl(null),
       quantidade: new FormControl(this.data.quantidadeProduto, [Validators.required])
     });
   }
@@ -44,16 +41,16 @@ export class EditarPedidoComponent implements OnInit {
   editarPedido() {
     var pedido: RealizadaModel = {
       pedidoId: this.pedido.pedidoId,
-      comandaId: this.homeService.comandaId,
       quantidade: this.formEditar.get('quantidade').value
     }
-    this.pedidoService.editarPedido(pedido);
-    
+    if(pedido != null){
 
-    this.dialogRef.close();
-    console.log(pedido);
-    console.log("Editar", this.homeService.comandaId);
-
+      this.pedidoService.editarPedido(pedido);
+      this.dialogRef.close();
+      console.log(pedido);
+  
+    }
+  
   }
 
 }

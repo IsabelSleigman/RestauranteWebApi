@@ -29,12 +29,10 @@ export class PedidoDialogComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log("Pedido", this.homeService.comandaId);
-
     this.formPedido = new FormGroup({
       produtoId: new FormControl(this.produto.produtoId, [Validators.required]),
       quantidade: new FormControl(1, [Validators.required]),
-      comandaId: new FormControl(this.homeService.comandaId, [Validators.required])
+    
     });
   }
 
@@ -46,7 +44,6 @@ export class PedidoDialogComponent implements OnInit {
     var pedido: RealizarModel = {
       produtoId: this.formPedido.value.produtoId,
       quantidade: this.formPedido.value.quantidade,
-      comandaId: this.formPedido.value.comandaId
     }
     this.pedidoService.realizarPedido(pedido)
     this.dialogRef.close();

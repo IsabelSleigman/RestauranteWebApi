@@ -35,13 +35,13 @@ export class ComandaComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.homeService.obterComanda()
+    this.homeService.atualizarComanda()
 
     this.homeService.comanda$
       .pipe(takeUntil(this.unsub$))
       .subscribe(c => this.comandaCompleta = c);
 
-    this.pedidoService.listarPedidos(this.homeService.comandaId);
+    this.pedidoService.listarPedidos();
 
     this.pedidoService.pedidos$
       .pipe(takeUntil(this.unsub$))
@@ -59,7 +59,7 @@ export class ComandaComponent implements OnInit, OnDestroy {
 
   excluirPedido(pedido: ListarModel) {
     let pedidoId = pedido.pedidoId;
-    let comandaId = this.homeService.comandaId;
+    let comandaId = this.comandaCompleta.comandaId;
     let p: ExcluirModel = { pedidoId, comandaId }
     
     let dialogRef = this.dialog.open(DailogConfirmacaoComponent, {

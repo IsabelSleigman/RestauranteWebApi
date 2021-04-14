@@ -1,9 +1,10 @@
+import { ModelCompleta } from './../comanda/models/modelCompleta';
 import { HomeService } from 'src/app/home/home.service';
 import { ExcluirModel } from './models/excluirModel';
 import { Observable } from 'rxjs';
 import { RealizadaModel } from './models/realizadaModel';
 import { BehaviorSubject } from 'rxjs';
-import { catchError, take } from 'rxjs/operators';
+import { catchError, take, tap } from 'rxjs/operators';
 import { ListarModel } from './models/listarModel';
 import { RealizarModel } from './models/realizarModel';
 import { Injectable } from "@angular/core";
@@ -15,71 +16,86 @@ const baseUrl = `${environment.apiUrl}/pedido`
 @Injectable()
 
 export class PedidoService {
-    
-    public pedido: ListarModel;
+
+    private pedido: ListarModel;
     private _pedidos = new BehaviorSubject<ListarModel[]>([]);
     public readonly pedidos$: Observable<ListarModel[]> = this._pedidos.asObservable();
+    private comandaId: number = 0;
 
     constructor(private http: HttpClient, private homeService: HomeService) {
     }
 
-    listarPedidos(comandaId: number){
+    listarPedidos() {
+        this.obterComandaId();
         return this.http
-        .get<ListarModel[]>(`${baseUrl}/${comandaId}`)
-        .pipe(
-            take(1)
-        ).subscribe(res =>
-            this._pedidos.next(res));
-        
+            .get<ListarModel[]>(`${baseUrl}/${this.comandaId}`)
+            .pipe(
+                take(1),
+            ).subscribe(res =>
+                this._pedidos.next(res));
+
     }
 
-    realizarPedido(model: RealizarModel){
+    realizarPedido(model: RealizarModel) {
+        this.obterComandaId();
+
+        console.log("Fazerpedido", this.comandaId);
 
         return this.http
-        .post<number>(`${baseUrl}`, model)
-        .pipe(
-            take(1),
-            catchError((error: HttpErrorResponse) => {
-                throw error;
+            .post<number>(`${baseUrl}`, {
+                produtoId: model.produtoId,
+                quantidade: model.quantidade,
+                comandaId: this.comandaId
             })
-        ).subscribe(id => {
-           let pedidos = this._pedidos.getValue();
-           pedidos.push(this.pedido)
-           this._pedidos.next(pedidos.slice());
-           this.homeService.obterComanda();
+            .pipe(
+                take(1),
+                catchError((error: HttpErrorResponse) => {
+                    throw error;
+                })
+            ).subscribe(id => {
+                let pedidos = this._pedidos.getValue();
+                pedidos.push(this.pedido)
+                this._pedidos.next(pedidos.slice());
+                this.homeService.atualizarComanda();
 
-        })
-             
-    }
-
-    editarPedido(model: RealizadaModel){
-       this.http
-        .put<ListarModel>(`${baseUrl}/editar`, model)
-        .pipe(
-            take(1),
-            catchError((error: HttpErrorResponse) => {
-                throw error;
             })
-        ).subscribe( p => {
-            let pedidos = this._pedidos.getValue().map(n => n.pedidoId === model.pedidoId ? {...n, pedidoValor: p.pedidoValor, quantidadeProduto: p.quantidadeProduto } : n)
-            this._pedidos.next(pedidos);
-            this.homeService.obterComanda();
-        })
 
     }
 
-    excluirPedido(model: ExcluirModel){
+    editarPedido(model: RealizadaModel) {
+
+        this.http
+            .put<ListarModel>(`${baseUrl}/editar`, model)
+            .pipe(
+                take(1),
+                catchError((error: HttpErrorResponse) => {
+                    throw error;
+                })
+            ).subscribe(p => {
+                let pedidos = this._pedidos.getValue().map(n => n.pedidoId === model.pedidoId ? { ...n, pedidoValor: p.pedidoValor, quantidadeProduto: p.quantidadeProduto } : n)
+                this._pedidos.next(pedidos);
+                this.homeService.atualizarComanda();
+            })
+
+    }
+
+    excluirPedido(model: ExcluirModel) {
         this.http.delete<ListarModel>(`${baseUrl}/${model.pedidoId}/${model.comandaId}/cancelar`)
-        .pipe(
-            take(1),
-             catchError((error: HttpErrorResponse) => {
-                throw error;
-            }))
+            .pipe(
+                take(1),
+                catchError((error: HttpErrorResponse) => {
+                    throw error;
+                }))
             .subscribe(p => {
-            let pedidos = this._pedidos.getValue().map(n => n.pedidoId === model.pedidoId? {...n, statusEnum: p.statusEnum} : n)
-            this._pedidos.next(pedidos);
-            this.homeService.obterComanda();
-        })
+                let pedidos = this._pedidos.getValue().map(n => n.pedidoId === model.pedidoId ? { ...n, statusEnum: p.statusEnum } : n)
+                this._pedidos.next(pedidos);
+                this.homeService.atualizarComanda();
+            })
+
+    }
+
+    obterComandaId() {
+        this.homeService.comanda$.pipe(take(1)).subscribe(c => this.comandaId = c.comandaId);
 
     }
 }
