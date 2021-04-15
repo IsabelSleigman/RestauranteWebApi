@@ -29,7 +29,6 @@ export class AtendimentosEmAbertoComponent implements OnInit {
 
   abrirComanda(comanda: AbertasFaturamento){
       this.dialog.open(ComandaDialogComponent, {
-        width: '250px',
         data: comanda
       });
     
