@@ -20,7 +20,7 @@ export class HomeService {
     constructor(private http: HttpClient,
         private router: Router,
         private route: ActivatedRoute,
-        private snackbar: NotificationService) {
+        private notificationService: NotificationService) {
     }
 
     iniciar(iniciar: AberturaModel): Observable<number> {
@@ -31,7 +31,7 @@ export class HomeService {
                 take(1),
                 tap(c => this.comandaId = c),
                 catchError((error: HttpErrorResponse) => {
-                    this.snackbar.errorMessage(error);
+                    this.notificationService.errorMessage(error);
                     throw error;
 
                 })
@@ -47,7 +47,7 @@ export class HomeService {
             .pipe(
                 take(1),
                 catchError((error: HttpErrorResponse) => {
-                    this.snackbar.errorMessage(error);
+                    this.notificationService.errorMessage(error);
                     throw error;
                 })
             )
@@ -62,7 +62,7 @@ export class HomeService {
                 take(1),
                 tap(c => this.comandaId = c.comandaId),
                 catchError((error: HttpErrorResponse) => {
-                    this.snackbar.errorMessage(error);
+                    this.notificationService.errorMessage(error);
                     throw error;
                 })
             ).subscribe(res => this._comanda.next(res));
@@ -74,10 +74,10 @@ export class HomeService {
             .pipe(
                 take(1),
                 catchError((error: HttpErrorResponse) => {
-                    this.snackbar.errorMessage(error);
+                    this.notificationService.errorMessage(error);
                     throw error;
                 })
-            ).subscribe(() => { });
+            ).subscribe(() => {this.notificationService.successMessage('Comanda paga!') });
 
     }
 

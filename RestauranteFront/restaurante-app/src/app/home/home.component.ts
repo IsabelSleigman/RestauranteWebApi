@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
           res => res == true))
       .subscribe(() => {
         this.homeService.fecharComanda();
-        this.router.navigate([""]);
+        this.router.navigate(["fechar"]);
       });
   }
 }

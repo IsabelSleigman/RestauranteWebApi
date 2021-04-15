@@ -1,3 +1,4 @@
+import { NotificationService } from './../../shared/snackbar/notification.service';
 import { HomeService } from 'src/app/home/home.service';
 import { ExcluirModel } from './models/excluirModel';
 import { Observable } from 'rxjs';
@@ -20,7 +21,9 @@ export class PedidoService {
     public readonly pedidos$: Observable<ListarModel[]> = this._pedidos.asObservable();
     private comandaId: number = 0;
 
-    constructor(private http: HttpClient, private homeService: HomeService) {
+    constructor(private http: HttpClient,
+        private homeService: HomeService,
+        private notificationService: NotificationService) {
     }
 
     listarPedidos() {
@@ -40,8 +43,6 @@ export class PedidoService {
 
         this.obterComandaId();
 
-        console.log("Fazerpedido", this.comandaId);
-
         return this.http
             .post<number>(`${baseUrl}`, {
                 produtoId: model.produtoId,
@@ -51,14 +52,15 @@ export class PedidoService {
             .pipe(
                 take(1),
                 catchError((error: HttpErrorResponse) => {
+                    this.notificationService.errorMessage(error);
                     throw error;
                 })
             ).subscribe(id => {
                 let pedidos = this._pedidos.getValue();
                 pedidos.push(this.pedido)
                 this._pedidos.next(pedidos.slice());
+                this.notificationService.successMessage('Pedido Realizado!')
                 this.homeService.atualizarComanda();
-
             })
 
     }
@@ -74,11 +76,13 @@ export class PedidoService {
             .pipe(
                 take(1),
                 catchError((error: HttpErrorResponse) => {
+                    this.notificationService.errorMessage(error);
                     throw error;
                 })
             ).subscribe(p => {
                 let pedidos = this._pedidos.getValue().map(n => n.pedidoId === model.pedidoId ? { ...n, pedidoValor: p.pedidoValor, quantidadeProduto: p.quantidadeProduto } : n)
                 this._pedidos.next(pedidos);
+                this.notificationService.successMessage('Pedido Editado!')
                 this.homeService.atualizarComanda();
             })
 
@@ -89,11 +93,13 @@ export class PedidoService {
             .pipe(
                 take(1),
                 catchError((error: HttpErrorResponse) => {
+                    this.notificationService.errorMessage(error);
                     throw error;
                 }))
             .subscribe(p => {
                 let pedidos = this._pedidos.getValue().map(n => n.pedidoId === model.pedidoId ? { ...n, statusEnum: p.statusEnum } : n)
                 this._pedidos.next(pedidos);
+                this.notificationService.successMessage('Pedido excluido!')
                 this.homeService.atualizarComanda();
             })
 

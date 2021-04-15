@@ -6,7 +6,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ComandaComponent } from './../home/comanda/comanda.component';
 import { CardapioComponent } from './cardapio/cardapio.component';
-import { HomeService } from './home.service';
 
 const routes: Routes = [
 
@@ -22,7 +21,8 @@ const routes: Routes = [
       {
         path: '',
         component: CardapioComponent,
-      },
+      }
+     
      
   
     ]
@@ -34,7 +34,7 @@ const routes: Routes = [
   declarations: [
     HomeComponent,
     ComandaComponent,
-    CardapioComponent,
+    CardapioComponent
   
     
   ],
