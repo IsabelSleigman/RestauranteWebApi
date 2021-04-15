@@ -1,3 +1,4 @@
+import { FecharComandaComponent } from './../dialogs/fechar-comanda/fechar-comanda.component';
 import { DailogConfirmacaoComponent } from './../dialogs/dailog-confirmacao/dailog-confirmacao.component';
 import { HomeService } from './home.service';
 import { Component, OnInit } from '@angular/core';
@@ -48,7 +49,8 @@ export class HomeComponent implements OnInit {
           res => res == true))
       .subscribe(() => {
         this.homeService.fecharComanda();
-        this.router.navigate(["fechar"]);
+        this.dialog.open(FecharComandaComponent);
+        
       });
   }
 }

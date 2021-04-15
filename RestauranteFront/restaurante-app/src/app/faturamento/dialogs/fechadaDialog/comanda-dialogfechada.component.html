@@ -12,6 +12,11 @@
             <p matLine> </p>
         </mat-list-item>
         <mat-list-item>
+            <mat-icon matListIcon>insert_invitation</mat-icon>
+            <h3 matLine>Saida: {{comanda.dataHoraSaida|date:'dd/MM/yyyy MM:mm:ss'}} </h3>
+            <p matLine> </p>
+        </mat-list-item>
+        <mat-list-item>
             <mat-icon matListIcon>request_quote</mat-icon>
             <h3 matLine>Valor {{comanda.valorComanda|currency: 'BRL'}} </h3>
             <p matLine> </p>

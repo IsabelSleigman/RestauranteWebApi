@@ -1,1 +1,68 @@
-<p>fechar-comanda works!</p>
+<h1> Comanda </h1>
+<div mat-dialog-content class="comanda-form">
+    <mat-list>
+        <mat-list-item>
+            <mat-icon matListIcon> wysiwyg </mat-icon>
+            <h3 matLine> Atendimento: {{comandaCompleta.comandaId}} </h3>
+            <p matLine> </p>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-icon matListIcon> format_strikethrough </mat-icon>
+            <h3 matLine> Mesa: {{comandaCompleta.mesaId}} </h3>
+            <p matLine> </p>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-icon matListIcon>insert_invitation</mat-icon>
+            <h3 matLine>Entrada: {{comandaCompleta.dataHoraEntrada|date:'dd/MM/yyyy MM:mm:ss'}} </h3>
+            <p matLine> </p>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-icon matListIcon>event_available</mat-icon>
+            <h3 matLine>Saida: {{comandaCompleta.dataHoraSaida|date:'dd/MM/yyyy MM:mm:ss'}} </h3>
+            <p matLine> </p>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-icon matListIcon> perm_identity </mat-icon>
+            <h3 matLine> Clientes: {{comandaCompleta.quantidadeClientes}} </h3>
+            <p matLine> </p>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-icon matListIcon>request_quote</mat-icon>
+            <h3 matLine>Valor {{comandaCompleta.valorComanda|currency: 'BRL'}} </h3>
+            <p matLine> </p>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-icon matListIcon> savings </mat-icon>
+            <h3 matLine> Paga: {{comandaCompleta.pago}} </h3>
+            <p matLine> </p>
+        </mat-list-item>
+
+    </mat-list>
+    <mat-accordion>
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon matListIcon> list_alt </mat-icon>
+                    <mat-list-item>
+                        <h3 matLine> Pedidos: </h3>
+                        <p matLine> </p>
+                    </mat-list-item>
+                </mat-panel-title>
+                <mat-panel-description>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>Produto: Rodizio , Quantidade: {{comandaCompleta.quantidadeClientes}}</p>
+            <div *ngFor="let pedido of comandaCompleta.pedidos">
+                <p>Produto: {{pedido.produtoNome}},
+                    Quantidade:{{pedido.quantidadeProduto}} ,
+                    Valor: {{pedido.pedidoValor|currency: 'BRL'}}</p>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-action-list fxLayout="row" fxLayoutAlign="space-around center">
+        <div>
+            <button mat-button mat-dialog-close (click)="menuInicial()"> Finalizar </button>
+        </div>
+    </mat-action-list>
+</div>

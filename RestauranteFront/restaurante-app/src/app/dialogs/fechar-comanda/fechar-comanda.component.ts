@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { HomeService } from 'src/app/home/home.service';
+import { Router } from '@angular/router';
+import { ModelCompleta } from './../../home/comanda/models/modelCompleta';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-fechar-comanda',
@@ -7,9 +12,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FecharComandaComponent implements OnInit {
 
-  constructor() { }
+  panelOpenState = false;
+  
+  comandaCompleta : ModelCompleta;
+
+  constructor(public dialogRef: MatDialogRef<FecharComandaComponent>,
+     private router: Router, private homeService: HomeService) {
+    }
 
   ngOnInit(): void {
+
+    this.homeService.atualizarComanda()
+
+    this.homeService.comanda$
+      .pipe(
+        take(1))
+      .subscribe(c => this.comandaCompleta = c);
+
+  }
+
+  menuInicial(){
+    this.router.navigate([""])
   }
 
 }
