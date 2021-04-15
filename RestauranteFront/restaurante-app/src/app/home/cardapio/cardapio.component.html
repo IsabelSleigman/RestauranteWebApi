@@ -1,7 +1,7 @@
 <div  class="example-card">
     <mat-card class="card"  *ngFor="let p of produto; index as i">
         <mat-card-header>
-          <mat-card-title>{{i}}</mat-card-title>
+          <mat-card-title>{{p.produtoId}}</mat-card-title>
           <mat-card-subtitle>{{p.nome}}</mat-card-subtitle>
           <mat-card-subtitle>{{p.valor | currency: 'BRL'}}</mat-card-subtitle>
         </mat-card-header>

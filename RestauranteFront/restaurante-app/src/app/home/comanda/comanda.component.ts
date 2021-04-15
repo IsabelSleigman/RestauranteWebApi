@@ -52,6 +52,7 @@ export class ComandaComponent implements OnInit, OnDestroy {
 
   editarSelecionado(pedido: ListarModel) {
     this.dialog.open(EditarPedidoComponent, {
+      width: '400px',
       data: pedido
     });
   }

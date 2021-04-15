@@ -17,13 +17,18 @@
             <p matLine> </p>
         </mat-list-item>
         <mat-list-item>
+            <mat-icon matListIcon> perm_identity </mat-icon>
+            <h3 matLine> Clientes: {{comanda.quantidadeClientes}} </h3>
+            <p matLine> </p>
+        </mat-list-item>
+        <mat-list-item>
             <mat-icon matListIcon>request_quote</mat-icon>
             <h3 matLine>Valor {{comanda.valorComanda|currency: 'BRL'}} </h3>
             <p matLine> </p>
         </mat-list-item>
         <mat-list-item>
-            <mat-icon matListIcon> perm_identity </mat-icon>
-            <h3 matLine> Clientes: {{comanda.quantidadeClientes}} </h3>
+            <mat-icon matListIcon> savings </mat-icon>
+            <h3 matLine> Paga: {{comanda.pago}} </h3>
             <p matLine> </p>
         </mat-list-item>
     </mat-list>
@@ -33,14 +38,14 @@
                 <mat-panel-title>
                     <mat-icon matListIcon> list_alt </mat-icon>
                     <mat-list-item>
-                        <h3 matLine> Pedidos: {{comanda.quantidadePedidos}} </h3>
+                        <h3 matLine> Pedidos</h3>
                         <p matLine> </p>
                     </mat-list-item>
                 </mat-panel-title>
                 <mat-panel-description >
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <p>Rodizio</p>
+            <p>Produto: Rodizio, Quantidade: {{comanda.quantidadeClientes}} </p>
         </mat-expansion-panel>
     </mat-accordion>
 

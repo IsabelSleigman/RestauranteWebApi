@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { take } from 'rxjs/operators';
-import { FaturamentoService } from './faturamento.service';
-import { AbertasFaturamento } from './models/abertasFaturamento';
 
 @Component({
   selector: 'app-faturamento',
@@ -10,16 +7,10 @@ import { AbertasFaturamento } from './models/abertasFaturamento';
 })
 export class FaturamentoComponent implements OnInit {
 
- comandasAbertas: AbertasFaturamento[];
-
-  constructor(private faturamentoService: FaturamentoService) { }
+  constructor() { }
 
   ngOnInit(): void {
 
-    this.faturamentoService.obterAbertas()
-    .pipe(
-      take(1))
-    .subscribe(a =>this.comandasAbertas = a);
   }
 
 }
