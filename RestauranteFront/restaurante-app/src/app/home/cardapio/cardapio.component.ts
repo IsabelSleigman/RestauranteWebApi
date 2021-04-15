@@ -26,7 +26,7 @@ export class CardapioComponent implements OnInit {
 
   produtoSelecionado(produto: ListarDisponivelModel) {
     this.dialog.open(PedidoDialogComponent, {
-      width: '250px',
+      width: '400px',
       data: produto
     });
   }

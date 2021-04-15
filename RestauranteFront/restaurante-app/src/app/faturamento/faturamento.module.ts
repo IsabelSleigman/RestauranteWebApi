@@ -7,6 +7,7 @@ import { AtendimentosEmAbertoComponent } from './atendimentos-em-aberto/atendime
 import { AtendimentosFechadosComponent } from './atendimentos-fechados/atendimentos-fechados.component';
 import { ComandaDialogComponent } from './dialogs/comanda-dialog/comanda-dialog.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { ComandaDialogfechadaComponent } from './dialogs/fechadaDialog/comanda-dialogfechada.component';
 
 
 const routes: Routes = [
@@ -42,7 +43,8 @@ const routes: Routes = [
     
     AtendimentosEmAbertoComponent,
                   AtendimentosFechadosComponent,
-                  ComandaDialogComponent
+                  ComandaDialogComponent,
+                  ComandaDialogfechadaComponent
   ],
     imports: [
         RouterModule.forChild(routes),

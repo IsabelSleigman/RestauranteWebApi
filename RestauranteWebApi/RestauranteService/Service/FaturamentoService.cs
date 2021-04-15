@@ -50,6 +50,7 @@ namespace RestauranteService.Service
             var comandasAbertas = await _contexto
                .Comanda
                .Where(c => c.Pago == false)
+               .Include(p => p.Pedidos)
                .OrderBy(c => c.ComandaId)
                .Select(cn => new ModelAbertasFaturamento
                {

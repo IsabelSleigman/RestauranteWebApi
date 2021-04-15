@@ -1,5 +1,7 @@
-﻿using System;
+﻿using RestauranteService.Service.PedidoModel;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace RestauranteService.Service.Model.FaturamentoModel

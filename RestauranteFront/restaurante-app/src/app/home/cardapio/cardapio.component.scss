@@ -1,33 +1,47 @@
 .example-card {
     height: 150px;
     display: grid;
-    grid-template-columns: repeat(4,250px);
+    grid-template-columns: repeat(4, 250px);
     grid-gap: 10px;
     align-items: center;
     position: relative;
-
 }
-.card{
+.card {
     display: grid;
     grid-template-rows: 1fr;
-    
 }
 
 .example-header-image {
     background-size: cover;
 }
-.menu-imagem{
+.menu-imagem {
     width: 200px;
     height: 150px;
     object-fit: cover;
 }
-.button{
+.button {
     position: absolute;
     top: 5px;
     right: 5px;
     font-size: 14px;
 }
-img{
+img {
     height: 100px;
     object-fit: cover;
+}
+
+@media screen and(max-width: 1480px) {
+    .example-card {
+        grid-template-columns: repeat(3, 250px);
+    }
+}
+@media screen and(max-width: 1000px) {
+    .example-card {
+        grid-template-columns: repeat(2, 250px);
+    }
+}
+@media screen and(max-width: 750px) {
+    .example-card {
+        grid-template-columns:250px;
+    }
 }

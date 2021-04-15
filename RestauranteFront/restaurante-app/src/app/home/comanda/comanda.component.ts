@@ -21,9 +21,9 @@ export class ComandaComponent implements OnInit, OnDestroy {
   comandaCompleta: ModelCompleta = {} as ModelCompleta;
 
   pedidos: ListarModel[] = {} as ListarModel[]
-  
-  colunas = ['pedidoId', 'produtoNome', 'quantidadeProduto', 'valor', 'status', 'editar', 'excluir'];
-  
+
+  colunas = ['editar', 'excluir', 'pedidoId', 'produtoNome', 'quantidadeProduto', 'valor', 'status'];
+
   unsub$ = new Subject();
 
   constructor(
@@ -58,8 +58,8 @@ export class ComandaComponent implements OnInit, OnDestroy {
 
   excluirPedido(pedido: ListarModel) {
 
-    let p: ExcluirModel = { pedidoId : pedido.pedidoId }
-    
+    let p: ExcluirModel = { pedidoId: pedido.pedidoId }
+
     let dialogRef = this.dialog.open(DailogConfirmacaoComponent, {
       data: { title: "Aviso", msg: 'Tem ceteza que deseja excluir esse Pedido?' }
     });

@@ -1,22 +1,16 @@
 <div class="example-card"  mat-dialog-content>
     <mat-card class="card" >
         <form [formGroup]="formPedido">
-        <mat-card-header>
-                <mat-card-title>{{produto.produtoId}}</mat-card-title>
-                <mat-card-subtitle>{{produto.nome}}</mat-card-subtitle>
+        <mat-card-header class="header">
+                <mat-card-title>{{produto.nome}}</mat-card-title>
+                <mat-card-subtitle>{{produto.produtoId}}</mat-card-subtitle>
                 <mat-card-subtitle>{{produto.valor | currency: 'BRL'}}</mat-card-subtitle>
             
         </mat-card-header>
         <img mat-card-image src="../../../assets/cardapio/img{{produto.produtoId}}.jpg" alt="Foto Produtos">
-        <mat-card-content>
-            <p>
-            </p>
-        </mat-card-content>
-        <mat-dialog-actions>
-        <mat-label for="quantidade">Quantidade</mat-label>
-           <div>
-               <input  formControlName="quantidade" type="number" min="1" max="7">
-           </div>
+        <mat-dialog-actions class="dialog-actions">
+        <mat-label class="mat-label" for="quantidade">Quantidade</mat-label>
+               <input formControlName="quantidade" type="number" min="1" max="7">
         </mat-dialog-actions>
         <mat-card-actions>
             <button class="button" mat-button (click)="realizarPedido()">Selecionar</button>

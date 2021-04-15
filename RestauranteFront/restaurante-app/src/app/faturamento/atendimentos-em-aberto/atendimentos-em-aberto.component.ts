@@ -12,7 +12,7 @@ import { AbertasFaturamento } from '../models/abertasFaturamento';
 })
 export class AtendimentosEmAbertoComponent implements OnInit {
 
- comandasAbertas: AbertasFaturamento[];
+ comandasAbertas: AbertasFaturamento[] = [];
 
  colunas = ['comandaId', 'mesaId', 'dataHora', 'quantidadePedidos', 'quantidadeClientes', 'valor', 'abrir'];
 

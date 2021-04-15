@@ -16,7 +16,27 @@
   </mat-card>
 
   <mat-card fxLayout="column" *ngIf="pedidos.length > 0">
+
     <table mat-table [dataSource]="pedidos" class="mat-elevation-z8 table">
+      
+      <ng-container style="width: 20px;" matColumnDef="editar">
+        <th mat-header-cell *matHeaderCellDef>Editar</th>
+        <td mat-cell *matCellDef="let row">
+          <button matTooltip="Editar" mat-flat-button (click)="editarSelecionado(row)">
+            <i class="material-icons">create</i>
+          </button>
+        </td>
+
+      </ng-container>
+
+      <ng-container matColumnDef="excluir">
+        <th mat-header-cell *matHeaderCellDef>Deletar</th>
+        <td mat-cell *matCellDef="let row">
+          <button matTooltip="Excluir" mat-flat-button (click)="excluirPedido(row)">
+            <i class="material-icons">delete</i>
+          </button>
+        </td>
+      </ng-container>
 
       <ng-container matColumnDef="pedidoId">
         <th mat-header-cell class="th" *matHeaderCellDef>Pedido</th>
@@ -51,25 +71,6 @@
           </ng-container>
           </td>
       </ng-container>
-      <ng-container matColumnDef="editar">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let row">
-          <button matTooltip="Editar" mat-flat-button (click)="editarSelecionado(row)">
-            <i class="material-icons">create</i>
-          </button>
-        </td>
-
-      </ng-container>
-
-      <ng-container matColumnDef="excluir">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let row">
-          <button matTooltip="Excluir" mat-flat-button (click)="excluirPedido(row)">
-            <i class="material-icons">delete</i>
-          </button>
-        </td>
-      </ng-container>
-
       <tr mat-header-row *matHeaderRowDef="colunas"></tr>
       <tr mat-row *matRowDef="let row; columns: colunas;"></tr>
     </table>

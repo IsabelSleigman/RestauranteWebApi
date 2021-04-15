@@ -60,7 +60,7 @@ namespace RestauranteService.Service
 
                 comanda.ValorComanda += totalPedido;
 
-                comanda.QuantidadePedidos += 1;
+                comanda.QuantidadePedidos++;
             }
 
             _contexto.Pedido.Add(pedido);
