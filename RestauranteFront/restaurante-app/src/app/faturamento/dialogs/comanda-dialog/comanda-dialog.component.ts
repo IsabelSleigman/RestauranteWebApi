@@ -8,6 +8,8 @@ import { AbertasFaturamento } from '../../models/abertasFaturamento';
   styleUrls: ['./comanda-dialog.component.scss']
 })
 export class ComandaDialogComponent implements OnInit {
+
+  panelOpenState = false;
   
   comanda : AbertasFaturamento;
 
@@ -16,7 +18,7 @@ export class ComandaDialogComponent implements OnInit {
       this.comanda = data;
     }
   ngOnInit(): void {
-    
+
   }
 
 }

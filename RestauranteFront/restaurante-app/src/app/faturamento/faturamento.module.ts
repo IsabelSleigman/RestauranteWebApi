@@ -6,7 +6,7 @@ import { SharedModule } from './../shared/shared.module';
 import { AtendimentosEmAbertoComponent } from './atendimentos-em-aberto/atendimentos-em-aberto.component';
 import { AtendimentosFechadosComponent } from './atendimentos-fechados/atendimentos-fechados.component';
 import { ComandaDialogComponent } from './dialogs/comanda-dialog/comanda-dialog.component';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 const routes: Routes = [
@@ -47,6 +47,7 @@ const routes: Routes = [
     imports: [
         RouterModule.forChild(routes),
         HttpClientModule,
+        MatExpansionModule,
         SharedModule
 
     ],

@@ -1,4 +1,3 @@
-
 <h1> Comanda </h1>
 <div mat-dialog-content class="comanda-form">
     <mat-list>
@@ -22,17 +21,28 @@
             <h3 matLine> Clientes: {{comanda.quantidadeClientes}} </h3>
             <p matLine> </p>
         </mat-list-item>
-        <mat-list-item>
-            <mat-icon matListIcon> list_alt </mat-icon>
-            <h3 matLine> Pedidos: {{comanda.quantidadePedidos}} </h3>
-            <p matLine> </p>
-        </mat-list-item>
     </mat-list>
+    <mat-accordion>
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon matListIcon> list_alt </mat-icon>
+                    <mat-list-item>
+                        <h3 matLine> Pedidos: {{comanda.quantidadePedidos}} </h3>
+                        <p matLine> </p>
+                    </mat-list-item>
+                </mat-panel-title>
+                <mat-panel-description >
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>I'm visible because I am open</p>
+        </mat-expansion-panel>
+    </mat-accordion>
 
     <mat-action-list fxLayout="row" fxLayoutAlign="space-around center">
         <div>
-            <button  mat-button  mat-dialog-close> Voltar </button>
+            <button mat-button mat-dialog-close> Voltar </button>
         </div>
-        <button mat-button > Cancelar </button>
+        <button mat-button> Cancelar </button>
     </mat-action-list>
 </div>
