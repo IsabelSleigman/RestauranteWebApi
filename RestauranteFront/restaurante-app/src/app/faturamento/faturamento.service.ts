@@ -1,4 +1,3 @@
-import { ModelCompleta } from './comanda/models/modelCompleta';
 import { AberturaModel } from './../inicial/models/abertura-model';
 import { Injectable } from "@angular/core";
 import { catchError, take, tap } from 'rxjs/operators';
@@ -6,15 +5,11 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { NotificationService } from '../shared/snackbar/notification.service';
-const baseUrl = `${environment.apiUrl}/comanda`
+const baseUrl = `${environment.apiUrl}/faturamento`
 
 @Injectable()
 
-export class HomeService {
-
-    private comandaId: number;
-    private _comanda = new BehaviorSubject<ModelCompleta>(null);
-    public readonly comanda$: Observable<ModelCompleta> = this._comanda.asObservable();
+export class FaturamentoService {
 
     constructor(private http: HttpClient,
         private notificationService: NotificationService) {

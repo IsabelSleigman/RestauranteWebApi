@@ -10,7 +10,7 @@ import { AtendimentosEmAbertoComponent } from './atendimentos-em-aberto/atendime
 const routes: Routes = [
 
     {
-        path: 'faturamento',
+        path: '',
         component: FaturamentoComponent,
         children: [
      

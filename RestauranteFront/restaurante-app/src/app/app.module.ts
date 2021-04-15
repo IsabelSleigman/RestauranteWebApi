@@ -10,7 +10,6 @@ import { RouterModule} from '@angular/router';
 import { AppComponent } from './app.component';
 import {InicialModule} from './inicial/inicial.module';
 import { HomeModule } from './home/home.module';
-import { NaoEncontradaComponent } from './nao-encontrada/nao-encontrada.component';
 import { PedidoDialogComponent } from './dialogs/pedido-dialog/pedido-dialog.component';
 import { EditarPedidoComponent } from './dialogs/editar-pedido/editar-pedido.component';
 import { FecharComandaComponent } from './dialogs/fechar-comanda/fechar-comanda.component';
@@ -19,7 +18,6 @@ import { FaturamentoComponent } from './faturamento/faturamento.component';
 @NgModule({
   declarations: [
     AppComponent,
-    NaoEncontradaComponent,
     PedidoDialogComponent,
     EditarPedidoComponent,
     FecharComandaComponent,
