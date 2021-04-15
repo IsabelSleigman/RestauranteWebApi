@@ -18,7 +18,5 @@ namespace RestauranteService.Service.Model.FaturamentoModel
 
         public int QuantidadePedidos { get; set; }
 
-        public bool Pago { get; set; }
-
     }
 }

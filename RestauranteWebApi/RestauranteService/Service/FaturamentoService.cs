@@ -59,7 +59,7 @@ namespace RestauranteService.Service
                    QuantidadeClientes = cn.QuantidadeClientes,
                    ValorComanda = cn.ValorComanda,
                    QuantidadePedidos = cn.QuantidadePedidos,
-                   Pago = cn.Pago
+                
                })
                .ToListAsync();
 

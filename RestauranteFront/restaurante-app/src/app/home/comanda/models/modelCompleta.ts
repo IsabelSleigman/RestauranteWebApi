@@ -1,6 +1,5 @@
 import { ListarModel } from '../../pedido/models/listarModel';
 export interface ModelCompleta {
-    unsubscribe();
 
     comandaId: number,
     mesaId: number,

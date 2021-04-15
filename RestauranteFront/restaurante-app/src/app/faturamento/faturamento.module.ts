@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './../shared/shared.module';
 import { AtendimentosEmAbertoComponent } from './atendimentos-em-aberto/atendimentos-em-aberto.component';
+import { AtendimentosFechadosComponent } from './atendimentos-fechados/atendimentos-fechados.component';
 
 
 
@@ -17,6 +18,10 @@ const routes: Routes = [
             {
               path: 'abertas',
               component: AtendimentosEmAbertoComponent,
+            },
+            {
+              path: 'fechados',
+              component: AtendimentosFechadosComponent,
             },
            
            
@@ -34,7 +39,8 @@ const routes: Routes = [
 
 
     
-    AtendimentosEmAbertoComponent
+    AtendimentosEmAbertoComponent,
+                  AtendimentosFechadosComponent
   ],
     imports: [
         RouterModule.forChild(routes),

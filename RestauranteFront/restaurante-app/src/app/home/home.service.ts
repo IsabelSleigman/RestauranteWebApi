@@ -74,7 +74,7 @@ export class HomeService {
                     this.notificationService.errorMessage(error);
                     throw error;
                 })
-            ).subscribe(() => {this.notificationService.successMessage('Comanda paga!') });
+            ).subscribe(() => { });
 
     }
 
