@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './../shared/shared.module';
 import { AtendimentosEmAbertoComponent } from './atendimentos-em-aberto/atendimentos-em-aberto.component';
 import { AtendimentosFechadosComponent } from './atendimentos-fechados/atendimentos-fechados.component';
+import { ComandaDialogComponent } from './dialogs/comanda-dialog/comanda-dialog.component';
 
 
 
@@ -40,7 +41,8 @@ const routes: Routes = [
 
     
     AtendimentosEmAbertoComponent,
-                  AtendimentosFechadosComponent
+                  AtendimentosFechadosComponent,
+                  ComandaDialogComponent
   ],
     imports: [
         RouterModule.forChild(routes),

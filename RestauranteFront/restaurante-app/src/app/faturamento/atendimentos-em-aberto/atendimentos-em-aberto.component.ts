@@ -1,4 +1,6 @@
+import { ComandaDialogComponent } from './../dialogs/comanda-dialog/comanda-dialog.component';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs/operators';
 import { FaturamentoService } from '../faturamento.service';
 import { AbertasFaturamento } from '../models/abertasFaturamento';
@@ -15,7 +17,7 @@ export class AtendimentosEmAbertoComponent implements OnInit {
  colunas = ['comandaId', 'mesaId', 'dataHora', 'quantidadePedidos', 'quantidadeClientes', 'valor', 'abrir'];
 
 
-  constructor(private faturamentoService: FaturamentoService) { }
+  constructor(private faturamentoService: FaturamentoService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -25,9 +27,12 @@ export class AtendimentosEmAbertoComponent implements OnInit {
     .subscribe(a =>this.comandasAbertas = a);
   }
 
-
   abrirComanda(comanda: AbertasFaturamento){
-
+      this.dialog.open(ComandaDialogComponent, {
+        width: '250px',
+        data: comanda
+      });
+    
   }
 
   CancelarComanda(){
