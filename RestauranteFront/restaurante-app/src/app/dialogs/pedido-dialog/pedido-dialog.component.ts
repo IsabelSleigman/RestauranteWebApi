@@ -22,7 +22,8 @@ export class PedidoDialogComponent implements OnInit {
   quantidadeSelt: [1,2,3,4,5,6,7];
 
   constructor(public dialogRef: MatDialogRef<PedidoDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ListarDisponivelModel,private pedidoService: PedidoService,private notificationService: NotificationService) {
+    @Inject(MAT_DIALOG_DATA) public data: ListarDisponivelModel
+    ,private pedidoService: PedidoService,private notificationService: NotificationService) {
       this.produto = data;
     }
 

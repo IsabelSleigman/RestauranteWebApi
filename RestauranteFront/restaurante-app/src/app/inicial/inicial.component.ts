@@ -2,10 +2,9 @@ import { take} from 'rxjs/operators';
 import { HomeService } from './../home/home.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router} from '@angular/router';
 import { InicialService } from './inicial.service';
 import { MesaModel } from './models/mesa-model';
-import { MatDialog } from '@angular/material/dialog';
 import { AberturaModel } from './models/abertura-model';
 
 @Component({
@@ -22,10 +21,8 @@ export class InicialComponent implements OnInit {
   mesas: MesaModel[];
 
   constructor(private router: Router,
-    private route: ActivatedRoute,
     private inicialService: InicialService,
-    private homeService: HomeService,
-    private dialog: MatDialog) { }
+    private homeService: HomeService) { }
 
   ngOnInit(): void {
 
