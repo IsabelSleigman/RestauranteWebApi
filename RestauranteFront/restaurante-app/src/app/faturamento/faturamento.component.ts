@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { RelatorioTotalComponent } from './dialogs/relatorio-total/relatorio-total.component';
 
 @Component({
   selector: 'app-faturamento',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FaturamentoComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
+
+  }
+
+  abrirRelatorio() {
+    this.dialog.open(RelatorioTotalComponent);
 
   }
 

@@ -1,3 +1,4 @@
+import { RelatorioTotalComponent } from './dialogs/relatorio-total/relatorio-total.component';
 import { FaturamentoComponent } from './faturamento.component';
 import { NgModule, } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -9,7 +10,6 @@ import { ComandaDialogComponent } from './dialogs/comanda-dialog/comanda-dialog.
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ComandaDialogfechadaComponent } from './dialogs/fechadaDialog/comanda-dialogfechada.component';
 import { LoginComponent } from './login/login.component';
-import { RelatorioTotalComponent } from './relatorio-total/relatorio-total.component';
 
 
 const routes: Routes = [
@@ -26,16 +26,11 @@ const routes: Routes = [
             {
               path: 'fechados',
               component: AtendimentosFechadosComponent,
-            },
-           
-           
+            } 
         
           ]
         }
 ];
-
-
-
 
 @NgModule({
     declarations: [
@@ -49,6 +44,7 @@ const routes: Routes = [
                   ComandaDialogfechadaComponent,
                   LoginComponent,
                   RelatorioTotalComponent
+                 
   ],
     imports: [
         RouterModule.forChild(routes),

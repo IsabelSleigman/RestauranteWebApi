@@ -1,0 +1,25 @@
+<h1> Relatorio Total </h1>
+<div mat-dialog-content class="comanda-form">
+    <mat-list>
+        <mat-list-item>
+            <mat-icon matListIcon> wysiwyg </mat-icon>
+            <h3 matLine> Total Atendimento {{relatorio.quantidadeAtendimento}} </h3>
+            <p matLine> </p>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-icon matListIcon> perm_identity </mat-icon>
+            <h3 matLine> Clientes {{relatorio.quantidadeCliente}} </h3>
+            <p matLine> </p>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-icon matListIcon> savings </mat-icon>
+            <h3 matLine> Valor Total: {{relatorio.lucroTotal |currency: 'BRL'}} </h3>
+            <p matLine> </p>
+        </mat-list-item>
+    </mat-list>
+    <mat-action-list fxLayout="row" fxLayoutAlign="space-around center">
+        <div>
+            <button mat-button mat-dialog-close> Voltar </button>
+        </div>
+    </mat-action-list>
+</div>
