@@ -1,4 +1,19 @@
-.example-card{
-    width: 600px;
-    height: 600px;
+.example-card {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.example-full-width {
+    height: 20px;
+    font-size: 16px;
+    width:200px;
+    background: #fff;
+
+}
+tr {
+    height: 100px;
+    width: 400px;
 }

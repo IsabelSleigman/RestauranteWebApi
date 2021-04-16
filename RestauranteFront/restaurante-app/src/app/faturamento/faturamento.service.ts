@@ -1,3 +1,4 @@
+import { TotalFaturamento } from './models/totalFaturamento';
 import { AbertasFaturamento } from './models/abertasFaturamento';
 import { Injectable } from "@angular/core";
 import { catchError, take } from 'rxjs/operators';
@@ -41,6 +42,18 @@ export class FaturamentoService {
             );
     }
 
+    obterRelatorio() {
+        return this.http
+            .get<TotalFaturamento>(`${baseUrl}/buscatotal`)
+            .pipe(
+                take(1),
+                catchError((error: HttpErrorResponse) => {
+                    this.notificationService.errorMessage(error
+                    );
+                    throw error;
+                })
+            );
+    }
 
 
 
