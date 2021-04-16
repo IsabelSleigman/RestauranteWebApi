@@ -1,8 +1,8 @@
 import { HomeService } from 'src/app/home/home.service';
 import { Router } from '@angular/router';
 import { ModelCompleta } from './../../home/comanda/models/modelCompleta';
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { take } from 'rxjs/operators';
 
 @Component({

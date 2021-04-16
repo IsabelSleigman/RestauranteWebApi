@@ -1,3 +1,4 @@
+import { AuthService } from './faturamento/login/auth.service';
 import { HomeService } from 'src/app/home/home.service';
 import { DailogConfirmacaoComponent } from './dialogs/dailog-confirmacao/dailog-confirmacao.component';
 import { SharedModule } from './shared/shared.module';
@@ -35,7 +36,7 @@ import { FaturamentoComponent } from './faturamento/faturamento.component';
     BrowserAnimationsModule,
     SharedModule
   ],
-  providers: [HomeService],
+  providers: [HomeService,AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

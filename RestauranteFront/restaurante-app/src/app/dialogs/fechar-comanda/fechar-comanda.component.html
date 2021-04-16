@@ -17,11 +17,6 @@
             <p matLine> </p>
         </mat-list-item>
         <mat-list-item>
-            <mat-icon matListIcon>event_available</mat-icon>
-            <h3 matLine>Saida: {{comandaCompleta.dataHoraSaida|date:'dd/MM/yyyy MM:mm:ss'}} </h3>
-            <p matLine> </p>
-        </mat-list-item>
-        <mat-list-item>
             <mat-icon matListIcon> perm_identity </mat-icon>
             <h3 matLine> Clientes: {{comandaCompleta.quantidadeClientes}} </h3>
             <p matLine> </p>
@@ -31,12 +26,6 @@
             <h3 matLine>Valor {{comandaCompleta.valorComanda|currency: 'BRL'}} </h3>
             <p matLine> </p>
         </mat-list-item>
-        <mat-list-item>
-            <mat-icon matListIcon> savings </mat-icon>
-            <h3 matLine> Paga: {{comandaCompleta.pago}} </h3>
-            <p matLine> </p>
-        </mat-list-item>
-
     </mat-list>
     <mat-accordion>
         <mat-expansion-panel hideToggle>
@@ -44,18 +33,28 @@
                 <mat-panel-title>
                     <mat-icon matListIcon> list_alt </mat-icon>
                     <mat-list-item>
-                        <h3 matLine> Pedidos: </h3>
+                        <h3 matLine> Pedidos </h3>
                         <p matLine> </p>
                     </mat-list-item>
                 </mat-panel-title>
                 <mat-panel-description>
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <p>Produto: Rodizio , Quantidade: {{comandaCompleta.quantidadeClientes}}</p>
+            <mat-list-item>
+                <p matLine> Produto: Rodizio </p>
+                <p matLine>Quantidade: {{comandaCompleta.quantidadeClientes}} </p>
+            </mat-list-item>
             <div *ngFor="let pedido of comandaCompleta.pedidos">
-                <p>Produto: {{pedido.produtoNome}},
-                    Quantidade:{{pedido.quantidadeProduto}} ,
-                    Valor: {{pedido.pedidoValor|currency: 'BRL'}}</p>
+                <mat-list-item>
+                    <p matLine> Produto: {{pedido.produtoNome}}</p>
+                    <p matLine *ngIf="pedido.quantidadeProduto > 0">
+                         Quantidade:{{pedido.quantidadeProduto}}</p>
+                         <p matLine *ngIf="pedido.quantidadeProduto == 0">
+                            Pedido Cancelado</p>
+                         <p matLine *ngIf="pedido.quantidadeProduto > 0 && pedido.pedidoValor > 0">
+                            Valor: {{pedido.pedidoValor|currency: 'BRL'}}</p>
+                        <div></div>
+                </mat-list-item>
             </div>
         </mat-expansion-panel>
     </mat-accordion>

@@ -56,4 +56,8 @@ export class InicialComponent implements OnInit {
 
     }
 
+    navegarLogin(){
+      this.router.navigate(["login"])
+    }
+
 }

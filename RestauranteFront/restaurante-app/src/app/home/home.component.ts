@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit {
           res => res == true))
       .subscribe(() => {
         this.homeService.fecharComanda();
+        this.homeService.atualizarComanda();
         this.dialog.open(FecharComandaComponent);
         
       });
