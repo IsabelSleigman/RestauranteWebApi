@@ -1,21 +1,23 @@
 import { ComandaDialogComponent } from './../dialogs/comanda-dialog/comanda-dialog.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { take } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import { FaturamentoService } from '../faturamento.service';
 import { AbertasFaturamento } from '../models/abertasFaturamento';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-atendimentos-em-aberto',
   templateUrl: './atendimentos-em-aberto.component.html',
   styleUrls: ['./atendimentos-em-aberto.component.scss']
 })
-export class AtendimentosEmAbertoComponent implements OnInit {
+export class AtendimentosEmAbertoComponent implements OnInit, OnDestroy {
 
  comandasAbertas: AbertasFaturamento[] = [];
 
  colunas = ['comandaId', 'mesaId', 'dataHora', 'quantidadePedidos', 'quantidadeClientes', 'valor', 'abrir'];
 
+ unsub$ = new Subject();
 
   constructor(private faturamentoService: FaturamentoService, public dialog: MatDialog) { }
 
@@ -23,7 +25,7 @@ export class AtendimentosEmAbertoComponent implements OnInit {
 
     this.faturamentoService.obterAbertas()
     .pipe(
-      take(1))
+      takeUntil(this.unsub$))
     .subscribe(a =>this.comandasAbertas = a);
   }
 
@@ -34,7 +36,10 @@ export class AtendimentosEmAbertoComponent implements OnInit {
     
   }
 
-  CancelarComanda(){
+  public ngOnDestroy() {
+
+    this.unsub$.next();
+    this.unsub$.complete();
 
   }
 
